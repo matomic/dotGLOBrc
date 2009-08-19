@@ -1,0 +1,7 @@
+:set lines=50
+:set columns=85
+
+:set guifont=monospace\ 12
+
+:colorscheme desert
+:set background=dark

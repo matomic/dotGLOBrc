@@ -1,0 +1,6 @@
+LANG="en_US.UTF-8"
+
+#XMODIFIERS="@im=SCIM"
+#XMODIFIER="@im=SCIM"
+#GTK_IM_MODULE="scim"
+#QT_IM_MODULE="scim"
