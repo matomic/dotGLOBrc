@@ -5,9 +5,41 @@ if isdirectory(expand("$VIMRUNTIME/ftplugin"))
   filetype plugin on
 
   " Uncomment the next line (or copy to your ~/.vimrc) for plugin-provided
-  " indent settings. Some people don't like these, so we won't turn them 
-  " on by default.
+  " indent settings. Some people don't like these, so we won't turn them on by
+  " default.
   filetype indent on
 endif
 " }}}
 
+syntax on
+
+" The following are commented out as they cause vim to behave a lot
+" differently from regular Vi. They are highly recommended though.
+set showcmd       " Show (partial) command in status line.
+set showmatch     " Show matching brackets.
+"set ignorecase    " Do case insensitive matching
+set smartcase     " Do smart case matching
+"set incsearch     " Incremental search
+set autowrite     " Automatically save before commands like :next and :make
+set hidden        " Hide buffers when they are abandoned
+"set mouse=a       " Enable mouse usage (all modes) in terminals
+set ai                  " Always set auto-indenting on
+set viminfo='20,\"500   " Keep a .viminfo file.
+
+" When doing tab completion, give the following files lower priority. You may
+" wish to set 'wildignore' to completely ignore files, and 'wildmenu' to
+" enable
+" enhanced tab completion. These can be done in the user vimrc file.
+set suffixes+=.info,.aux,.log,.dvi,.pdf,.ps,.eps,.bbl,.out,.o,.lo
+
+" Up, Down move up/down by "screen lines"
+" j k (default) move down/up by "file lines"
+map  <Down> gj
+map  <Up>   gk
+if exists("*pumvisible")
+  inoremap <expr>   <Down>    pumvisible() ? "\<lt>Down>" : "\<lt>C-O>gj"
+  inoremap <expr>   <Up>      pumvisible() ? "\<lt>Up>"   : "\<lt>C-O>gk"
+else
+  inoremap <Down> <C-O>gj
+  inoremap <Up>   <C-O>gk
+endif
