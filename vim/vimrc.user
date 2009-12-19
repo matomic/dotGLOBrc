@@ -28,7 +28,7 @@ nmap <silent> ,gsv :so $MYGVIMRC<cr>
 nmap <silent> ;vw :w<cr>
 nmap <silent> ;vwa :wa<cr>
 nmap <silent> ;vwq :wq<cr>
-nmap <silent> ;vw! :w!<cr>
+"nmap <silent> ;vw! :w!<cr>
 " quite
 nmap <silent> ;vq :q<cr>
 nmap <silent> ;vqa :qa<cr>
@@ -123,12 +123,12 @@ hi link SpecialComment Special
 hi link Debug Special
 
 " GNUPlot input file read by header:
-au BufRead *.gp
+au BufRead *.gp[ih]\=
       \  if getline(1) =~ '^#!.*\/gnuplot$' |
       \    set ft=gnuplot |
       \ endif
 
-" set LaTeX textwidth to 80
-au FileType tex set tw=85
+" set LaTeX textwidth to 80 and turn on spell checker
+au FileType tex set tw=85 spell
 
 " vim: set fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker

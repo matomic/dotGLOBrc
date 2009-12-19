@@ -1,6 +1,6 @@
 if has("gui")
   " over zelous numbers of lines
-  set lines=62
+  set lines=800
   " use 85% of max lines or 52, whichever greater
   let &lines = max([float2nr(0.90*&lines),52])
 
