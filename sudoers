@@ -14,8 +14,9 @@
 # Cmnd alias specification
 
 # Defaults specification
-Defaults env_reset
-Defaults env_keep="LANG EDITOR PATH USE"
+Defaults	env_reset
+Defaults env_keep="LANG EDITOR PATH USE LESS DISPLAY"
+Defaults !fqdn,passprompt="[sudo] Password (%u):"
 
 # Runas alias specification
 
@@ -23,7 +24,7 @@ Defaults env_keep="LANG EDITOR PATH USE"
 root	ALL=(ALL) ALL
 
 # Uncomment to allow people in group wheel to run all commands
-%wheel	ALL=(ALL)	ALL, NOPASSWD: /usr/bin/layman, /usr/bin/emerge, /usr/bin/vim, /usr/bin/eix-sync, /usr/bin/less, /usr/bin/revdep-rebuild, /usr/bin/scp
+%wheel	ALL=(ALL)	ALL, NOPASSWD: /usr/bin/layman, /usr/bin/emerge, /usr/bin/vim, /usr/bin/eix-sync, /usr/bin/less, /usr/bin/revdep-rebuild
 # Same thing without a password
 # %wheel	ALL=(ALL) NOPASSWD: ALL
 

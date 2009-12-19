@@ -1,12 +1,71 @@
-:set sw=2            " auto indent size
-:set ts=2            " tab size
-:set et              " use space for tab
-:set sta             " use sw for front tab, ts else
-:set sm              " show matching bracket 
-:set ffs=unix,dos
+set sw=2         " auto indent size
+set ts=2         " tab size
+set et           " use space for tab
+set sta          " use sw for front tab, ts else
+set sm           " show matching bracket 
+set ffs=unix,dos " refers unix format
+
+set lazyredraw   " Don't update the display while executing macro
+set showmode     " Show which mode you are in
+set wildmenu     " Enalbed enhanced command-line completion
+set mousehide    " hide mouse cursor while typing
+set shellslash   " (for windows) use \ for shell
+set laststatus=2 " always put a status line in, even if there is only one window
+
+"" my settings
+" Set the status line the way I like it
+set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c\ Buf:\ #%n\ [%b][0x%B]
+
+"" Some customized key maps
+" edit .vimrc
+nmap <silent> ,ev :e $MYVIMRC<cr>
+nmap <silent> ,gev :e $MYGVIMRC<cr>
+" source .vimrc
+nmap <silent> ,sv :so $MYVIMRC<cr>
+nmap <silent> ,gsv :so $MYGVIMRC<cr>
+
+" write
+nmap <silent> ;vw :w<cr>
+nmap <silent> ;vwa :wa<cr>
+nmap <silent> ;vwq :wq<cr>
+nmap <silent> ;vw! :w!<cr>
+" quite
+nmap <silent> ;vq :q<cr>
+nmap <silent> ;vqa :qa<cr>
+nmap <silent> ;vq! :q!<cr>
+
+" toggle paste mode
+nmap ,p :set paste!<cr>:set paste?<cr>
+" toggle highlighted search
+nmap ,n :set invhls<cr>:set hls?<cr>
+" toggle textwrap
+nmap ,w :set wrap!<cr>:set wrap?<cr>
+" retable entire file
+nmap ,rr :1,$retab<cr>
+" cd to directory of current buffer
+nmap ,cd :lcd %:p:h<cr>
+" display current directory
+nmap ,pwd :pwd<cr>
+
+" Go to previous buffer
+nmap <silent> ;j :bprevious<cr>
+" Go to next buffer
+nmap <silent> ;k :bnext<cr>
+" Delete current buffer
+nmap <silent> ;dc :bdelete<cr>
+nmap <silent> ;dc! :bdelete!<cr>
+
+" Move the cursor to the window left of the current one
+noremap <silent> ,h :wincmd h<cr>
+" Move the cursor to the window below the current one
+noremap <silent> ,j :wincmd j<cr>
+" Move the cursor to the window above the current one
+noremap <silent> ,k :wincmd k<cr>
+" Move the cursor to the window right of the current one
+noremap <silent> ,l :wincmd l<cr>
 
 "black background
-:set background=dark
+set background=dark
 
 " The main changes I make to the colours is make Function a tad brighter so
 " it's more readable. Also, I prefer darkcyan for my comments. I don't 
@@ -16,24 +75,24 @@
 
 if &background == "dark"
   hi Constant term=underline ctermfg=Magenta guifg=Magenta
-  hi Special term=bold ctermfg=DarkMagenta guifg=Red
-  hi Identifier term=underline cterm=bold guifg=#40ffff ctermfg=Cyan
-  hi Statement term=bold ctermfg=Yellow guifg=#aa4444 gui=bold
-  hi PreProc term=underline ctermfg=LightBlue guifg=#ff80ff
-  hi Type term=underline ctermfg=LightGreen guifg=#60ff60  gui=bold
   hi Function term=bold  ctermfg=White guifg=LightRed
-  hi Repeat term=underline ctermfg=White guifg=LightRed
-  hi Operator ctermfg=Red guifg=Red
+  hi Identifier term=underline cterm=bold guifg=#40ffff ctermfg=Cyan
   hi Ignore ctermfg=black guifg=bg
+  hi Operator ctermfg=Red guifg=Red
+  hi PreProc term=underline ctermfg=LightBlue guifg=#ff80ff
+  hi Repeat term=underline ctermfg=White guifg=LightRed
+  hi Special term=bold ctermfg=DarkMagenta guifg=LightRed
+  hi Statement term=bold ctermfg=Yellow guifg=#aa4444 gui=bold
+  hi Type term=underline ctermfg=LightGreen guifg=#60ff60  gui=bold
 else
   hi Comment term=bold ctermfg=DarkBlue guifg=Blue
   hi Constant term=underline ctermfg=DarkRed guifg=Magenta
-  hi Special term=bold ctermfg=DarkMagenta guifg=SlateBlue
   hi Identifier term=underline ctermfg=DarkCyan guifg=DarkCyan
-  hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold 
-  hi PreProc term=underline ctermfg=DarkMagenta guifg=Purple
-  hi Type term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
   hi Ignore ctermfg=white guifg=bg
+  hi PreProc term=underline ctermfg=DarkMagenta guifg=Purple
+  hi Special term=bold ctermfg=DarkMagenta guifg=SlateBlue
+  hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold 
+  hi Type term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
 endif
 
 hi Error term=reverse ctermbg=Red ctermfg=White guibg=Red guifg=White
@@ -63,4 +122,13 @@ hi link Delimiter Special
 hi link SpecialComment Special
 hi link Debug Special
 
-" vim: set fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker :
+" GNUPlot input file read by header:
+au BufRead *.gp
+      \  if getline(1) =~ '^#!.*\/gnuplot$' |
+      \    set ft=gnuplot |
+      \ endif
+
+" set LaTeX textwidth to 80
+au FileType tex set tw=85
+
+" vim: set fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker
