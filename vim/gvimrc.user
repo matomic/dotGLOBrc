@@ -1,6 +1,6 @@
 if has("gui")
   " over zelous numbers of lines
-  set lines=800
+  set lines=65
   " use 85% of max lines or 52, whichever greater
   let &lines = max([float2nr(0.90*&lines),52])
 
@@ -10,14 +10,14 @@ if has("gui")
     let &columns = ((&columns * 2 > 160)? 160: &columns*2)
   endif
 
-  set gfn=monospace\ 10
+  set gfn=monospace\ 12
   set go=ac
 
   colorscheme desert
 
   " gui font up/down size
-  nnoremap gfj :silent! let &gfn=substitute(&gfn,'\d\+$','\=submatch(0)+1','')<cr>
-  nnoremap gfk :silent! let &gfn=substitute(&gfn,'\d\+$','\=submatch(0)-1','')<cr>
+  nnoremap gfk :silent! let &gfn=substitute(&gfn,'\d\+$','\=submatch(0)+1','')<cr>
+  nnoremap gfj :silent! let &gfn=substitute(&gfn,'\d\+$','\=submatch(0)-1','')<cr>
 endif " has ("gui")
 
 so $MYVIMRC

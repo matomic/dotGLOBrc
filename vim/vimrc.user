@@ -1,4 +1,5 @@
-set sw=2         " auto indent size
+"""{{{ BASIC OPTIONS
+set sw=4         " auto indent size
 set ts=2         " tab size
 set et           " use space for tab
 set sta          " use sw for front tab, ts else
@@ -15,25 +16,59 @@ set laststatus=2 " always put a status line in, even if there is only one window
 "" my settings
 " Set the status line the way I like it
 set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c\ Buf:\ #%n\ [%b][0x%B]
+""" END BASIC }}}
 
-"" Some customized key maps
+"{{{ KEYMAPS
+"{{{ additional motions
+nmap <silent> gu <PageUp>
+nmap <silent> gd <PageDown>
+"}}}
+
+
+"{{{ Buffer related
+" Go to previous buffer
+nmap <silent> ;j :bprevious<cr>
+" Go to next buffer
+nmap <silent> ;k :bnext<cr>
+" Delete current buffer
+nmap <silent> ;dc :bdelete<cr>
+nmap <silent> ;dc! :bdelete!<cr>
+"}}}
+
+"{{{ Window related
+" Move the cursor to the window left of the current one
+noremap <silent> ,h :wincmd h<cr>
+" Move the cursor to the window below the current one
+noremap <silent> ,j :wincmd j<cr>
+" Move the cursor to the window above the current one
+noremap <silent> ,k :wincmd k<cr>
+" Move the cursor to the window right of the current one
+noremap <silent> ,l :wincmd l<cr>
+"}}}
+
+"{{{ editing and sourcing {g}vimrc
 " edit .vimrc
 nmap <silent> ,ev :e $MYVIMRC<cr>
 nmap <silent> ,gev :e $MYGVIMRC<cr>
 " source .vimrc
 nmap <silent> ,sv :so $MYVIMRC<cr>
 nmap <silent> ,gsv :so $MYGVIMRC<cr>
+"}}}
 
+"{{{ Save and Exit
 " write
 nmap <silent> ;vw :w<cr>
 nmap <silent> ;vwa :wa<cr>
+" equivalent to ZZ:
 nmap <silent> ;vwq :wq<cr>
 "nmap <silent> ;vw! :w!<cr>
 " quite
 nmap <silent> ;vq :q<cr>
 nmap <silent> ;vqa :qa<cr>
 nmap <silent> ;vq! :q!<cr>
+"}}}
 
+""{{{ Miscellaneous
 " toggle paste mode
 nmap ,p :set paste!<cr>:set paste?<cr>
 " toggle highlighted search
@@ -46,24 +81,10 @@ nmap ,rr :1,$retab<cr>
 nmap ,cd :lcd %:p:h<cr>
 " display current directory
 nmap ,pwd :pwd<cr>
+"}}}
+""" END KEYMAPS }}}
 
-" Go to previous buffer
-nmap <silent> ;j :bprevious<cr>
-" Go to next buffer
-nmap <silent> ;k :bnext<cr>
-" Delete current buffer
-nmap <silent> ;dc :bdelete<cr>
-nmap <silent> ;dc! :bdelete!<cr>
-
-" Move the cursor to the window left of the current one
-noremap <silent> ,h :wincmd h<cr>
-" Move the cursor to the window below the current one
-noremap <silent> ,j :wincmd j<cr>
-" Move the cursor to the window above the current one
-noremap <silent> ,k :wincmd k<cr>
-" Move the cursor to the window right of the current one
-noremap <silent> ,l :wincmd l<cr>
-
+"{{{ COLOR SETTINGS
 "black background
 set background=dark
 
@@ -121,7 +142,9 @@ hi link SpecialChar Special
 hi link Delimiter Special
 hi link SpecialComment Special
 hi link Debug Special
+""" END COLOR }}}
 
+"""{{{ AUTOCOMMANDS
 " GNUPlot input file read by header:
 au BufRead *.gp[ih]\=
       \  if getline(1) =~ '^#!.*\/gnuplot$' |
@@ -130,5 +153,9 @@ au BufRead *.gp[ih]\=
 
 " set LaTeX textwidth to 80 and turn on spell checker
 au FileType tex set tw=85 spell
+
+au FileType vim setlocal fdm=marker
+au FileType xml setlocal fdm=syntax
+""" END AUTOCOMMANDS}}}
 
 " vim: set fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker

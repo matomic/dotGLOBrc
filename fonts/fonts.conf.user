@@ -1,0 +1,175 @@
+<?xml version='1.0'?>
+<!DOCTYPE fontconfig SYSTEM 'fonts.dtd'>
+<fontconfig>
+    <match target="pattern" >
+        <test name="family" >
+            <string>Courier</string>
+        </test>
+        <edit mode="assign" name="family" >
+            <string>Courier New</string>
+        </edit>
+    </match>
+
+    <!--適應中文用戶的用字習慣-->
+    <alias>  <!-- serif prefer list-->
+        <family>serif</family>
+        <prefer>
+            <family>Droid Serif</family>
+            <family>DejaVu Serif</family>
+            <family>Bitstream Vera Serif</family>
+            <family>Times New Roman</family>
+            <family>Times</family>
+            <family>標楷體</family>
+            <family>明體</family>
+            <family>新細明體</family>
+            <family>백묵 바탕</family>
+        </prefer>
+    </alias>
+
+    <alias>  <!-- sans-serif prefer list -->
+        <family>sans-serif</family>
+        <prefer>
+            <family>Droid Sans</family>
+            <family>DejaVu Sans</family>
+            <family>Bitstream Vera Sans</family>
+            <family>Tahoma</family>
+            <family>Helvetica</family>
+            <family>Verdana</family>
+            <family>Arial</family>
+            <family>Lucida Grande</family>
+            <family>黑體</family>
+            <family>圓體</family>
+            <family>ヒラギノ角ゴ Pro</family>
+            <family>東風ゴシック</family>
+            <family>UnDotum</family>
+            <family>백묵 돋움</family>
+        </prefer>
+    </alias>
+
+    <alias>  <!-- monospace prefer list -->
+        <family>monospace</family>
+        <prefer>
+            <family>Consolas</family>
+            <family>Monaco</family>
+            <family>等寬黑體</family>
+            <family>文鼎ＰＬ新宋 Mono</family>
+            <family>Andale Mono</family>
+            <family>Droid Sans Mono</family>
+            <family>DejaVu Sans Mono</family>
+            <family>Bitstream Vera Sans Mono</family>
+            <family>Courier New</family>
+            <family>Courier</family>
+            <family>東風ゴシック</family>
+            <family>백묵 돋움</family>
+        </prefer>
+        <default>
+            <family>Terminus</family>
+        </default>
+    </alias>
+
+    <alias>  <!-- cursive prefer list -->
+        <family>cursive</family>
+        <prefer>
+            <family>みかちゃん\-PB</family>
+        </prefer>
+    </alias>
+
+    <alias>  <!-- 新細明體 prefer list -->
+        <family>新細明體</family>
+        <prefer>
+            <family>Adobe 仿宋 Std</family>
+            <family>小塚明朝 Pr6N</family>
+            <family>AR PL UMing CN</family>
+            <family>AR PL UMing HK</family>
+            <family>AR PL UMing TW MBE</family>
+            <family>AR PL UMing TW</family>
+            <family>文鼎ＰＬ新宋</family>
+            <family>文鼎ＰＬ新宋 ExtB</family>
+            <family>文鼎PL細上海宋Uni</family>
+            <family>WenQuanYi Bitmap Song</family>
+        </prefer>
+    </alias>
+
+    <alias>  <!-- 明宋體 prefer list -->
+        <family>明體</family>
+        <family>明体</family>
+        <family>宋體</family>
+        <family>宋體</family>
+        <prefer>
+            <family>Adobe 明體 Std</family>
+            <family>Adobe 宋体 Std</family>
+            <family>東風明朝</family>
+            <family>ヒラギノ明朝 Pro</family>
+            <family>Ming(for ISO10646)</family>
+        </prefer>
+    </alias>
+    
+  <alias>  <!-- 標楷體 prefer list -->
+    <family>標楷體</family>
+    <prefer>
+      <family>AR PL UKai CN</family>
+      <family>AR PL UKai HK</family>
+      <family>AR PL UKai TW MBE</family>
+      <family>AR PL UKai TW</family>
+      <family>文鼎ＰＬ新中楷</family>
+      <family>文鼎ＰＬ新中楷 ExtB</family>
+      <family>文鼎ＰＬ中楷</family>
+      <family>文鼎ＰＬ简中楷</family>
+      <family>文鼎PL中楷Uni</family>
+      <family>Adobe 楷体 Std</family>
+    </prefer>
+  </alias>
+
+  <alias>  <!-- 圓體 prefer list -->
+    <family>圓體</family>
+    <prefer>
+      <family>華康圓體(P)</family>
+      <family>華康圓體</family>
+      <family>王漢宗細圓體繁</family>
+    </prefer>
+  </alias>
+
+  <alias>  <!-- 黑體 prefer list -->
+    <family>黑體</family>
+    <prefer>
+      <family>LiHei Pro</family>
+      <family>文泉驛微米黑</family>
+      <family>文泉驛正黑</family>
+      <family>Droid Sans Fallback</family>
+      <family>Adobe 黑体 Std</family>
+      <family>STHeiti</family>
+      <family>文泉驛點陣正黑</family>
+    </prefer>
+  </alias>
+  
+  <alias>  <!-- 等寬黑體 prefer list -->
+    <family>等寬黑體</family>
+    <prefer>
+      <family>文泉驛等寬微米黑</family>
+      <family>Droid Sans Fallback</family>
+      <family>文泉驛等寬正黑</family>
+      <family>文泉驛點陣正黑</family>
+    </prefer>
+  </alias>
+
+  <match target="font" >  <!-- turn off hinting -->
+    <edit mode="assign" name="rgba" >
+      <const>none</const>
+    </edit>
+  </match>
+  <match target="font" >
+    <edit mode="assign" name="hinting" >
+      <bool>true</bool>
+    </edit>
+  </match>
+  <match target="font" >
+    <edit mode="assign" name="hintstyle" >
+      <const>hintmedium</const>
+    </edit>
+  </match>
+  <match target="font" >
+    <edit mode="assign" name="antialias" >
+      <bool>true</bool>
+    </edit>
+  </match>
+</fontconfig>
