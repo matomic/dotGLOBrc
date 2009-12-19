@@ -1,0 +1,6 @@
+# /etc/bash/bashrc.local
+# local customization of bash
+
+alias ll='ls -l'
+alias mv='mv -i'
+alias g='gvim --remote-silent'
