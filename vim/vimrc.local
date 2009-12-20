@@ -41,3 +41,12 @@ else
   inoremap <Down> <C-O>gj
   inoremap <Up>   <C-O>gk
 endif
+
+if !has("gui_running")
+  set <M-u>=u
+  set <M-d>=d
+  set <M-h>=h
+  set <M-j>=j
+  set <M-k>=k
+  set <M-l>=l
+endif

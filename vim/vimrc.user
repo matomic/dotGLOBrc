@@ -22,15 +22,15 @@ set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c\ Buf:\ #%n\ [%b][0x%B]
 "{{{ KEYMAPS
 "{{{ additional motions
 " use gu/gd to go page up page down
-lnoremap <M-u> <PageUp>
-lnoremap <M-d> <PageDown>
+no! <M-u> <PageUp>
+no! <M-d> <PageDown>
 " use Meta-j/k to go up down popup 
 "inoremap <expr> <M-j> pumvisible() ? "\<Down>" : "\<M-j>"
 "inoremap <expr> <M-k> pumvisible() ? "\<Up>" : "\<M-k>"
-inoremap <M-h> <Left>
-inoremap <M-j> <Down>
-inoremap <M-k> <Up>
-inoremap <M-l> <Right>
+no! <M-h> <Left>
+no! <M-j> <Down>
+no! <M-k> <Up>
+no! <M-l> <Right>
 " highlight first item
 "inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 "  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
@@ -38,60 +38,60 @@ inoremap <M-l> <Right>
 
 "{{{ Buffer related
 " Go to previous buffer
-nnoremap <silent> ;j :bprevious<cr>
+nn <silent> ;j :bprevious<cr>
 " Go to next buffer
-nnoremap <silent> ;k :bnext<cr>
+nn <silent> ;k :bnext<cr>
 " Delete current buffer
-nnoremap <silent> ;dc :bdelete<cr>
-nnoremap <silent> ;dc! :bdelete!<cr>
+nn <silent> ;dc :bdelete<cr>
+nn <silent> ;dc! :bdelete!<cr>
 "}}}
 
 "{{{ Window related
 " Move the cursor to the window left of the current one
-noremap <silent> ,h :wincmd h<cr>
+no <silent> ,h :wincmd h<cr>
 " Move the cursor to the window below the current one
-noremap <silent> ,j :wincmd j<cr>
+no <silent> ,j :wincmd j<cr>
 " Move the cursor to the window above the current one
-noremap <silent> ,k :wincmd k<cr>
+no <silent> ,k :wincmd k<cr>
 " Move the cursor to the window right of the current one
-noremap <silent> ,l :wincmd l<cr>
+no <silent> ,l :wincmd l<cr>
 "}}}
 
 "{{{ editing and sourcing {g}vimrc
 " edit .vimrc
-nnoremap <silent> ,ev :e $MYVIMRC<cr>
-nnoremap <silent> ,gev :e $MYGVIMRC<cr>
+nn <silent> ,ev :e $MYVIMRC<cr>
+nn <silent> ,gev :e $MYGVIMRC<cr>
 " source .vimrc
-nnoremap <silent> ,sv :so $MYVIMRC<cr>
-nnoremap <silent> ,gsv :so $MYGVIMRC<cr>
+nn <silent> ,sv :so $MYVIMRC<cr>
+nn <silent> ,gsv :so $MYGVIMRC<cr>
 "}}}
 
 "{{{ Save and Exit
 " write
-nnoremap <silent> ;vw :w<cr>
-nnoremap <silent> ;vwa :wa<cr>
+nn <silent> ;vw :w<cr>
+nn <silent> ;vwa :wa<cr>
 " equivalent to ZZ:
-nnoremap <silent> ;vwq :wq<cr>
+nn <silent> ;vwq :wq<cr>
 "nnoremap <silent> ;vw! :w!<cr>
 " quite
-nnoremap <silent> ;vq :q<cr>
-nnoremap <silent> ;vqa :qa<cr>
-nnoremap <silent> ;vq! :q!<cr>
+nn <silent> ;vq :q<cr>
+nn <silent> ;vqa :qa<cr>
+nn <silent> ;vq! :q!<cr>
 "}}}
 
 ""{{{ Miscellaneous
 " toggle paste mode
-nnoremap ,p :set paste!<cr>:set paste?<cr>
+nn ,p :set paste!<cr>:set paste?<cr>
 " toggle highlighted search
-nnoremap ,n :set invhls<cr>:set hls?<cr>
+nn ,n :set invhls<cr>:set hls?<cr>
 " toggle textwrap
-nnoremap ,w :set wrap!<cr>:set wrap?<cr>
+nn ,w :set wrap!<cr>:set wrap?<cr>
 " retable entire file
-nnoremap ,rr :1,$retab<cr>
+nn ,rr :1,$retab<cr>
 " cd to directory of current buffer
-nnoremap ,cd :lcd %:p:h<cr>
+nn ,cd :lcd %:p:h<cr>
 " display current directory
-nnoremap ,pwd :pwd<cr>
+nn ,pwd :pwd<cr>
 "}}}
 """ END KEYMAPS }}}
 
