@@ -27,10 +27,10 @@ no! <M-f> <PageDown>
 " use Meta-j/k to go up down popup 
 "inoremap <expr> <M-j> pumvisible() ? "\<Down>" : "\<M-j>"
 "inoremap <expr> <M-k> pumvisible() ? "\<Up>" : "\<M-k>"
-no! <M-h> <Left>
-no! <M-j> <Down>
-no! <M-k> <Up>
-no! <M-l> <Right>
+map! <M-h> <Left>
+map! <M-j> <Down>
+map! <M-k> <Up>
+map! <M-l> <Right>
 " highlight first item
 "inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 "  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'

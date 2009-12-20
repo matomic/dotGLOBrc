@@ -42,7 +42,7 @@ else
   inoremap <Up>   <C-O>gk
 endif
 
-if !has("gui_running")
+if !has("gui_running") && &term=="xterm"
   set <M-b>=b
   set <M-d>=d
   set <M-f>=f
