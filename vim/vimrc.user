@@ -1,17 +1,18 @@
 """{{{ BASIC OPTIONS
-set sw=4         " auto indent size
-set ts=2         " tab size
-set et           " use space for tab
-set sta          " use sw for front tab, ts else
-set sm           " show matching bracket 
-set ffs=unix,dos " refers unix format
+set sw=2             " auto indent size
+set ts=2             " tab size
+set et               " use space for tab
+set sta              " use sw for front tab, ts else
+set sm               " show matching bracket 
+set ffs=unix,dos     " refers unix format
 
-set lazyredraw   " Don't update the display while executing macro
-set showmode     " Show which mode you are in
-set wildmenu     " Enalbed enhanced command-line completion
-set mousehide    " hide mouse cursor while typing
-set shellslash   " (for windows) use \ for shell
-set laststatus=2 " always put a status line in, even if there is only one window
+set lazyredraw       " Don't update the display while executing macro
+set showmode         " Show which mode you are in
+set wildmenu         " Enalbed enhanced command-line completion
+set mousehide        " hide mouse cursor while typing
+set shellslash       " (for windows) use \ for shell
+set laststatus=2     " always put a status line in, even if there is only one window
+set cot=longest,menu " complete option
 
 "" my settings
 " Set the status line the way I like it
@@ -20,19 +21,29 @@ set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c\ Buf:\ #%n\ [%b][0x%B]
 
 "{{{ KEYMAPS
 "{{{ additional motions
-nmap <silent> gu <PageUp>
-nmap <silent> gd <PageDown>
+" use gu/gd to go page up page down
+lnoremap <M-u> <PageUp>
+lnoremap <M-d> <PageDown>
+" use Meta-j/k to go up down popup 
+"inoremap <expr> <M-j> pumvisible() ? "\<Down>" : "\<M-j>"
+"inoremap <expr> <M-k> pumvisible() ? "\<Up>" : "\<M-k>"
+inoremap <M-h> <Left>
+inoremap <M-j> <Down>
+inoremap <M-k> <Up>
+inoremap <M-l> <Right>
+" highlight first item
+"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+"  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 "}}}
-
 
 "{{{ Buffer related
 " Go to previous buffer
-nmap <silent> ;j :bprevious<cr>
+nnoremap <silent> ;j :bprevious<cr>
 " Go to next buffer
-nmap <silent> ;k :bnext<cr>
+nnoremap <silent> ;k :bnext<cr>
 " Delete current buffer
-nmap <silent> ;dc :bdelete<cr>
-nmap <silent> ;dc! :bdelete!<cr>
+nnoremap <silent> ;dc :bdelete<cr>
+nnoremap <silent> ;dc! :bdelete!<cr>
 "}}}
 
 "{{{ Window related
@@ -48,39 +59,39 @@ noremap <silent> ,l :wincmd l<cr>
 
 "{{{ editing and sourcing {g}vimrc
 " edit .vimrc
-nmap <silent> ,ev :e $MYVIMRC<cr>
-nmap <silent> ,gev :e $MYGVIMRC<cr>
+nnoremap <silent> ,ev :e $MYVIMRC<cr>
+nnoremap <silent> ,gev :e $MYGVIMRC<cr>
 " source .vimrc
-nmap <silent> ,sv :so $MYVIMRC<cr>
-nmap <silent> ,gsv :so $MYGVIMRC<cr>
+nnoremap <silent> ,sv :so $MYVIMRC<cr>
+nnoremap <silent> ,gsv :so $MYGVIMRC<cr>
 "}}}
 
 "{{{ Save and Exit
 " write
-nmap <silent> ;vw :w<cr>
-nmap <silent> ;vwa :wa<cr>
+nnoremap <silent> ;vw :w<cr>
+nnoremap <silent> ;vwa :wa<cr>
 " equivalent to ZZ:
-nmap <silent> ;vwq :wq<cr>
-"nmap <silent> ;vw! :w!<cr>
+nnoremap <silent> ;vwq :wq<cr>
+"nnoremap <silent> ;vw! :w!<cr>
 " quite
-nmap <silent> ;vq :q<cr>
-nmap <silent> ;vqa :qa<cr>
-nmap <silent> ;vq! :q!<cr>
+nnoremap <silent> ;vq :q<cr>
+nnoremap <silent> ;vqa :qa<cr>
+nnoremap <silent> ;vq! :q!<cr>
 "}}}
 
 ""{{{ Miscellaneous
 " toggle paste mode
-nmap ,p :set paste!<cr>:set paste?<cr>
+nnoremap ,p :set paste!<cr>:set paste?<cr>
 " toggle highlighted search
-nmap ,n :set invhls<cr>:set hls?<cr>
+nnoremap ,n :set invhls<cr>:set hls?<cr>
 " toggle textwrap
-nmap ,w :set wrap!<cr>:set wrap?<cr>
+nnoremap ,w :set wrap!<cr>:set wrap?<cr>
 " retable entire file
-nmap ,rr :1,$retab<cr>
+nnoremap ,rr :1,$retab<cr>
 " cd to directory of current buffer
-nmap ,cd :lcd %:p:h<cr>
+nnoremap ,cd :lcd %:p:h<cr>
 " display current directory
-nmap ,pwd :pwd<cr>
+nnoremap ,pwd :pwd<cr>
 "}}}
 """ END KEYMAPS }}}
 
