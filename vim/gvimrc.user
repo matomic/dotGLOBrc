@@ -1,9 +1,9 @@
 if has("gui")
   " over zelous numbers of lines
-  set lines=70
-  redraw
+  set lines=100
+  "redraw
   " use 85% of max lines or 52, whichever greater
-  let &lines = max([float2nr(0.80*&lines),52])
+  let &lines = max([float2nr(0.80*&lines),30])
 
   set co=85
   " double the size of window if running diff

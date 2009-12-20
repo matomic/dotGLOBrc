@@ -43,10 +43,12 @@ else
 endif
 
 if !has("gui_running")
-  set <M-u>=u
+  set <M-b>=b
   set <M-d>=d
+  set <M-f>=f
   set <M-h>=h
   set <M-j>=j
   set <M-k>=k
   set <M-l>=l
+  set <M-u>=u
 endif

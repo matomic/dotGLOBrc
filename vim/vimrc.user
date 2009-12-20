@@ -21,9 +21,9 @@ set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c\ Buf:\ #%n\ [%b][0x%B]
 
 "{{{ KEYMAPS
 "{{{ additional motions
-" use gu/gd to go page up page down
-no! <M-u> <PageUp>
-no! <M-d> <PageDown>
+" Make <M-b> and <M-f> works in insert mode as well
+no! <M-b> <PageUp>
+no! <M-f> <PageDown>
 " use Meta-j/k to go up down popup 
 "inoremap <expr> <M-j> pumvisible() ? "\<Down>" : "\<M-j>"
 "inoremap <expr> <M-k> pumvisible() ? "\<Up>" : "\<M-k>"
