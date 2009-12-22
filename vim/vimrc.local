@@ -41,14 +41,3 @@ else
   inoremap <Down> <C-O>gj
   inoremap <Up>   <C-O>gk
 endif
-
-if !has("gui_running") && &term=="xterm"
-  set <M-b>=b
-  set <M-d>=d
-  set <M-f>=f
-  set <M-h>=h
-  set <M-j>=j
-  set <M-k>=k
-  set <M-l>=l
-  set <M-u>=u
-endif
