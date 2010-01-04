@@ -172,17 +172,26 @@ hi link Debug Special
 """ END COLOR }}}
 
 """{{{ AUTOCOMMANDS
-" GNUPlot input file read by header:
+""{{{ GNUPLOT: identify by header
 au BufRead *.gp[ih]\=
       \  if getline(1) =~ '^#!.*\/gnuplot$' |
       \    set ft=gnuplot |
       \ endif
+"}}}
 
-" set LaTeX textwidth to 80 and turn on spell checker
-au FileType tex set tw=85 spell
+""{{{ Customize treatment for TeX, use virtual wrap and switch between screen line
+" and file line motion.
+au FileType tex setlocal tw=0 spell lbr wrap|
+      \nnoremap <buffer> gj j|
+      \nnoremap <buffer> j gj|
+      \nnoremap <buffer> gk k|
+      \nnoremap <buffer> k gk
+"}}}
 
+""{{{ Folding issue
 au FileType vim setlocal fdm=marker
 au FileType xml setlocal fdm=syntax
+"}}}
 """ END AUTOCOMMANDS}}}
 
 " vim: set fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker
