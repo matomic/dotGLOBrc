@@ -1,6 +1,6 @@
 " {{{ INCLUDES
 if filereadable("$HOME/.vimrc.local")
-  so .vimrc.local
+  so $HOME/.vimrc.local
 endif
 " }}}
 
