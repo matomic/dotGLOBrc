@@ -12,7 +12,7 @@ if has("gui")
   endif
 
   set gfn=monospace\ 12
-  set go=ac
+  set go=aci
 
   colorscheme desert
 

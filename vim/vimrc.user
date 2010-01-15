@@ -1,4 +1,10 @@
-"""{{{ BASIC OPTIONS
+" {{{ INCLUDES
+if filereadable("$HOME/.vimrc.local")
+  so $HOME/.vimrc.local
+endif
+" }}}
+
+" {{{ BASIC OPTIONS
 set sw=2             " auto indent size
 set ts=2             " tab size
 set et               " use space for tab
@@ -14,45 +20,46 @@ set shellslash       " (for windows) use \ for shell
 set laststatus=2     " always put a status line in, even if there is only one window
 set cot=longest,menu " complete option
 
-"" my settings
+" my settings
 " Set the status line the way I like it
 set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c\ Buf:\ #%n\ [%b][0x%B]
-""" END BASIC }}}
+" END BASIC }}}
 
-"{{{ KEYMAPS
-"{{{ additional motions
+" {{{ KEYMAPS
+" {{{ Insert/Command mode motions
 " These mapping remove the urge to use the page up/down, home, etc for
 " movement
 " remap alt-* combo to actual key in terminal mode
-if !has("gui_running") && &term=="xterm"
-  set <M-0>=0
-  set <M-d>=d
-  set <M-e>=e
-  set <M-f>=f
-  set <M-h>=h
-  set <M-j>=j
-  set <M-k>=k
-  set <M-l>=l
-  set <M-u>=u
-endif
-no! <M-b> <PageUp>
-no! <M-f> <PageDown>
-no! <M-d> <Del>
-no! <M-0> <Home>
-no! <M-e> <End>
+"if !has("gui_running") && &term=="xterm"
+"  set <M-0>=0
+"  set <M-d>=d
+"  set <M-e>=e
+"  set <M-f>=f
+"  set <M-h>=h
+"  set <M-j>=j
+"  set <M-k>=k
+"  set <M-l>=l
+"  set <M-u>=u
+"endif
+" emulate 
+"no! <M-b> <PageUp>
+"no! <M-f> <PageDown>
+"no! <M-d> <Del>
+"no! <M-0> <Home>
+"no! <M-e> <End>
 " use Meta-j/k to go up down popup 
 "inoremap <expr> <M-j> pumvisible() ? "\<Down>" : "\<M-j>"
 "inoremap <expr> <M-k> pumvisible() ? "\<Up>" : "\<M-k>"
-map! <M-h> <Left>
-map! <M-j> <Down>
-map! <M-k> <Up>
-map! <M-l> <Right>
+"no! <M-h> <Left>
+"no! <M-j> <Down>
+"no! <M-k> <Up>
+"no! <M-l> <Right>
 " highlight first item
 "inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 "  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 "}}}
 
-"{{{ Buffer related
+"{{{ Buffer switch and kill
 " Go to previous buffer
 nn <silent> ;j :bprevious<cr>
 " Go to next buffer
@@ -62,7 +69,7 @@ nn <silent> ;dc :bdelete<cr>
 nn <silent> ;dc! :bdelete!<cr>
 "}}}
 
-"{{{ Window related
+"{{{ Window motion
 " Move the cursor to the window left of the current one
 no <silent> ,h :wincmd h<cr>
 " Move the cursor to the window below the current one
@@ -109,10 +116,10 @@ nn ,cd :lcd %:p:h<cr>
 " display current directory
 nn ,pwd :pwd<cr>
 "}}}
-""" END KEYMAPS }}}
+" END KEYMAPS }}}
 
-"{{{ COLOR SETTINGS
-"black background
+" {{{ COLOR SETTINGS
+" black background
 set background=dark
 
 " The main changes I make to the colours is make Function a tad brighter so
@@ -169,29 +176,29 @@ hi link SpecialChar Special
 hi link Delimiter Special
 hi link SpecialComment Special
 hi link Debug Special
-""" END COLOR }}}
+" END COLOR }}}
 
-"""{{{ AUTOCOMMANDS
-""{{{ GNUPLOT: identify by header
+" {{{ AUTOCOMMANDS
+" {{{ GNUPLOT: identify by header
 au BufRead *.gp[ih]\=
       \  if getline(1) =~ '^#!.*\/gnuplot$' |
       \    set ft=gnuplot |
       \ endif
-"}}}
+" }}}
 
-""{{{ Customize treatment for TeX, use virtual wrap and switch between screen line
+" {{{ Customize treatment for TeX, use virtual wrap and switch between screen line
 " and file line motion.
 au FileType tex setlocal tw=0 spell lbr wrap|
       \nnoremap <buffer> gj j|
       \nnoremap <buffer> j gj|
       \nnoremap <buffer> gk k|
       \nnoremap <buffer> k gk
-"}}}
+" }}}
 
-""{{{ Folding issue
+" {{{ Folding issue
 au FileType vim setlocal fdm=marker
 au FileType xml setlocal fdm=syntax
-"}}}
-""" END AUTOCOMMANDS}}}
+" }}}
+" END AUTOCOMMANDS}}}
 
 " vim: set fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker
