@@ -1,0 +1,2 @@
+# enable ssh-agent and gpg-agent
+[ -x `which keychain` ] && eval `keychain --eval id_dsa 2> /dev/null`
