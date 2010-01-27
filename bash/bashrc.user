@@ -1,5 +1,5 @@
-# source login shell script as well
-[ -f ${HOME}/.bash_profile ] && . ${HOME}/.bash_profile
+# enable ssh-agent and gpg-agent
+[ -x `which keychain` ] && eval `keychain --eval id_dsa 2> /dev/null`
 
 # ANSI color codes
 FGCBLK='[30m' # Black - Foreground
@@ -23,7 +23,7 @@ TXTBLD='[1m'  # Revert fg and bg color
 TXTUND='[4m'  # underline
 TXTINV='[7m'  # Revert fg and bg color
 
-PS1="\[$TXTBLD\]\[$TXTINV\]\[$FGCYLW\]\u@\h:\[$FGCGRN\]\W\[$TXTRST\]\\$ "
+PS1="\[$TXTBLD\]\[$TXTINV\]\[$FGCRED\]\u\[$FGCYLW\]@\h:\[$FGCGRN\]\W\[$TXTRST\]\\$ "
 PS2="> $RS"
 
 alias ls='ls --color'
