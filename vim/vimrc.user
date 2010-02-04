@@ -1,5 +1,5 @@
 " {{{ INCLUDES
-if filereadable("$HOME/.vimrc.local")
+if filereadable(expand("$HOME/.vimrc.local"))
   so $HOME/.vimrc.local
 endif
 " }}}
@@ -57,6 +57,9 @@ set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c\ Buf:\ #%n\ [%b][0x%B]
 " highlight first item
 "inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 "  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+" right exist of insert mode:
+ino <silent> <S-esc> <esc>l
 "}}}
 
 "{{{ Buffer switch and kill

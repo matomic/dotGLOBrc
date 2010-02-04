@@ -23,10 +23,15 @@ TXTBLD='[1m'  # Revert fg and bg color
 TXTUND='[4m'  # underline
 TXTINV='[7m'  # Revert fg and bg color
 
-PS1="\[$TXTBLD\]\[$TXTINV\]\[$FGCRED\]\u\[$FGCYLW\]@\h:\[$FGCGRN\]\W\[$TXTRST\]\\$ "
+PS1="\[$TXTBLD\]\[$FGCRED\]\h:\[$FGCPUR\]\W \[$FGCGRN\]\u\[$TXTRST\]\\$ "
 PS2="> $RS"
 
-alias ls='ls --color'
+if ls --color >& /dev/null; then
+  alias ls='ls --color=auto';
+else
+  alias ls='ls -G';
+fi
+
 alias ll='ls -l'
 alias mv='mv -i'
 alias rm='rm -i'
@@ -36,10 +41,54 @@ alias apt-policy='apt-cache policy'
 
 alias slideshow='xrandr --output VGA --mode 800x600 --auto'
 alias rsync='rsync -e ssh'
-alias g='gvim --remote-silent'
+#alias g='gvim --remote-silent'
+
+g() {
+  gvim --remote-silent $*
+}
 
 genpasswd() {
   local l=$1
   [ -z "$l" ] && l=20
   tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
+}
+
+# usage scpdiff [DIFFOPTS] LFILE RFILE
+# assumes the last two arguments to be the files to be compared
+scpdiff() {
+  local DIFFOPTS="";
+  local LFILE=""; local fl='';
+  local FILECOUNT=0;
+  local RFILE=""; local fr='';
+
+  while (( "$#" )); do
+    if [ "$#" -gt 2 ]; then
+      DIFFOPTS="${DIFFOPTS} ${1}";
+    elif [ "$#" -eq 2 ]; then LFILE=$1;
+      let "FILECOUNT = FILECOUNT + 1";
+    elif [ "$#" -eq 1 ]; then
+      RFILE=$1;
+      let "FILECOUNT = FILECOUNT + 1";
+    fi
+    shift;
+  done
+
+  [ ! ${FILECOUNT} -eq 2 ] \
+  && printf "Needs exactly 2 files to diff.\n" > /dev/stderr \
+  && return 1;
+
+  fl="/tmp/$(basename ${LFILE}).l";
+  ( ! scp "${LFILE}" ${fl} >& /dev/null ) \
+  && printf "${LFILE} Not Found\n" \
+  && return 1;
+  fr="/tmp/$(basename ${RFILE}).r";
+  ( ! scp "${RFILE}" ${fr} >& /dev/null ) \
+  && printf "${RFILE} Not Found\n" \
+  && return 1;
+
+  # Allows customization using different DIFFTOOL
+  [ -z ${DIFFTOOL} ] && local DIFFTOOL="diff";
+  ${DIFFTOOL} ${DIFFOPTS} ${fl} ${fr};
+  
+  rm -f ${fl} ${fr};
 }
