@@ -1,5 +1,5 @@
 # enable ssh-agent and gpg-agent
-[ -x `which keychain` ] && eval `keychain --eval id_dsa 2> /dev/null`
+[ -x "`which keychain`" ] && eval `keychain --eval id_dsa 2> /dev/null`
 
 # ANSI color codes
 FGCBLK='[30m' # Black - Foreground
@@ -32,7 +32,7 @@ else
   alias ls='ls -G';
 fi
 
-alias ll='ls -l'
+alias ll='ls -lh'
 alias mv='mv -i'
 alias rm='rm -i'
 
@@ -41,12 +41,13 @@ alias apt-policy='apt-cache policy'
 
 alias slideshow='xrandr --output VGA --mode 800x600 --auto'
 alias rsync='rsync -e ssh'
-#alias g='gvim --remote-silent'
 
+# use server/client mode for gvim
 g() {
   gvim --remote-silent $*
 }
 
+# generates random password
 genpasswd() {
   local l=$1
   [ -z "$l" ] && l=20
