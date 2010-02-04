@@ -32,7 +32,7 @@ else
   alias ls='ls -G';
 fi
 
-alias ll='ls -l'
+alias ll='ls -lh'
 alias mv='mv -i'
 alias rm='rm -i'
 
