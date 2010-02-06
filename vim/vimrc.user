@@ -200,6 +200,10 @@ au FileType tex setlocal tw=0 spell lbr wrap fo=cl|
       \nnoremap <buffer> k gk
 " }}}
 
+" {{{ Python
+au FileType python setlocal noet ts=4 sw=4
+" }}}
+
 " {{{ Folding issue
 au FileType vim setlocal fdm=marker
 au FileType xml setlocal fdm=syntax
