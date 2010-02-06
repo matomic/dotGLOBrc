@@ -1,5 +1,25 @@
-# enable ssh-agent and gpg-agent
+# enable ssh-agent and gpg-agentj
 [ -x "`which keychain`" ] && eval `keychain --eval id_dsa 2> /dev/null`
+
+# # set a fancy prompt (non-color, unless we know we "want" color)
+# case "$TERM" in
+#     xterm-color) color_prompt=yes;;
+# esac
+ 
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_colored_prompt=yes
+#if [ -n "$force_color_prompt" ]; then
+if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+  # We have color support; assume it's compliant with Ecma-48
+  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+  # a case would tend to support setf rather than setaf.)
+  color_prompt=yes
+else
+  color_prompt=
+fi
+#fi
 
 # ANSI color codes
 FGCBLK='[30m' # Black - Foreground
@@ -23,15 +43,22 @@ TXTBLD='[1m'  # Revert fg and bg color
 TXTUND='[4m'  # underline
 TXTINV='[7m'  # Revert fg and bg color
 
-PS1="\[$TXTBLD\]\[$FGCRED\]\h:\[$FGCPUR\]\W \[$FGCGRN\]\u\[$TXTRST\]\\$ "
-PS2="> $RS"
+if [ "$color_prompt" = yes ]; then
+  PS1="\[$TXTBLD\]\[$FGCRED\]\h:\[$FGCPUR\]\W \[$FGCGRN\]\u\[$TXTRST\]\\$ "
 
-if ls --color >& /dev/null; then
-  alias ls='ls --color=auto';
+  if ls --color >& /dev/null; then
+    alias ls='ls --color=auto';
+  else
+    alias ls='ls -G';
+  fi
 else
-  alias ls='ls -G';
+  PS1="\h:\W \u \\$";
 fi
 
+PS2="> $RS"
+unset color_prompt force_color_prompt
+
+## alias
 alias ll='ls -lh'
 alias mv='mv -i'
 alias rm='rm -i'
