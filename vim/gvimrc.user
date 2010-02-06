@@ -1,24 +1,29 @@
 if has("gui")
   set lines=100  " over zelous numbers of lines
-  func Autolines()
-    let &lines = max([float2nr(0.90*&lines),30])
-  endfunc
-  autocmd GUIEnter * call Autolines()
+  fu Autolines()
+    if exists("*float2nr")
+      let &lines = max([float2nr(0.90*&lines),30])
+    el
+      let &lines = 50
+    en
+  endf
+  au GUIEnter * cal Autolines()
 
   set co=85
   " double the size of window if running diff
   if &diff
     let &columns = min([&columns * 2, 160])
-  endif
+  en
 
   set gfn=monospace\ 12
   set go=aci
 
-  colorscheme desert
+  colo desert
 
   " gui font up/down size
-  nnoremap gfk :silent! let &gfn=substitute(&gfn,'\d\+$','\=submatch(0)+1','')<cr>
-  nnoremap gfj :silent! let &gfn=substitute(&gfn,'\d\+$','\=submatch(0)-1','')<cr>
-endif " has ("gui")
+  nno gfk :silent! let &gfn=substitute(&gfn,'\d\+$','\=submatch(0)+1','')<cr>
+  nno gfj :silent! let &gfn=substitute(&gfn,'\d\+$','\=submatch(0)-1','')<cr>
+en
+" has ("gui")
 
 so $MYVIMRC

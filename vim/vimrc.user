@@ -18,7 +18,9 @@ set wildmenu         " Enalbed enhanced command-line completion
 set mousehide        " hide mouse cursor while typing
 set shellslash       " (for windows) use \ for shell
 set laststatus=2     " always put a status line in, even if there is only one window
-set cot=longest,menu " complete option
+if exists("&cot")    " (version >= 7.2)
+  set cot=longest,menu " complete option
+en
 
 " my settings
 " Set the status line the way I like it
@@ -30,33 +32,33 @@ set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c\ Buf:\ #%n\ [%b][0x%B]
 " These mapping remove the urge to use the page up/down, home, etc for
 " movement
 " remap alt-* combo to actual key in terminal mode
-"if !has("gui_running") && &term=="xterm"
-"  set <M-0>=0
-"  set <M-d>=d
-"  set <M-e>=e
-"  set <M-f>=f
-"  set <M-h>=h
-"  set <M-j>=j
-"  set <M-k>=k
-"  set <M-l>=l
-"  set <M-u>=u
-"endif
-" emulate 
-"no! <M-b> <PageUp>
-"no! <M-f> <PageDown>
-"no! <M-d> <Del>
-"no! <M-0> <Home>
-"no! <M-e> <End>
-" use Meta-j/k to go up down popup 
-"inoremap <expr> <M-j> pumvisible() ? "\<Down>" : "\<M-j>"
-"inoremap <expr> <M-k> pumvisible() ? "\<Up>" : "\<M-k>"
-"no! <M-h> <Left>
-"no! <M-j> <Down>
-"no! <M-k> <Up>
-"no! <M-l> <Right>
-" highlight first item
-"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-"  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" In terminal mode, <M-x> defaults to <esc>+x, which exits insert mode.
+set timeout timeoutlen=1000 ttimeoutlen=200
+if !has("gui_running") 
+  if &term == "xterm"
+    set <M-0>=0
+    set <M-b>=b
+    set <M-d>=d
+    set <M-$>=$
+    set <M-f>=f
+    set <M-h>=h
+    set <M-j>=j
+    set <M-k>=k
+    set <M-l>=l
+  en
+en
+" use Meta-j/k is mapped to <Up>/<Down> can be used for pum
+if has("gui_running") || &term == "xterm"
+  no! <M-0> <Home>
+  no! <M-b> <PageUp>
+  no! <M-d> <Del>
+  no! <M-$> <End>
+  no! <M-f> <PageDown>
+  no! <M-h> <Left>
+  no! <M-j> <Down>
+  no! <M-k> <Up>
+  no! <M-l> <Right>
+en
 
 " right exist of insert mode:
 ino <silent> <S-esc> <esc>l
@@ -207,6 +209,8 @@ au FileType python setlocal noet ts=4 sw=4
 " {{{ Folding issue
 au FileType vim setlocal fdm=marker
 au FileType xml setlocal fdm=syntax
+
+let javaScript_fold=1
 " }}}
 " END AUTOCOMMANDS}}}
 
