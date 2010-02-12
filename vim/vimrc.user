@@ -95,6 +95,8 @@ nn <silent> ,gsv :so $MYGVIMRC<cr>
 "}}}
 
 "{{{ Save and Exit
+" Make me!!
+nn <silent> ;mm :!make<cr>
 " write
 nn <silent> ;vw :w<cr>
 nn <silent> ;vwa :wa<cr>
