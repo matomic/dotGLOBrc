@@ -74,10 +74,12 @@ fi
 
 # Gentoo-centric
 if [ -f /etc/gentoo-release ]; then
-  alias viuse='sudo vi /etc/portage/package.use'
-  alias vikey='sudo vi /etc/portage/package.keywords'
-  alias viumsk='sudo vi /etc/portage/package.unmask'
-  alias vimsk='sudo vi /etc/portage/package.mask'
+  alias vmf='sudo vi /etc/make.conf'
+  alias vmu='sudo vi /etc/make.use.conf'
+  alias vpu='sudo vi /etc/portage/package.use'
+  alias vpk='sudo vi /etc/portage/package.keywords'
+  alias vpum='sudo vi /etc/portage/package.unmask'
+  alias vpm='sudo vi /etc/portage/package.mask'
 fi
 
 # use server/client mode for gvim
