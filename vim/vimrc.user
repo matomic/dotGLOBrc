@@ -117,11 +117,11 @@ nn ,n :set invhls<cr>:set hls?<cr>
 " toggle textwrap
 nn ,w :set wrap!<cr>:set wrap?<cr>
 " retable entire file
-nn ,rr :1,$retab<cr>
+nn ,rt :1,$retab<cr>
 " cd to directory of current buffer
-nn ,cd :lcd %:p:h<cr>
+nn ;cd :lcd %:p:h<cr>
 " display current directory
-nn ,pwd :pwd<cr>
+nn ;pwd :pwd<cr>
 "}}}
 " END KEYMAPS }}}
 
