@@ -69,7 +69,7 @@ ino <silent> <S-esc> <esc>l
 " }}}
 
 " Buffer switch and kill {{{
-" Create a newtab
+" Create a new tab
 nn <silent> ;nt :newtab 
 " Go to previous buffer
 nn <silent> ;j :bprevious<cr>
@@ -82,6 +82,8 @@ nn <silent> ;dc :bdelete<cr>
 nn <silent> ;dc! :bdelete!<cr>
 " }}}
 " Window motion {{{
+" Create a vertical split
+nn <silent> ;wv :vs<cr>
 " Move the cursor to the window left of the current one
 no <silent> ,h :wincmd h<cr>
 " Move the cursor to the window below the current one
@@ -102,6 +104,8 @@ nn <silent> ,gsv :so $MYGVIMRC<cr>
 " Save and Exit {{{
 " Make me!!
 nn <silent> ;mm :!make<cr>
+" run last command
+nn <silent> ;rr :!<Up><cr>
 " write
 nn <silent> ;vw :w<cr>
 nn <silent> ;vwa :wa<cr>
@@ -211,7 +215,7 @@ au BufRead *.gp[ih]\=
 " : virtual wrap except for comment
 " : swap between screen line file line motion
 " : turn on spell checking
-au FileType tex setlocal tw=0 spell lbr wrap fo=cl |
+au FileType tex,plaintex setlocal tw=0 spell lbr wrap fo=cl |
       \nnoremap <buffer> gj j|
       \nnoremap <buffer> j gj|
       \nnoremap <buffer> gk k|
@@ -220,7 +224,7 @@ au FileType tex setlocal tw=0 spell lbr wrap fo=cl |
 
 " Python {{{
 " : not extent tab, shiftwidth=tabstop=4
-au FileType python setlocal et ts=4 sw=4 fdm=syntax
+au FileType python setlocal noet ts=4 sw=4
 " }}}
 
 " Folding issue {{{

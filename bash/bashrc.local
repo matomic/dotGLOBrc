@@ -14,16 +14,20 @@ if [[ $- != *i* ]] ; then
   return
 fi
 
-if [[ -x "`which shopt`" ]] ; then
-  # Bash won't get SIGWINCH if another process is in the foreground.
-  # Enable checkwinsize so that bash will check the terminal size when
-  # it regains control.  #65623
-  # http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)
-  shopt -s checkwinsize
+# Bash won't get SIGWINCH if another process is in the foreground.
+# Enable checkwinsize so that bash will check the terminal size when
+# it regains control.  #65623
+# http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)
+shopt -s checkwinsize
 
-  # Enable history appending instead of overwriting.  #139609
-  shopt -s histappend
-fi
+# Enable history appending instead of overwriting.  #139609
+shopt -s histappend
+
+# Run some login shell scripts for non-login shell
+for sh in /etc/profile.d/*.sh ; do
+	[ -r "$sh" ] && . "$sh"
+done
+unset sh
 
 # Change the window title of X terminals 
 case ${TERM} in
