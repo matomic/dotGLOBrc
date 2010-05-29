@@ -89,9 +89,9 @@ if [ "x$pkgbin" != "x" ]; then
   alias vmconf='sudo vi /etc/make.conf'
   alias vmuse='sudo vi /etc/make.use.conf'
   alias vpuse='sudo vi /etc/portage/package.use'
-  alias vpkeywords='sudo vi /etc/portage/package.keywords'
-  alias vpumask='sudo vi /etc/portage/package.unmask'
-  alias vpmask='sudo vi /etc/portage/package.mask'
+  alias vpkws='sudo vi /etc/portage/package.keywords'
+  alias vpumsk='sudo vi /etc/portage/package.unmask'
+  alias vpmsk='sudo vi /etc/portage/package.mask'
 fi
 unset pkgbin
 ### }}}
