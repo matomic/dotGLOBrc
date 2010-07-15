@@ -1,5 +1,5 @@
 # enable ssh-agent and gpg-agentj
-[ -x "`which keychain 2> /dev/null `" ] && eval `keychain --eval id_dsa 2> /dev/null`
+[ -x "`which keychain 2> /dev/null `" ] && eval `keychain --agents gpg,ssh --eval id_dsa 2> /dev/null`
 
 ## Colorful settings {{{
 # set a fancy prompt (non-color, unless we know we "want" color)
@@ -72,6 +72,7 @@ alias ll='ls -lh'
 alias mv='mv -i'
 alias rm='rm -i'
 alias svi='sudo vi'
+alias sshfs='sshfs -o follow_symlinks'
 
 alias slideshow='xrandr --output VGA1 --mode 800x600 --pos 111x0'
 alias rsync='rsync -e ssh --exclude-from ~/.rsync/excludes'

@@ -1,5 +1,5 @@
 if has("gui")
-  set lines=500  " over zelous numbers of lines
+  "set lines=500  " over zelous numbers of lines
   "fu! Autolines()
   "  if exists("*float2nr")
   "    let &lines = max([float2nr(0.98*&lines),30])
