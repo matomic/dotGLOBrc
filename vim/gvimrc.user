@@ -1,13 +1,13 @@
 if has("gui")
-  "set lines=500  " over zelous numbers of lines
-  "fu! Autolines()
-  "  if exists("*float2nr")
-  "    let &lines = max([float2nr(0.98*&lines),30])
-  "  el
-  "    let &lines = 50
-  "  en
-  "endf
-  "au GUIEnter * cal Autolines()
+  set lines=65  " over zelous numbers of lines
+  fu! Autolines()
+    if exists("*float2nr")
+      let &lines = max([float2nr(0.98*&lines),30])
+    el
+      let &lines = 50
+    en
+  endf
+  au GUIEnter * cal Autolines()
 
   set co=85
   " double the size of window if running diff
