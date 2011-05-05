@@ -1,5 +1,5 @@
 # enable ssh-agent and gpg-agentj
-#[ -x "`which keychain 2> /dev/null `" ] && eval `keychain --agents gpg,ssh --eval id_dsa 2> /dev/null`
+[ -x "`which keychain 2> /dev/null `" ] && eval `keychain --agents gpg,ssh --eval id_dsa 2> /dev/null`
 
 for helper in "bash_helper" "${HOME}/.bash_helper"; do
 	if [ -r ${helper} ]; then
@@ -96,4 +96,4 @@ genpasswd() {
 }
 ## }}}
 
-## vim: foldmethod=marker ft=sh noet nosta
+## vim: foldmethod=marker ft=sh noet nosta ts=2 sw=2
