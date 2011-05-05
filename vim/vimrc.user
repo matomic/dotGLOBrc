@@ -153,25 +153,25 @@ hi Folded term=reverse ctermbg=Yellow guibg=OrangeRed
 if &background == "dark"
   hi Normal guibg=Gray8 guifg=White
   hi Tab guibg=Gray15
-  hi Constant term=underline ctermfg=Magenta guifg=Magenta
-  hi Function term=bold  ctermfg=White guifg=LightRed
-  hi Identifier term=underline cterm=bold guifg=#40ffff ctermfg=Cyan
-  hi Ignore ctermfg=black guifg=bg
-  hi Operator ctermfg=Red guifg=Red
-  hi PreProc term=underline ctermfg=LightBlue guifg=#ff80ff
-  hi Repeat term=underline ctermfg=White guifg=LightRed
-  hi Special term=bold ctermfg=DarkMagenta guifg=LightRed
-  hi Statement term=bold ctermfg=Yellow guifg=#aa4444 gui=bold
+"  hi Constant term=underline ctermfg=Magenta guifg=Magenta
+"  hi Function term=bold  ctermfg=White guifg=LightRed
+"  hi Identifier term=underline cterm=bold guifg=#40ffff ctermfg=Cyan
+"  hi Ignore ctermfg=black guifg=bg
+"  hi Operator ctermfg=Red guifg=Red
+"  hi PreProc term=underline ctermfg=LightBlue guifg=#ff80ff
+"  hi Repeat term=underline ctermfg=White guifg=LightRed
+"  hi Special term=bold ctermfg=DarkMagenta guifg=LightRed
+"  hi Statement term=bold ctermfg=Yellow guifg=#aa4444 gui=bold
   hi Type term=underline ctermfg=LightGreen guifg=#60ff60  gui=bold
   hi Folded ctermfg=Black guifg=Black
 else
-  hi Comment term=bold ctermfg=DarkBlue guifg=Blue
-  hi Constant term=underline ctermfg=DarkRed guifg=Magenta
-  hi Identifier term=underline ctermfg=DarkCyan guifg=DarkCyan
-  hi Ignore ctermfg=white guifg=bg
-  hi PreProc term=underline ctermfg=DarkMagenta guifg=Purple
-  hi Special term=bold ctermfg=DarkMagenta guifg=SlateBlue
-  hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold
+"  hi Comment term=bold ctermfg=DarkBlue guifg=Blue
+"  hi Constant term=underline ctermfg=DarkRed guifg=Magenta
+"  hi Identifier term=underline ctermfg=DarkCyan guifg=DarkCyan
+"  hi Ignore ctermfg=white guifg=bg
+"  hi PreProc term=underline ctermfg=DarkMagenta guifg=Purple
+"  hi Special term=bold ctermfg=DarkMagenta guifg=SlateBlue
+"  hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold
   hi Type term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
   hi Folded ctermfg=White guifg=White
 endif

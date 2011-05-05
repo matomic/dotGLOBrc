@@ -8,13 +8,19 @@ function usecolor {
 	# first to take advantage of user additions.  Use internal bash
 	# globbing instead of external grep binary.
 	safe_term=${TERM//[^[:alnum:]]/?}   # sanitize TERM
-	match_lhs=""
+	local match_lhs=""
 	[[ -f ~/.dir_colors   ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
 	[[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
 	[[ -z ${match_lhs}    ]] \
 		&& type -P dircolors >/dev/null \
 		&& match_lhs=$(dircolors --print-database)
 	[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+
+	if [[ $(uname) == "Darwin" ]] # OSX is not very nice...
+ 	then
+		use_color=true
+		export CLICOLOR=1
+	fi
 }
 
 function loadANSIcolor() {
@@ -34,10 +40,10 @@ function loadANSIcolor() {
 	BGCPUR='[45m' # Purple
 	BGCCYN='[46m' # Cyan
 	BGCWHT='[47m' # White
-	TXTBLD='[1m'  # Bold text
+	TXTRST='[0m'  # Text Reset
+	TXTBLD='[1m'  # Revert fg and bg color
 	TXTUND='[4m'  # underline
 	TXTINV='[7m'  # Revert fg and bg color
-	TXTRST='[0m'  # Text Reset
 }
 # }}}
 
