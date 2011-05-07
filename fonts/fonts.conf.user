@@ -83,10 +83,10 @@
     <prefer>
       <family>文鼎ＰＬ細上海宋</family>
       <family>文鼎ＰＬ简报宋</family>
-      <family>AR PL UMing CN</family>
       <family>AR PL UMing HK</family>
       <family>AR PL UMing TW MBE</family>
       <family>AR PL UMing TW</family>
+      <family>AR PL UMing CN</family>
       <family>Adobe 仿宋 Std</family>
       <!--
       <family>文鼎PL細上海宋Uni</family>
@@ -121,10 +121,10 @@
     <prefer>
       <family>文鼎ＰＬ中楷</family>
       <family>文鼎ＰＬ简中楷</family>
-      <family>AR PL UKai CN</family>
       <family>AR PL UKai HK</family>
-      <family>AR PL UKai TW</family>
       <family>AR PL UKai TW MBE</family>
+      <family>AR PL UKai TW</family>
+      <family>AR PL UKai CN</family>
       <!--<family>文鼎ＰＬ新中楷</family>
       <family>文鼎ＰＬ新中楷 ExtB</family>
       <family>文鼎PL中楷Uni</family> -->
