@@ -9,10 +9,10 @@ endif
 "" }}}
 
 "" BASIC OPTIONS {{{
-set sw=2            " auto indent size
+set sw=4             " auto indent size
 set ts=4             " tab size
-set et               " use space for tab
-set sta              " use sw for front tab, ts else
+"set et               " use space for tab
+"set sta              " use sw for front tab, ts else
 set sm               " show matching bracket
 set ffs=unix,dos     " refers unix format
 
