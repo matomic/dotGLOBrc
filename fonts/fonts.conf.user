@@ -132,7 +132,7 @@
     </prefer>
   </alias>
 
-  <alias>  <!-- 圓體 prefer list -->
+  <alias binding="strong">  <!-- 圓體 prefer list -->
     <family>圓體</family>
     <family>圆体</family>
     <prefer>
@@ -142,7 +142,7 @@
     </prefer>
   </alias>
 
-  <alias>  <!-- 黑體 prefer list -->
+  <alias binding="strong">  <!-- 黑體 prefer list -->
     <family>黑體</family>
     <family>黑体</family>
     <prefer>
@@ -157,7 +157,7 @@
     </prefer>
   </alias>
   
-  <alias>  <!-- 等寬黑體 prefer list -->
+  <alias binding="strong">  <!-- 等寬黑體 prefer list -->
     <family>等寬黑體</family>
     <family>等宽黑体</family>
     <prefer>
@@ -174,6 +174,7 @@
       <family>Droid Sans Japanese</family>
       <family>Droid Sans Hebrew</family>
       <family>Droid Sans Arabic</family>
+      <family>Droid Sans Fallback</family>
     </prefer>
   </alias>
 
