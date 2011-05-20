@@ -1,8 +1,8 @@
 if has("gui")
   set lines=100  " over zelous numbers of lines
-  fu Autolines()
+  fu! Autolines()
     if exists("*float2nr")
-      let &lines = max([float2nr(0.90*&lines),30])
+      let &lines = max([float2nr(0.98*&lines),30])
     el
       let &lines = 50
     en
@@ -15,7 +15,11 @@ if has("gui")
     let &columns = min([&columns * 2, 160])
   en
 
-  set gfn=monospace\ 12
+  if has("win32")
+    set gfn=consolas:h11:cANSI
+  else
+    set gfn=monospace\ 12
+  endif 
   set go=aci
 
   colo desert

@@ -1,15 +1,19 @@
-" {{{ INCLUDES
+"  INCLUDES {{{
 if filereadable(expand("$HOME/.vimrc.local"))
   so $HOME/.vimrc.local
+elseif filereadable(expand("$HOME/_vimrc.local"))
+  so $HOME/_vimrc.local
+elseif filereadable(expand("$VIM/_vimrc.local"))
+  so $VIM/_vimrc.local
 endif
 " }}}
 
-" {{{ BASIC OPTIONS
+"  BASIC OPTIONS {{{
 set sw=2             " auto indent size
 set ts=2             " tab size
 set et               " use space for tab
 set sta              " use sw for front tab, ts else
-set sm               " show matching bracket 
+set sm               " show matching bracket
 set ffs=unix,dos     " refers unix format
 
 set lazyredraw       " Don't update the display while executing macro
@@ -21,20 +25,21 @@ set laststatus=2     " always put a status line in, even if there is only one wi
 if exists("&cot")    " (version >= 7.2)
   set cot=longest,menu " complete option
 en
+set bs=2
 
 " my settings
 " Set the status line the way I like it
 set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c\ Buf:\ #%n\ [%b][0x%B]
-" END BASIC }}}
+" }}} END BASIC
 
-" {{{ KEYMAPS
-" {{{ Insert/Command mode motions
+" KEYMAPS {{{
+" Insert/Command mode motions {{{
 " These mapping remove the urge to use the page up/down, home, etc for
 " movement
 " remap alt-* combo to actual key in terminal mode
 " In terminal mode, <M-x> defaults to <esc>+x, which exits insert mode.
-set timeout timeoutlen=1000 ttimeoutlen=200
-if !has("gui_running") 
+set timeout timeoutlen=1000 ttimeoutlen=150
+if !has("gui_running")
   if &term == "xterm"
     set <M-0>=0
     set <M-b>=b
@@ -62,9 +67,9 @@ en
 
 " right exist of insert mode:
 ino <silent> <S-esc> <esc>l
-"}}}
+" }}}
 
-"{{{ Buffer switch and kill
+" Buffer switch and kill {{{
 " Go to previous buffer
 nn <silent> ;j :bprevious<cr>
 " Go to next buffer
@@ -72,9 +77,9 @@ nn <silent> ;k :bnext<cr>
 " Delete current buffer
 nn <silent> ;dc :bdelete<cr>
 nn <silent> ;dc! :bdelete!<cr>
-"}}}
+" }}}
 
-"{{{ Window motion
+" Window motion {{{
 " Move the cursor to the window left of the current one
 no <silent> ,h :wincmd h<cr>
 " Move the cursor to the window below the current one
@@ -83,18 +88,18 @@ no <silent> ,j :wincmd j<cr>
 no <silent> ,k :wincmd k<cr>
 " Move the cursor to the window right of the current one
 no <silent> ,l :wincmd l<cr>
-"}}}
+" }}} window motion
 
-"{{{ editing and sourcing {g}vimrc
+" editing and sourcing {g}vimrc {{{
 " edit .vimrc
 nn <silent> ,ev :e $MYVIMRC<cr>
 nn <silent> ,gev :e $MYGVIMRC<cr>
 " source .vimrc
 nn <silent> ,sv :so $MYVIMRC<cr>
 nn <silent> ,gsv :so $MYGVIMRC<cr>
-"}}}
+" }}} source {g}vimrc
 
-"{{{ Save and Exit
+" Save and Exit {{{
 " Make me!!
 nn <silent> ;mm :!make<cr>
 " write
@@ -107,9 +112,9 @@ nn <silent> ;vwq :wq<cr>
 nn <silent> ;vq :q<cr>
 nn <silent> ;vqa :qa<cr>
 nn <silent> ;vq! :q!<cr>
-"}}}
+" }}}
 
-""{{{ Miscellaneous
+"" Miscellaneous {{{
 " toggle paste mode
 nn ,p :set paste!<cr>:set paste?<cr>
 " toggle highlighted search
@@ -122,17 +127,17 @@ nn ,rt :1,$retab<cr>
 nn ;cd :lcd %:p:h<cr>
 " display current directory
 nn ;pwd :pwd<cr>
-"}}}
-" END KEYMAPS }}}
+" }}}
+" }}} END KEYMAPS
 
-" {{{ COLOR SETTINGS
+"  COLOR SETTINGS {{{
 " black background
 set background=dark
 
 " The main changes I make to the colours is make Function a tad brighter so
-" it's more readable. Also, I prefer darkcyan for my comments. I don't 
+" it's more readable. Also, I prefer darkcyan for my comments. I don't
 " like comments to be "louder" than the actual code.
-" This is a hack of the clour section in 
+" This is a hack of the clour section in
 " /usr/share/vim/syntax/syntax.vim
 
 if &background == "dark"
@@ -153,7 +158,7 @@ else
   hi Ignore ctermfg=white guifg=bg
   hi PreProc term=underline ctermfg=DarkMagenta guifg=Purple
   hi Special term=bold ctermfg=DarkMagenta guifg=SlateBlue
-  hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold 
+  hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold
   hi Type term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
 endif
 
@@ -183,17 +188,17 @@ hi link SpecialChar Special
 hi link Delimiter Special
 hi link SpecialComment Special
 hi link Debug Special
-" END COLOR }}}
+" }}} END COLOR
 
-" {{{ AUTOCOMMANDS
-" {{{ GNUPLOT: identify by header
+"  AUTOCOMMANDS {{{
+"  GNUPLOT: identify by header {{{
 au BufRead *.gp[ih]\=
       \  if getline(1) =~ '^#!.*\/gnuplot$' |
       \    set ft=gnuplot |
       \ endif
 " }}}
 
-" {{{ Customize treatment for TeX
+"  Customize treatment for TeX {{{
 " : virtual wrap except for comment
 " : swap between screen line file line motion
 " : turn on spell checking
@@ -204,11 +209,11 @@ au FileType tex setlocal tw=0 spell lbr wrap fo=cl|
       \nnoremap <buffer> k gk
 " }}}
 
-" {{{ Python
+"  Python {{{
 au FileType python setlocal noet ts=4 sw=4
 " }}}
 
-" {{{ Folding issue
+"  Folding issue {{{
 au FileType vim setlocal fdm=marker
 au FileType xml setlocal fdm=syntax
 

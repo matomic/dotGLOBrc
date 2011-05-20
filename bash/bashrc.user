@@ -44,7 +44,9 @@ TXTUND='[4m'  # underline
 TXTINV='[7m'  # Revert fg and bg color
 
 if [ "$color_prompt" = yes ]; then
-  PS1="\[$TXTBLD\]\[$FGCRED\]\h:\[$FGCPUR\]\W \[$FGCGRN\]\u\[$TXTRST\]\\$ "
+  if [ ! ${EUID} = "0" ]; then
+    PS1="\[$TXTBLD\]\[$FGCRED\]\h:\[$FGCPUR\]\W \[$FGCGRN\]\u\[$TXTRST\]\\$ "
+  fi
 
   if ls --color >& /dev/null; then
     alias ls='ls --color=auto';
@@ -52,7 +54,9 @@ if [ "$color_prompt" = yes ]; then
     alias ls='ls -G';
   fi
 else
-  PS1="\h:\W \u \\$";
+  if [ ! ${EUID} = "0" ]; then
+    PS1="\h:\W \u \\$";
+  fi
 fi
 
 PS2="> $RS"
@@ -74,12 +78,12 @@ fi
 
 # Gentoo-centric
 if [ -f /etc/gentoo-release ]; then
-  alias vmf='sudo vi /etc/make.conf'
-  alias vmu='sudo vi /etc/make.use.conf'
-  alias vpu='sudo vi /etc/portage/package.use'
-  alias vpk='sudo vi /etc/portage/package.keywords'
-  alias vpum='sudo vi /etc/portage/package.unmask'
-  alias vpm='sudo vi /etc/portage/package.mask'
+  alias vmconf='sudo vi /etc/make.conf'
+  alias vmuse='sudo vi /etc/make.use.conf'
+  alias vpuse='sudo vi /etc/portage/package.use'
+  alias vpkeywords='sudo vi /etc/portage/package.keywords'
+  alias vpumask='sudo vi /etc/portage/package.unmask'
+  alias vpmask='sudo vi /etc/portage/package.mask'
 fi
 
 # use server/client mode for gvim
