@@ -1,5 +1,6 @@
 <?xml version='1.0'?>
 <!DOCTYPE fontconfig SYSTEM 'fonts.dtd'>
+<!-- 1l0O -->
 <fontconfig>
   <match target="pattern" >
     <test name="family" >
@@ -10,14 +11,7 @@
     </edit>
   </match>
 
-  <alias binding="strong">
-    <family>Droid Sans</family>
-    <prefer>
-      <family>Droid Sans</family>
-      <family>Droid Sans Fallback</family>
-    </prefer>
-  </alias>
-
+  <!--適應中文用戶的用字習慣-->
   <alias>  <!-- sans-serif prefer list -->
     <family>sans-serif</family>
     <prefer>
@@ -38,7 +32,6 @@
     </prefer>
   </alias>
 
-  <!--適應中文用戶的用字習慣-->
   <alias>  <!-- serif prefer list-->
     <family>serif</family>
     <prefer>
@@ -58,9 +51,9 @@
   <alias>  <!-- monospace prefer list -->
     <family>monospace</family>
     <prefer>
+      <family>Droid Mono</family>
       <family>DejaVu Sans Mono</family>
       <family>Bitstream Vera Sans Mono</family>
-      <family>Droid Mono</family>
       <family>Consolas</family>
       <family>Monaco</family>
       <family>等寬黑體</family>
@@ -84,25 +77,27 @@
     </prefer>
   </alias>
 
-  <alias>  <!-- 新細明體 prefer list -->
+  <!-- IMPORTANT: Own prefer list must comes AFTER the generic one above -->
+  <alias binding="strong">  <!-- 新細明體 prefer list -->
     <family>新細明體</family>
     <prefer>
-      <family>Adobe 仿宋 Std</family>
-      <family>小塚明朝 Pr6N</family>
+      <family>文鼎ＰＬ細上海宋</family>
+      <family>文鼎ＰＬ简报宋</family>
       <family>AR PL UMing CN</family>
       <family>AR PL UMing HK</family>
-      <family>AR PL UMing TW</family>
       <family>AR PL UMing TW MBE</family>
-      <family>Ming(for ISO10646)</family>
+      <family>AR PL UMing TW</family>
+      <family>Adobe 仿宋 Std</family>
+      <!--
+      <family>文鼎PL細上海宋Uni</family>
       <family>文鼎ＰＬ新宋</family>
       <family>文鼎ＰＬ新宋 ExtB</family>
       <family>細明體\-ExtB</family>
       <family>細明體_HKSCS\-ExtB</family>
       <family>新細明體\-ExtB</family>
-      <family>WenQuanYi Bitmap Song</family>
-      <family>Adobe 仿宋 Std</family>
       <family>小塚明朝 Pr6N</family>
       <family>WenQuanYi Bitmap Song</family>
+      -->
     </prefer>
   </alias>
 
@@ -112,43 +107,27 @@
     <family>宋體</family>
     <family>宋体</family>
     <prefer>
-      <family>Adobe 宋体 Std</family>
       <family>Adobe 明體 Std</family>
-      <family>文鼎ＰＬ細上海宋</family>
-      <family>文鼎ＰＬ简报宋</family>
+      <family>Adobe 宋体 Std</family>
       <family>東風明朝</family>
       <family>ヒラギノ明朝 Pro</family>
-      <family>文鼎PL細上海宋Uni</family>
       <family>Ming(for ISO10646)</family>
     </prefer>
   </alias>
 
-  <alias>  <!-- 明宋體 prefer list -->
-        <family>明體</family>
-        <family>明体</family>
-        <family>宋體</family>
-        <family>宋體</family>
-        <prefer>
-            <family>Adobe 明體 Std</family>
-            <family>Adobe 宋体 Std</family>
-            <family>東風明朝</family>
-            <family>ヒラギノ明朝 Pro</family>
-            <family>Ming(for ISO10646)</family>
-        </prefer>
-    </alias>
-    
-  <alias>  <!-- 標楷體 prefer list -->
-    <family>標楷體</family>
+  <alias binding="strong">  <!-- 標楷體 prefer list -->
+    <family>楷體</family>
+    <family>楷体</family>
     <prefer>
+      <family>文鼎ＰＬ中楷</family>
+      <family>文鼎ＰＬ简中楷</family>
       <family>AR PL UKai CN</family>
       <family>AR PL UKai HK</family>
       <family>AR PL UKai TW</family>
       <family>AR PL UKai TW MBE</family>
-      <family>文鼎ＰＬ中楷</family>
-      <family>文鼎ＰＬ简中楷</family>
-      <family>文鼎ＰＬ新中楷</family>
+      <!--<family>文鼎ＰＬ新中楷</family>
       <family>文鼎ＰＬ新中楷 ExtB</family>
-      <family>文鼎PL中楷Uni</family>
+      <family>文鼎PL中楷Uni</family> -->
       <family>Adobe 楷体 Std</family>
     </prefer>
   </alias>
@@ -170,9 +149,11 @@
       <family>文泉驛微米黑</family>
       <family>文泉驛正黑</family>
       <family>文泉驛點陣正黑</family>
-      <family>LiHei Pro</family>
       <family>Adobe 黑体 Std</family>
+      <!--
+      <family>LiHei Pro</family>
       <family>STHeiti</family>
+      -->
     </prefer>
   </alias>
   
@@ -186,30 +167,41 @@
     </prefer>
   </alias>
 
+  <alias binding="strong">
+    <family>Droid Sans</family>
+    <prefer>
+      <family>Droid Sans</family>
+      <family>Droid Sans Japanese</family>
+      <family>Droid Sans Hebrew</family>
+      <family>Droid Sans Arabic</family>
+    </prefer>
+  </alias>
+
+  <alias binding="strong">
+    <family>Droid Mono</family>
+    <prefer>
+      <family>Droid Sans Mono Slashed</family>
+      <family>Droid Sans Mono Dotted</family>
+      <family>Droid Sans Mono</family>
+    </prefer>
+  </alias>
+
   <!-- turn off hinting -->
   <match target="font" >
-    <edit name="hinting" mode="assign" >
-      <bool>true</bool>
-    </edit>
-  </match>
-  <match target="font" >
-    <edit name="hintstyle" mode="assign" >
-      <const>hintmedium</const>
-    </edit>
-  </match>
-  <!--<match target="font" >
     <edit name="antialias" mode="assign" >
       <bool>true</bool>
     </edit>
-  </match>-->
+  </match>
 
   <match target="font">
     <test name="family" qual="any">
       <string>WenQuanYi Zen Hei</string>
-      <!--(lj) WenQuanYi Zen Hei Mono -->
       <string>WenQuanYi Zen Hei Mono</string>
+      <string>WenQuanYi Micro Hei Mono</string>
       <string>文泉驿正黑</string>
       <string>文泉驛正黑</string>
+      <string>文泉驛等寬微米黑</string>
+      <string>文泉驛等寬正黑</string>
     </test>
     <edit name="globaladvance"><bool>false</bool></edit>
     <edit name="spacing"><int>0</int></edit>
@@ -219,7 +211,7 @@
     <edit name="hintstyle" mode="assign"><const>hintslight</const></edit>
     <edit name="autohint" mode="assign"><bool>false</bool></edit>
     <edit name="rh_prefer_bitmaps" mode="assign"><bool>true</bool></edit>
-    <edit name="embeddedbitmap"><bool>true</bool></edit>
+    <!--<edit name="embeddedbitmap"><bool>true</bool></edit>-->
     <!--(lj)Ubuntu Options: lcdnone,lcddefault,lcdlight,lcdlegacy-->
     <!-- <edit name="lcdfilter" mode="assign"><const>lcdlight</const></edit> -->
     <!-- <edit name="rgba" mode="assign"><const>rgb</const></edit> -->
