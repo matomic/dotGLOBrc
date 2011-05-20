@@ -1,13 +1,13 @@
 if has("gui")
-  set lines=100  " over zelous numbers of lines
-  fu! Autolines()
-    if exists("*float2nr")
-      let &lines = max([float2nr(0.98*&lines),30])
-    el
-      let &lines = 50
-    en
-  endf
-  au GUIEnter * cal Autolines()
+  set lines=500  " over zelous numbers of lines
+  "fu! Autolines()
+  "  if exists("*float2nr")
+  "    let &lines = max([float2nr(0.98*&lines),30])
+  "  el
+  "    let &lines = 50
+  "  en
+  "endf
+  "au GUIEnter * cal Autolines()
 
   set co=85
   " double the size of window if running diff
@@ -21,8 +21,6 @@ if has("gui")
     set gfn=monospace\ 12
   endif 
   set go=aci
-
-  colo desert
 
   " gui font up/down size
   nno gfk :silent! let &gfn=substitute(&gfn,'\d\+$','\=submatch(0)+1','')<cr>

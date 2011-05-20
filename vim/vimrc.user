@@ -1,16 +1,16 @@
-"  INCLUDES {{{
+"" INCLUDES {{{
 if filereadable(expand("$HOME/.vimrc.local"))
-  so $HOME/.vimrc.local
+	so $HOME/.vimrc.local
 elseif filereadable(expand("$HOME/_vimrc.local"))
-  so $HOME/_vimrc.local
+	so $HOME/_vimrc.local
 elseif filereadable(expand("$VIM/_vimrc.local"))
-  so $VIM/_vimrc.local
+	so $VIM/_vimrc.local
 endif
-" }}}
+"" }}}
 
-"  BASIC OPTIONS {{{
-set sw=2             " auto indent size
-set ts=2             " tab size
+"" BASIC OPTIONS {{{
+set sw=2            " auto indent size
+set ts=4             " tab size
 set et               " use space for tab
 set sta              " use sw for front tab, ts else
 set sm               " show matching bracket
@@ -25,20 +25,19 @@ set laststatus=2     " always put a status line in, even if there is only one wi
 if exists("&cot")    " (version >= 7.2)
   set cot=longest,menu " complete option
 en
-set bs=2
+set bs=2             " so that backspace works in Windows
 
 " my settings
 " Set the status line the way I like it
 set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c\ Buf:\ #%n\ [%b][0x%B]
-" }}} END BASIC
+"" }}} END BASIC
 
 " KEYMAPS {{{
 " Insert/Command mode motions {{{
-" These mapping remove the urge to use the page up/down, home, etc for
-" movement
-" remap alt-* combo to actual key in terminal mode
-" In terminal mode, <M-x> defaults to <esc>+x, which exits insert mode.
-set timeout timeoutlen=1000 ttimeoutlen=150
+" : These mapping remove the urge to use the page up/down, home, etc for movement
+" : remap alt-* combo to actual key in terminal mode
+" : In terminal mode, <M-x> defaults to <esc>+x, which exits insert mode.
+set timeout timeoutlen=1000 ttimeoutlen=100
 if !has("gui_running")
   if &term == "xterm"
     set <M-0>=0
@@ -70,15 +69,18 @@ ino <silent> <S-esc> <esc>l
 " }}}
 
 " Buffer switch and kill {{{
+" Create a newtab
+nn <silent> ;nt :newtab 
 " Go to previous buffer
 nn <silent> ;j :bprevious<cr>
+nn <silent> ;tj :tabp<cr>
 " Go to next buffer
 nn <silent> ;k :bnext<cr>
+nn <silent> ;tk :tabN<cr>
 " Delete current buffer
 nn <silent> ;dc :bdelete<cr>
 nn <silent> ;dc! :bdelete!<cr>
 " }}}
-
 " Window motion {{{
 " Move the cursor to the window left of the current one
 no <silent> ,h :wincmd h<cr>
@@ -89,7 +91,6 @@ no <silent> ,k :wincmd k<cr>
 " Move the cursor to the window right of the current one
 no <silent> ,l :wincmd l<cr>
 " }}} window motion
-
 " editing and sourcing {g}vimrc {{{
 " edit .vimrc
 nn <silent> ,ev :e $MYVIMRC<cr>
@@ -98,7 +99,6 @@ nn <silent> ,gev :e $MYGVIMRC<cr>
 nn <silent> ,sv :so $MYVIMRC<cr>
 nn <silent> ,gsv :so $MYGVIMRC<cr>
 " }}} source {g}vimrc
-
 " Save and Exit {{{
 " Make me!!
 nn <silent> ;mm :!make<cr>
@@ -130,7 +130,8 @@ nn ;pwd :pwd<cr>
 " }}}
 " }}} END KEYMAPS
 
-"  COLOR SETTINGS {{{
+"" COLOR SETTINGS {{{
+"colo desert
 " black background
 set background=dark
 
@@ -140,7 +141,13 @@ set background=dark
 " This is a hack of the clour section in
 " /usr/share/vim/syntax/syntax.vim
 
+hi Error term=reverse ctermbg=Red ctermfg=White guibg=Red guifg=White
+hi Todo term=standout ctermbg=Red ctermfg=Black guifg=Blue guibg=Yellow
+hi Folded term=reverse ctermbg=Yellow guibg=OrangeRed
+
 if &background == "dark"
+  hi Normal guibg=Gray8 guifg=White
+  hi Tab guibg=Gray15
   hi Constant term=underline ctermfg=Magenta guifg=Magenta
   hi Function term=bold  ctermfg=White guifg=LightRed
   hi Identifier term=underline cterm=bold guifg=#40ffff ctermfg=Cyan
@@ -151,6 +158,7 @@ if &background == "dark"
   hi Special term=bold ctermfg=DarkMagenta guifg=LightRed
   hi Statement term=bold ctermfg=Yellow guifg=#aa4444 gui=bold
   hi Type term=underline ctermfg=LightGreen guifg=#60ff60  gui=bold
+  hi Folded ctermfg=Black guifg=Black
 else
   hi Comment term=bold ctermfg=DarkBlue guifg=Blue
   hi Constant term=underline ctermfg=DarkRed guifg=Magenta
@@ -160,10 +168,8 @@ else
   hi Special term=bold ctermfg=DarkMagenta guifg=SlateBlue
   hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold
   hi Type term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
+  hi Folded ctermfg=White guifg=White
 endif
-
-hi Error term=reverse ctermbg=Red ctermfg=White guibg=Red guifg=White
-hi Todo term=standout ctermbg=Yellow ctermfg=Black guifg=Blue guibg=Yellow
 
 " Common groups that link to default highlighting.
 " You can specify other highlighting easily.
@@ -188,7 +194,10 @@ hi link SpecialChar Special
 hi link Delimiter Special
 hi link SpecialComment Special
 hi link Debug Special
-" }}} END COLOR
+hi link FoldColumn Folded
+
+match Tab /\t\+/
+"" }}} END COLOR
 
 "  AUTOCOMMANDS {{{
 "  GNUPLOT: identify by header {{{
@@ -198,27 +207,29 @@ au BufRead *.gp[ih]\=
       \ endif
 " }}}
 
-"  Customize treatment for TeX {{{
+" Customize treatment for TeX {{{
 " : virtual wrap except for comment
 " : swap between screen line file line motion
 " : turn on spell checking
-au FileType tex setlocal tw=0 spell lbr wrap fo=cl|
+au FileType tex setlocal tw=0 spell lbr wrap fo=cl |
       \nnoremap <buffer> gj j|
       \nnoremap <buffer> j gj|
       \nnoremap <buffer> gk k|
       \nnoremap <buffer> k gk
 " }}}
 
-"  Python {{{
-au FileType python setlocal noet ts=4 sw=4
+" Python {{{
+" : not extent tab, shiftwidth=tabstop=4
+au FileType python setlocal et ts=4 sw=4 fdm=syntax
 " }}}
 
-"  Folding issue {{{
-au FileType vim setlocal fdm=marker
+" Folding issue {{{
+au FileType vim,sh setlocal ts=2 sw=2 et
+au FileType vim,lua,sh setlocal fdm=marker
 au FileType xml setlocal fdm=syntax
 
 let javaScript_fold=1
 " }}}
 " END AUTOCOMMANDS}}}
 
-" vim: set fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker
+"" vim: set fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker

@@ -1,9 +1,10 @@
 # enable ssh-agent and gpg-agentj
 [ -x "`which keychain`" ] && eval `keychain --eval id_dsa 2> /dev/null`
 
+## Colorful settings {{{
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-  xterm-color) color_prompt=yes;;
+xterm-color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -21,7 +22,7 @@ if [ -n "$force_color_prompt" ]; then
   fi
 fi
 
-# ANSI color codes
+# ANSI color codes {{{
 FGCBLK='[30m' # Black - Foreground
 FGCRED='[31m' # Red
 FGCGRN='[32m' # Green
@@ -42,6 +43,7 @@ TXTRST='[0m'  # Text Reset
 TXTBLD='[1m'  # Revert fg and bg color
 TXTUND='[4m'  # underline
 TXTINV='[7m'  # Revert fg and bg color
+# }}}
 
 if [ "$color_prompt" = yes ]; then
   if [ ! ${EUID} = "0" ]; then
@@ -61,8 +63,9 @@ fi
 
 PS2="> $RS"
 unset color_prompt force_color_prompt
+## }}}
 
-## alias
+## alias {{{
 alias ll='ls -lh'
 alias mv='mv -i'
 alias rm='rm -i'
@@ -71,13 +74,15 @@ alias slideshow='xrandr --output VGA --mode 800x600 --auto'
 alias rsync='rsync -e ssh'
 
 # Ubuntu-centric
-if [ -f /etc/ubuntu-release ]; then
+pkgbin=`which aptitude 2> /dev/null`
+if [ "x$pkgbin" = "x" ]; then
   alias apt-search='apt-cache search --names-only'
   alias apt-policy='apt-cache policy'
 fi
 
 # Gentoo-centric
-if [ -f /etc/gentoo-release ]; then
+pkgbin=`which ebuild 2> /dev/null`
+if [ "x$pkgbin" = "x" ]; then
   alias vmconf='sudo vi /etc/make.conf'
   alias vmuse='sudo vi /etc/make.use.conf'
   alias vpuse='sudo vi /etc/portage/package.use'
@@ -85,10 +90,18 @@ if [ -f /etc/gentoo-release ]; then
   alias vpumask='sudo vi /etc/portage/package.unmask'
   alias vpmask='sudo vi /etc/portage/package.mask'
 fi
+unset pkgbin
+### }}}
 
+## useful functions {{{
 # use server/client mode for gvim
 g() {
-  gvim --remote-silent $*
+  [ "x$1" = "x" ] && gvim || gvim --remote-silent $*
+}
+
+# generates a random integer
+random() {
+  dd if=/dev/urandom count=1 2> /dev/null | cksum | cut -f1 -d" "
 }
 
 # generates random password
@@ -97,43 +110,4 @@ genpasswd() {
   [ -z "$l" ] && l=20
   tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 }
-
-# usage scpdiff [DIFFOPTS] LFILE RFILE
-# assumes the last two arguments to be the files to be compared
-scpdiff() {
-  local DIFFOPTS="";
-  local LFILE=""; local fl='';
-  local FILECOUNT=0;
-  local RFILE=""; local fr='';
-
-  while (( "$#" )); do
-    if [ "$#" -gt 2 ]; then
-      DIFFOPTS="${DIFFOPTS} ${1}";
-    elif [ "$#" -eq 2 ]; then LFILE=$1;
-      let "FILECOUNT = FILECOUNT + 1";
-    elif [ "$#" -eq 1 ]; then
-      RFILE=$1;
-      let "FILECOUNT = FILECOUNT + 1";
-    fi
-    shift;
-  done
-
-  [ ! ${FILECOUNT} -eq 2 ] \
-  && printf "Needs exactly 2 files to diff.\n" > /dev/stderr \
-  && return 1;
-
-  fl="/tmp/$(basename ${LFILE}).l";
-  ( ! scp "${LFILE}" ${fl} >& /dev/null ) \
-  && printf "${LFILE} Not Found\n" \
-  && return 1;
-  fr="/tmp/$(basename ${RFILE}).r";
-  ( ! scp "${RFILE}" ${fr} >& /dev/null ) \
-  && printf "${RFILE} Not Found\n" \
-  && return 1;
-
-  # Allows customization using different DIFFTOOL
-  [ -z ${DIFFTOOL} ] && local DIFFTOOL="diff";
-  ${DIFFTOOL} ${DIFFOPTS} ${fl} ${fr};
-
-  rm -f ${fl} ${fr};
-}
+## }}}
