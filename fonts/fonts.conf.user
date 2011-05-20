@@ -18,26 +18,10 @@
     </prefer>
   </alias>
 
-  <!--適應中文用戶的用字習慣-->
-  <alias>  <!-- serif prefer list-->
-    <family>serif</family>
-    <prefer>
-      <family>Droid Serif</family>
-      <family>DejaVu Serif</family>
-      <family>Bitstream Vera Serif</family>
-      <family>Times New Roman</family>
-      <family>Times</family>
-      <family>標楷體</family>
-      <family>明體</family>
-      <family>新細明體</family>
-      <family>백묵 바탕</family>
-    </prefer>
-  </alias>
-
   <alias>  <!-- sans-serif prefer list -->
     <family>sans-serif</family>
     <prefer>
-      <family>Droid Sans</family>
+      <family>DejaVu Sans Condensed</family>
       <family>DejaVu Sans</family>
       <family>Bitstream Vera Sans</family>
       <family>Tahoma</family>
@@ -54,18 +38,35 @@
     </prefer>
   </alias>
 
+  <!--適應中文用戶的用字習慣-->
+  <alias>  <!-- serif prefer list-->
+    <family>serif</family>
+    <prefer>
+      <family>DejaVu Serif</family>
+      <family>Bitstream Vera Serif</family>
+      <family>Droid Serif</family>
+      <family>Adobe Serif MM</family>
+      <family>Times New Roman</family>
+      <family>Times</family>
+      <family>新細明體</family>
+      <family>明體</family>
+      <family>楷體</family>
+      <family>백묵 바탕</family>
+    </prefer>
+  </alias>
+
   <alias>  <!-- monospace prefer list -->
     <family>monospace</family>
     <prefer>
-      <family>Consolas</family>
-      <family>Monaco</family>
-      <family>圓體</family>
-      <family>等寬黑體</family>
-      <family>文鼎ＰＬ新宋 Mono</family>
-      <family>Andale Mono</family>
-      <family>Droid Sans Mono</family>
       <family>DejaVu Sans Mono</family>
       <family>Bitstream Vera Sans Mono</family>
+      <family>Droid Mono</family>
+      <family>Consolas</family>
+      <family>Monaco</family>
+      <family>等寬黑體</family>
+      <family>圓體</family>
+      <family>文鼎ＰＬ新宋 Mono</family>
+      <family>Andale Mono</family>
       <family>Courier New</family>
       <family>Courier</family>
       <family>東風ゴシック</family>
@@ -90,12 +91,35 @@
       <family>小塚明朝 Pr6N</family>
       <family>AR PL UMing CN</family>
       <family>AR PL UMing HK</family>
-      <family>AR PL UMing TW MBE</family>
       <family>AR PL UMing TW</family>
+      <family>AR PL UMing TW MBE</family>
+      <family>Ming(for ISO10646)</family>
       <family>文鼎ＰＬ新宋</family>
       <family>文鼎ＰＬ新宋 ExtB</family>
-      <family>文鼎PL細上海宋Uni</family>
+      <family>細明體\-ExtB</family>
+      <family>細明體_HKSCS\-ExtB</family>
+      <family>新細明體\-ExtB</family>
       <family>WenQuanYi Bitmap Song</family>
+      <family>Adobe 仿宋 Std</family>
+      <family>小塚明朝 Pr6N</family>
+      <family>WenQuanYi Bitmap Song</family>
+    </prefer>
+  </alias>
+
+  <alias binding="strong">  <!-- 明宋體 prefer list -->
+    <family>明體</family>
+    <family>明体</family>
+    <family>宋體</family>
+    <family>宋体</family>
+    <prefer>
+      <family>Adobe 宋体 Std</family>
+      <family>Adobe 明體 Std</family>
+      <family>文鼎ＰＬ細上海宋</family>
+      <family>文鼎ＰＬ简报宋</family>
+      <family>東風明朝</family>
+      <family>ヒラギノ明朝 Pro</family>
+      <family>文鼎PL細上海宋Uni</family>
+      <family>Ming(for ISO10646)</family>
     </prefer>
   </alias>
 
@@ -118,12 +142,12 @@
     <prefer>
       <family>AR PL UKai CN</family>
       <family>AR PL UKai HK</family>
-      <family>AR PL UKai TW MBE</family>
       <family>AR PL UKai TW</family>
-      <family>文鼎ＰＬ新中楷</family>
-      <family>文鼎ＰＬ新中楷 ExtB</family>
+      <family>AR PL UKai TW MBE</family>
       <family>文鼎ＰＬ中楷</family>
       <family>文鼎ＰＬ简中楷</family>
+      <family>文鼎ＰＬ新中楷</family>
+      <family>文鼎ＰＬ新中楷 ExtB</family>
       <family>文鼎PL中楷Uni</family>
       <family>Adobe 楷体 Std</family>
     </prefer>
@@ -131,6 +155,7 @@
 
   <alias>  <!-- 圓體 prefer list -->
     <family>圓體</family>
+    <family>圆体</family>
     <prefer>
       <family>華康圓體(P)</family>
       <family>華康圓體</family>
@@ -140,6 +165,7 @@
 
   <alias>  <!-- 黑體 prefer list -->
     <family>黑體</family>
+    <family>黑体</family>
     <prefer>
       <family>文泉驛微米黑</family>
       <family>文泉驛正黑</family>
@@ -152,6 +178,7 @@
   
   <alias>  <!-- 等寬黑體 prefer list -->
     <family>等寬黑體</family>
+    <family>等宽黑体</family>
     <prefer>
       <family>文泉驛等寬微米黑</family>
       <family>文泉驛等寬正黑</family>
@@ -159,24 +186,49 @@
     </prefer>
   </alias>
 
-  <match target="font" >  <!-- turn off hinting -->
-    <edit mode="assign" name="rgba" >
+  <!-- turn off hinting -->
+  <!--<match target="font" >
+    <edit name="rgba" mode="assign" >
       <const>none</const>
     </edit>
-  </match>
+  </match> -->
   <match target="font" >
-    <edit mode="assign" name="hinting" >
-      <bool>false</bool>
+    <edit name="hinting" mode="assign" >
+      <bool>true</bool>
     </edit>
   </match>
   <match target="font" >
-    <edit mode="assign" name="hintstyle" >
+    <edit name="hintstyle" mode="assign" >
       <const>hintmedium</const>
     </edit>
   </match>
   <match target="font" >
-    <edit mode="assign" name="antialias" >
+    <edit name="antialias" mode="assign" >
       <bool>true</bool>
     </edit>
   </match>
+
+  <match target="font">
+    <test name="family" qual="any">
+      <string>WenQuanYi Zen Hei</string>
+      <!--(lj) WenQuanYi Zen Hei Mono -->
+      <string>WenQuanYi Zen Hei Mono</string>
+      <string>文泉驿正黑</string>
+      <string>文泉驛正黑</string>
+    </test>
+    <edit name="globaladvance"><bool>false</bool></edit>
+    <edit name="spacing"><int>0</int></edit>
+    <edit name="antialias" mode="assign"><bool>true</bool></edit>
+    <edit name="hinting" mode="assign"><bool>true</bool></edit>
+    <!--(lj)hintnone,hintslight,hintmedium,hintfull; hintslight is better-->
+    <edit name="hintstyle" mode="assign"><const>hintslight</const></edit>
+    <edit name="autohint" mode="assign"><bool>false</bool></edit>
+    <edit name="rh_prefer_bitmaps" mode="assign"><bool>true</bool></edit>
+    <edit name="embeddedbitmap"><bool>true</bool></edit>
+    <!--(lj)Ubuntu Options: lcdnone,lcddefault,lcdlight,lcdlegacy-->
+    <!-- <edit name="lcdfilter" mode="assign"><const>lcdlight</const></edit> -->
+    <!-- <edit name="rgba" mode="assign"><const>rgb</const></edit> -->
+  </match>
 </fontconfig>
+
+<!-- vim: set et sw=2: -->
