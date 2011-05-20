@@ -1,12 +1,15 @@
-# enable ssh-agent and gpg-agentj
-[ -x "`which keychain 2> /dev/null `" ] && eval `keychain --agents gpg,ssh --eval id_dsa 2> /dev/null`
-
+## Load some bash helper functions {{{
 for helper in "bash_helper" "${HOME}/.bash_helper"; do
 	if [ -r ${helper} ]; then
 		. ${helper}
 		break
 	fi
 done
+## }}}
+
+## Enable ssh-agent and gpg-agent {{{
+[ -x "`which keychain 2> /dev/null `" ] && eval `keychain --agents gpg,ssh --eval id_dsa 2> /dev/null`
+## }}}
 
 ## Colorful settings {{{
 usecolor
