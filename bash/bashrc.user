@@ -8,7 +8,7 @@ done
 ## }}}
 
 ## Enable ssh-agent and gpg-agent {{{
-[ -x "`which keychain 2> /dev/null `" ] && eval `keychain --agents gpg,ssh --eval id_dsa 2> /dev/null`
+#[ -x "`which keychain 2> /dev/null `" ] && eval `keychain --agents gpg,ssh --eval id_dsa 2> /dev/null`
 ## }}}
 
 ## Colorful settings {{{
