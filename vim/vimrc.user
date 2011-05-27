@@ -6,13 +6,13 @@ elseif filereadable(expand("$HOME/_vimrc.local"))
 elseif filereadable(expand("$VIM/_vimrc.local"))
 	so $VIM/_vimrc.local
 endif
-"" }}}
+"" }}} end includes
 
 "" BASIC OPTIONS {{{
 set sw=4             " auto indent size
 set ts=4             " tab size
-"set et               " use space for tab
-"set sta              " use sw for front tab, ts else
+set noet             " use space for tab
+set nosta            " use sw for front tab, ts else
 set sm               " show matching bracket
 set ffs=unix,dos     " refers unix format
 
@@ -23,6 +23,7 @@ set wildmenu         " Enalbed enhanced command-line completion
 set mousehide        " hide mouse cursor while typing
 set shellslash       " (for windows) use \ for shell
 set laststatus=2     " always put a status line in, even if there is only one window
+set diffopt+=iwhite  " ignore white space
 if exists("&cot")    " (version >= 7.2)
   set cot=longest,menu " complete option
 en
@@ -31,9 +32,9 @@ set bs=2             " so that backspace works in Windows
 " my settings
 " Set the status line the way I like it
 set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c\ Buf:\ #%n\ [%b][0x%B]
-"" }}} END BASIC
+"" }}} end basic
 
-" KEYMAPS {{{
+"" KEYMAPS {{{
 " Insert/Command mode motions {{{
 " : These mapping remove the urge to use the page up/down, home, etc for movement
 " : remap alt-* combo to actual key in terminal mode
@@ -67,8 +68,7 @@ en
 
 " right exist of insert mode:
 ino <silent> <S-esc> <esc>l
-" }}}
-
+"" }}}
 " Buffer switch and kill {{{
 " Create a new tab
 nn <silent> ;nt :newtab 
@@ -86,21 +86,21 @@ nn <silent> ;dc! :bdelete!<cr>
 " Create a vertical split
 nn <silent> ;wv :vs<cr>
 " Move the cursor to the window left of the current one
-no <silent> ,h :wincmd h<cr>
+no <silent> ;wh :wincmd h<cr>
 " Move the cursor to the window below the current one
-no <silent> ,j :wincmd j<cr>
+no <silent> ;wj :wincmd j<cr>
 " Move the cursor to the window above the current one
-no <silent> ,k :wincmd k<cr>
+no <silent> ;wk :wincmd k<cr>
 " Move the cursor to the window right of the current one
-no <silent> ,l :wincmd l<cr>
+no <silent> ;wl :wincmd l<cr>
 " }}} window motion
 " editing and sourcing {g}vimrc {{{
 " edit .vimrc
-nn <silent> ,ev :e $MYVIMRC<cr>
-nn <silent> ,gev :e $MYGVIMRC<cr>
+nn <silent> ;ev :e $MYVIMRC<cr>
+nn <silent> ;gev :e $MYGVIMRC<cr>
 " source .vimrc
-nn <silent> ,sv :so $MYVIMRC<cr>
-nn <silent> ,gsv :so $MYGVIMRC<cr>
+nn <silent> ;sv :so $MYVIMRC<cr>
+nn <silent> ;gsv :so $MYGVIMRC<cr>
 " }}} source {g}vimrc
 " Save and Exit {{{
 " Make me!!
@@ -118,22 +118,21 @@ nn <silent> ;vq :q<cr>
 nn <silent> ;vqa :qa<cr>
 nn <silent> ;vq! :q!<cr>
 " }}}
-
-"" Miscellaneous {{{
+" Miscellaneous {{{
 " toggle paste mode
-nn ,p :set paste!<cr>:set paste?<cr>
+nn ;sp :set paste!<cr>:set paste?<cr>
 " toggle highlighted search
-nn ,n :set invhls<cr>:set hls?<cr>
+nn ;sh :set invhls<cr>:set hls?<cr>
 " toggle textwrap
-nn ,w :set wrap!<cr>:set wrap?<cr>
+nn ;sw :set wrap!<cr>:set wrap?<cr>
 " retable entire file
-nn ,rt :1,$retab<cr>
+nn ;rt :1,$retab<cr>
 " cd to directory of current buffer
 nn ;cd :lcd %:p:h<cr>
 " display current directory
 nn ;pwd :pwd<cr>
-" }}}
-" }}} END KEYMAPS
+" }}} end misc
+"" }}} end keymaps
 
 "" COLOR SETTINGS {{{
 "colo desert
@@ -149,10 +148,9 @@ set background=dark
 hi Error term=reverse ctermbg=Red ctermfg=White guibg=Red guifg=White
 hi Todo term=standout ctermbg=Red ctermfg=Black guifg=Blue guibg=Yellow
 hi Folded term=reverse ctermbg=Yellow guibg=OrangeRed
-
+ 
 if &background == "dark"
   hi Normal guibg=Gray8 guifg=White
-  hi Tab guibg=Gray15
 "  hi Constant term=underline ctermfg=Magenta guifg=Magenta
 "  hi Function term=bold  ctermfg=White guifg=LightRed
 "  hi Identifier term=underline cterm=bold guifg=#40ffff ctermfg=Cyan
@@ -201,26 +199,27 @@ hi link SpecialComment Special
 hi link Debug Special
 hi link FoldColumn Folded
 
+hi Tab guibg=Gray15
 match Tab /\t\+/
-"" }}} END COLOR
+"" }}} end color
 
-"  AUTOCOMMANDS {{{
-"  GNUPLOT: identify by header {{{
+"" AUTOCOMMANDS {{{
+" identify gnuplot by header {{{
 au BufRead *.gp[ih]\=
       \  if getline(1) =~ '^#!.*\/gnuplot$' |
       \    set ft=gnuplot |
       \ endif
 " }}}
-
 " Customize treatment for TeX {{{
 " : virtual wrap except for comment
 " : swap between screen line file line motion
 " : turn on spell checking
-au FileType tex,plaintex setlocal tw=0 spell lbr wrap fo=cl |
+au FileType tex,plaintex setlocal tw=0 spell lbr wrap fo=cl sw=2 ts=2 |
       \nnoremap <buffer> gj j|
       \nnoremap <buffer> j gj|
       \nnoremap <buffer> gk k|
       \nnoremap <buffer> k gk
+au FileType bib setlocal noet spell lbr
 " }}}
 
 " Python {{{
@@ -228,13 +227,18 @@ au FileType tex,plaintex setlocal tw=0 spell lbr wrap fo=cl |
 au FileType python setlocal noet ts=4 sw=4
 " }}}
 
+" FileTypes that prefer expanded tabs {{{
+au FileType lisp setlocal et
+" }}}
+
 " Folding issue {{{
-au FileType vim,sh setlocal ts=2 sw=2 et
+au FileType vim,sh setlocal ts=2 sw=2
 au FileType vim,lua,sh setlocal fdm=marker
 au FileType xml setlocal fdm=syntax
 
 let javaScript_fold=1
 " }}}
-" END AUTOCOMMANDS}}}
+
+"" }}} end au
 
 "" vim: set fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker
