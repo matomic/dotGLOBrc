@@ -80,6 +80,7 @@
   <!-- IMPORTANT: Own prefer list must comes AFTER the generic one above -->
   <alias binding="strong">  <!-- 新細明體 prefer list -->
     <family>新細明體</family>
+    <family>新细明体</family>
     <prefer>
       <family>AR PL UMing HK</family>
       <family>AR PL UMing TW MBE</family>
@@ -89,7 +90,6 @@
       <family>文鼎ＰＬ简报宋</family>
       <family>Adobe 仿宋 Std</family>
       <!--
-      <family>文鼎PL細上海宋Uni</family>
       <family>文鼎ＰＬ新宋</family>
       <family>文鼎ＰＬ新宋 ExtB</family>
       <family>細明體\-ExtB</family>
@@ -107,8 +107,8 @@
     <family>宋體</family>
     <family>宋体</family>
     <prefer>
-      <family>Adobe 明體 Std</family>
       <family>Adobe 宋体 Std</family>
+      <family>Adobe 明體 Std</family>
       <family>東風明朝</family>
       <family>ヒラギノ明朝 Pro</family>
       <family>Ming(for ISO10646)</family>
@@ -119,12 +119,12 @@
     <family>楷體</family>
     <family>楷体</family>
     <prefer>
-      <family>文鼎ＰＬ中楷</family>
-      <family>文鼎ＰＬ简中楷</family>
       <family>AR PL UKai HK</family>
       <family>AR PL UKai TW MBE</family>
       <family>AR PL UKai TW</family>
       <family>AR PL UKai CN</family>
+      <family>文鼎ＰＬ简中楷</family>
+      <family>文鼎ＰＬ中楷</family>
       <!--<family>文鼎ＰＬ新中楷</family>
       <family>文鼎ＰＬ新中楷 ExtB</family>
       <family>文鼎PL中楷Uni</family> -->
