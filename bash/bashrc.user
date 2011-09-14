@@ -48,6 +48,9 @@ alias sshfs='sshfs -o follow_symlinks'
 alias slideshow='xrandr --output VGA1 --mode 800x600 --pos 111x0'
 alias rsync='rsync -e ssh'
 
+# update these to your favoite apps:
+alias viewpdf='evince'
+
 # Ubuntu-centric
 pkgbin=`which aptitude 2> /dev/null`
 if [ "x$pkgbin" != "x" ]; then
