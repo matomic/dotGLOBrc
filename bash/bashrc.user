@@ -73,17 +73,17 @@ unset pkgbin
 g() {
 	if [ "x$1" = "x" ]
 	then
-		gvim
+		gvim -f 21> /dev/null &
 	else
 		if [ -z "`gvim --serverlist`" ]
 		then
 			printf "gvim $*\n"
-			gvim $*
+			gvim -f $* 21> /dev/null &
 		else
 			printf "gvim --remote-silent $*\n"
-			gvim --remote-silent $*
+			gvim --remote-silent $* 21> /dev/null
 		fi
-	fi
+	fi 
 }
 
 # generates a random integer

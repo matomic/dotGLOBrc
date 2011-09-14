@@ -203,8 +203,8 @@ hi Tab guibg=Gray15
 match Tab /\t\+/
 "" }}} end color
 
-"" AUTOCOMMANDS {{{
-" identify gnuplot by header {{{
+""  AUTOCOMMANDS {{{
+"  GNUPLOT: identify by header {{{
 au BufRead *.gp[ih]\=
       \  if getline(1) =~ '^#!.*\/gnuplot$' |
       \    set ft=gnuplot |
@@ -219,7 +219,7 @@ au FileType tex,plaintex setlocal tw=0 spell lbr wrap fo=cl sw=2 ts=2 |
       \nnoremap <buffer> j gj|
       \nnoremap <buffer> gk k|
       \nnoremap <buffer> k gk
-au FileType bib setlocal noet spell lbr
+au FileType bib setlocal ts=2 sw=2 noet spell lbr
 " }}}
 
 " Python {{{
