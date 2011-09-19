@@ -48,6 +48,9 @@ alias sshfs='sshfs -o follow_symlinks'
 alias slideshow='xrandr --output VGA1 --mode 800x600 --pos 111x0'
 alias rsync='rsync -e ssh'
 
+alias matlab='env XMODIFIERS="" matlab'
+alias mathematica='env XMODIFIERS="" mathematica'
+alias id3v2='mid3v2'
 # update these to your favoite apps:
 alias viewpdf='evince'
 
