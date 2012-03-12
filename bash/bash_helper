@@ -41,7 +41,7 @@ function loadANSIcolor() {
 	BGCCYN='[46m' # Cyan
 	BGCWHT='[47m' # White
 	TXTRST='[0m'  # Text Reset
-	TXTBLD='[1m'  # Revert fg and bg color
+	TXTBLD='[1m'  # Bold type
 	TXTUND='[4m'  # underline
 	TXTINV='[7m'  # Revert fg and bg color
 }

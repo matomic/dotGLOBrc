@@ -9,6 +9,9 @@ done
 
 ## Enable ssh-agent and gpg-agent {{{
 #[ -x "`which keychain 2> /dev/null `" ] && eval `keychain --agents gpg,ssh --eval id_dsa 2> /dev/null`
+[ -x "`which keychain 2> /dev/null `" ] && eval `keychain --agents gpg,ssh --eval > /dev/null`
+#GPG_TTY=$(tty)
+#export GPG_TTY
 ## }}}
 
 ## Colorful settings {{{
@@ -43,7 +46,9 @@ alias ll='ls -lh'
 alias mv='mv -i'
 alias rm='rm -i'
 alias svi='sudo vi'
-alias sshfs='sshfs -o follow_symlinks'
+alias sshfs='sshfs -o follow_symlinks -o allow_root'
+alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet id_rsa id_rsa) && ssh'
+alias pdiff='diff -Naur'
 
 alias slideshow='xrandr --output VGA1 --mode 800x600 --pos 111x0'
 alias rsync='rsync -e ssh'
@@ -51,8 +56,12 @@ alias rsync='rsync -e ssh'
 alias matlab='env XMODIFIERS="" matlab'
 alias mathematica='env XMODIFIERS="" mathematica'
 alias id3v2='mid3v2'
-# update these to your favoite apps:
-alias viewpdf='evince'
+
+if [ $UID -eq 0 ];
+then
+	# makes emerge nicer on IO
+	alias emerge='ionice -c3 emerge'
+fi
 
 # Ubuntu-centric
 pkgbin=`which aptitude 2> /dev/null`
@@ -71,6 +80,26 @@ if [ "x$pkgbin" != "x" ]; then
 	alias vpumsk='sudo vi /etc/portage/package.unmask'
 	alias vpmsk='sudo vi /etc/portage/package.mask'
 fi
+
+# Arch-centric
+pkgbin=`which pacman 2> /dev/null`
+if [ "x$pkgbin" != "x" ]; then
+	# Pacman alias examples
+	alias pacupg='sudo pacman -Syu'        # Synchronize with repositories before upgrading packages that are out of date on the local system.
+	alias pacin='sudo pacman -S'           # Install specific package(s) from the repositories
+	alias pacins='sudo pacman -U'          # Install specific package not from the repositories but from a file 
+	alias pacre='sudo pacman -R'           # Remove the specified package(s), retaining its configuration(s) and required dependencies
+	alias pacrem='sudo pacman -Rns'        # Remove the specified package(s), its configuration(s) and unneeded dependencies
+	alias pacrep='pacman -Si'              # Display information about a given package in the repositories
+	alias pacreps='pacman -Ss'             # Search for package(s) in the repositories
+	alias pacloc='pacman -Qi'              # Display information about a given package in the local database
+	alias paclocs='pacman -Qs'             # Search for package(s) in the local database
+
+	# Additional pacman alias examples
+	alias pacupd='sudo pacman -Sy && sudo abs'     # Update and refresh the local package and ABS databases against repositories
+	alias pacinsd='sudo pacman -S --asdeps'        # Install given package(s) as dependencies of another package
+	alias pacmir='sudo pacman -Syy'                # Force refresh of all package lists after updating /etc/pacman.d/mirrorlis
+fi
 unset pkgbin
 ### }}}
 
@@ -79,12 +108,12 @@ unset pkgbin
 g() {
 	if [ "x$1" = "x" ]
 	then
-		gvim -f 21> /dev/null &
+		gvim > /dev/null 2>&1 &
 	else
 		if [ -z "`gvim --serverlist`" ]
 		then
 			printf "gvim $*\n"
-			gvim -f $* 21> /dev/null &
+			gvim $* > /dev/null 2>&1 &
 		else
 			printf "gvim --remote-silent $*\n"
 			gvim --remote-silent $* 21> /dev/null
@@ -113,6 +142,55 @@ genrandomwords() {
 	done
 }
 
+# update these to your favoite apps:
+viewpdf() {
+	epdfview "$1" >& /dev/null
+}
+#
+
+# version string compare
+# return 1 if $1 > $2
+# return -1 if $2 > $1
+# return 0 if equal
+vercomp () {
+	if [ x"$1" == x"$2" ]; then
+		printf "0"; return
+	fi
+
+	local pre1=${1%%.*} pre2=${2%%.*}
+	if [ "${pre1}" -gt "${pre2}" ]; then
+		printf "1"; return 0;
+	fi
+	if [ "${pre1}" -lt "${pre2}" ]; then
+		printf "2"; return 0;
+	fi
+	if [ "${pre1}" -eq "${pre2}" ]; then
+		local post1=${1#${pre1}.} post2=${2#${pre2}.}
+		b=`vercomp "${post1}" "${post2}"`
+		printf "${b}"; return 0;
+	fi
+	return 1; # exit with error, usually due to non-numeric $1 or $2
+}
+
+# colorful man pages
+man() {
+	#export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
+	#export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
+	#export LESS_TERMCAP_me=$'\E[0m'           # end mode
+	#export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
+	#export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
+	#export LESS_TERMCAP_ue=$'\E[0m'           # end underline
+	#export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+	env GROFF_NO_SGR=1 \
+		LESS_TERMCAP_mb=$'\E[1;31;2m' \
+		LESS_TERMCAP_md=$'\E[1;32m' \
+		LESS_TERMCAP_me=$'\E[0m' \
+		LESS_TERMCAP_us=$'\E[1;33m' \
+		LESS_TERMCAP_ue=$'\E[0m' \
+		LESS_TERMCAP_so=$'\E[1;34;7m' \
+		LESS_TERMCAP_se=$'\E[0m' \
+		man "$@"
+}
 ## }}}
 
 ## vim: foldmethod=marker ft=sh noet nosta ts=2 sw=2
