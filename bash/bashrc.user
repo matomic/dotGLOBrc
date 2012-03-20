@@ -1,3 +1,6 @@
+## If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
 ## Load some bash helper functions {{{
 for helper in "bash_helper" "${HOME}/.bash_helper"; do
 	if [ -r ${helper} ]; then
