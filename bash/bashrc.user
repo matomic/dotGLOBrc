@@ -2,12 +2,10 @@
 # source additional files with extension $2 in $1 {{{
 function sourceFilesInDir {
 local f
-if [ -d "$1" ]
-then
-	for	f in "${1}"/*; do
+[ -d "$1" ] && \
+	for f in "${1}"/*; do
 		[ -f ${f} -a "x${f%$2}" != "x${f}" ] && . "${f}" # only source those with certain extension
 	done
-fi
 }
 # }}}
 
@@ -104,9 +102,11 @@ fi
 ## }}}
 
 ## Enable ssh-agent and gpg-agent {{{
-#[ -x "`which keychain 2> /dev/null `" ] && eval `keychain --agents gpg,ssh --eval id_dsa 2> /dev/null`
 keychainbin=$(which keychain 2> /dev/null)
-[ "x${keychainbin}" != "x" ] && eval `keychain --agents gpg,ssh --eval > /dev/null`
+if [ "x${keychainbin}" != "x" ]; then
+	eval `keychain --agents gpg,ssh --eval > /dev/null`;
+	alias ssh="eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet id_rsa id_rsa) && ssh"
+fi
 #GPG_TTY=$(tty)
 #export GPG_TTY
 ## }}}
@@ -144,18 +144,13 @@ alias rm='rm -i'
 alias svi='sudo vi'
 alias sshfs='sshfs -o follow_symlinks -o allow_root'
 
-keychainbin=/usr/bin/keychain
-if [ "x${keychainbin}" != "x" ]; then
-	alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet id_rsa id_rsa) && ssh'
-fi
 alias pdiff='diff -Naur'
 
-alias slideshow='xrandr --output VGA1 --mode 800x600 --pos 111x0'
 alias rsync='rsync -e ssh'
 
-alias matlab='env XMODIFIERS="" matlab'
-alias mathematica='env XMODIFIERS="" mathematica'
-alias id3v2='mid3v2'
+[ x`which matlab 2>/dev/null` != x ] && alias matlab='env XMODIFIERS="" matlab'
+[ x`which mathematica 2>/dev/null` != x ] && alias mathematica='env XMODIFIERS="" mathematica'
+[ x`which mid3v2 2>/dev/null` != x ] && alias id3v2='mid3v2'
 
 if [ $UID -eq 0 ];
 then
