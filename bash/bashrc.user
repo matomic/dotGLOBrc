@@ -12,7 +12,8 @@ done
 
 ## Enable ssh-agent and gpg-agent {{{
 #[ -x "`which keychain 2> /dev/null `" ] && eval `keychain --agents gpg,ssh --eval id_dsa 2> /dev/null`
-[ -x "`which keychain 2> /dev/null `" ] && eval `keychain --agents gpg,ssh --eval > /dev/null`
+keychainbin=$(which keychain 2> /dev/null)
+[ "x${keychainbin}" != "x" ] && eval `keychain --agents gpg,ssh --eval > /dev/null`
 #GPG_TTY=$(tty)
 #export GPG_TTY
 ## }}}
@@ -41,7 +42,6 @@ else
 fi
 
 PS2="> $RS"
-unset use_color
 ## }}}
 
 ## alias {{{
@@ -50,7 +50,11 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias svi='sudo vi'
 alias sshfs='sshfs -o follow_symlinks -o allow_root'
-alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet id_rsa id_rsa) && ssh'
+
+keychainbin=/usr/bin/keychain
+if [ "x${keychainbin}" != "x" ]; then
+	alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet id_rsa id_rsa) && ssh'
+fi
 alias pdiff='diff -Naur'
 
 alias slideshow='xrandr --output VGA1 --mode 800x600 --pos 111x0'
@@ -102,7 +106,6 @@ if [ "x$pkgbin" != "x" ]; then
 	alias pacupd='sudo pacman -Sy && sudo abs'      # Update and refresh the local package and ABS databases against repositories
 	alias pacdepc='sudo pacman -Rs $(pacman -Qtdp)' # Clean all unneeded dependencies
 fi
-unset pkgbin
 ### }}}
 
 ## useful functions {{{
@@ -195,4 +198,10 @@ man() {
 }
 ## }}}
 
+### clean up {{{
+for v in use_color pkgbin keychainbin
+do
+	unset $v
+done
+### }}}
 ## vim: foldmethod=marker ft=sh noet nosta ts=2 sw=2
