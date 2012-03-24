@@ -180,8 +180,9 @@ fi
 pkgbin=`which pacman 2> /dev/null`
 if [ "x$pkgbin" != "x" ]; then
 	alias pacin='sudo pacman -S'            # Install specific package(s) from the repositories
-	alias pacinsd='sudo pacman -S --asdeps' # Install given package(s) as dependencies of another package
+	alias pacind='sudo pacman -S --asdeps'  # Install given package(s) as dependencies of another package
 	alias pacins='sudo pacman -U'           # Install specific package not from the repositories but from a file 
+	alias pacinsd='sudo pacman -U --asdeps' # Install specific package not from the repositories but from a file 
 	alias pacre='sudo pacman -R'            # Remove the specified package(s), retaining its configuration(s) and required dependencies
 	alias pacrem='sudo pacman -Rns'         # Remove the specified package(s), its configuration(s) and unneeded dependencies
 	alias pacrep='pacman -Si'               # Display information about a given package in the repositories
@@ -192,7 +193,7 @@ if [ "x$pkgbin" != "x" ]; then
 	alias pacupg='sudo pacman -Syu'                 # Synchronize with repositories before upgrading packages that are out of date on the local system.
 	alias pacmir='sudo pacman -Syy'                 # Force refresh of all package lists after updating /etc/pacman.d/mirrorlis
 	alias pacupd='sudo pacman -Sy && sudo abs'      # Update and refresh the local package and ABS databases against repositories
-	alias pacdepc='sudo pacman -Rs $(pacman -Qtdp)' # Clean all unneeded dependencies
+	alias pacdepc='sudo pacman -Rs $(pacman -Qtdq)' # Clean all unneeded dependencies
 fi
 ### }}}
 
