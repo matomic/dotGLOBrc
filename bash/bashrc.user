@@ -163,6 +163,12 @@ pkgbin=`which aptitude 2> /dev/null`
 if [ "x$pkgbin" != "x" ]; then
 	alias apt-search='apt-cache search --names-only'
 	alias apt-policy='apt-cache policy'
+  alias apt-inst='sudo apt-get install'
+  alias apt-insts='sudo apt-get install --install-suggests'
+  alias apt-rm='sudo apt-get remove'
+  alias apt-prm='sudo apt-get remove --purge'
+  alias apt-arm='sudo apt-get autoremove'
+  alias apt-aprm='sudo apt-get autoremove --purge'
 fi
 
 # Gentoo-centric
