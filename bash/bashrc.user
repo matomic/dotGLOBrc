@@ -105,7 +105,7 @@ fi
 keychainbin=$(which keychain 2> /dev/null)
 if [ "x${keychainbin}" != "x" ]; then
 	eval `keychain --agents gpg,ssh --eval > /dev/null`;
-	alias ssh="eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet id_rsa id_rsa) && ssh"
+	alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet id_rsa id_rsa) ssh'
 fi
 #GPG_TTY=$(tty)
 #export GPG_TTY
