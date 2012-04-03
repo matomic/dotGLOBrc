@@ -224,7 +224,7 @@ au FileType bib setlocal ts=2 sw=2 noet spell lbr
 
 " Python {{{
 " : not extent tab, shiftwidth=tabstop=4
-au FileType python setlocal noet ts=4 sw=4 foldmethod=indent
+au FileType python setlocal ts=4 sw=4 sts=4 sta et foldmethod=indent
 " }}}
 
 " FileTypes that prefer expanded tabs {{{
