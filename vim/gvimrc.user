@@ -28,4 +28,6 @@ if has("gui")
 en
 " has ("gui")
 
+"set background=dark
 so $MYVIMRC
+   
