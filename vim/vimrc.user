@@ -137,7 +137,7 @@ nn ;pwd :pwd<cr>
 "" COLOR SETTINGS {{{
 "colo desert
 " black background
-
+set background=dark
 " The main changes I make to the colours is make Function a tad brighter so
 " it's more readable. Also, I prefer darkcyan for my comments. I don't
 " like comments to be "louder" than the actual code.
@@ -147,7 +147,7 @@ nn ;pwd :pwd<cr>
 hi Error term=reverse ctermbg=Red ctermfg=White guibg=Red guifg=White
 hi Todo term=standout ctermbg=Red ctermfg=Black guifg=Blue guibg=Yellow
 hi Folded term=reverse ctermbg=Yellow guibg=OrangeRed
- 
+
 if &background == "dark"
 	" dark colors {{{
 	hi Normal guibg=Gray8 guifg=White
@@ -162,12 +162,13 @@ if &background == "dark"
 	"  hi Statement term=bold ctermfg=Yellow guifg=#aa4444 gui=bold
 	hi Type term=underline ctermfg=LightGreen guifg=#60ff60  gui=bold
 	hi Folded ctermfg=Black guifg=Black
-	hi Tab guibg=Gray15
-	hi Space guibg=Gray10
+	hi Tab guibg=grey30
+	hi Space guibg=grey15
+	hi TailSpace guibg=Red
 	" }}}
 else
 	" bright colors {{{
-	"  hi Comment term=bold ctermfg=DarkBlue guifg=Blue
+	hi Comment term=bold ctermfg=DarkBlue guifg=Blue
 	"  hi Constant term=underline ctermfg=DarkRed guifg=Magenta
 	"  hi Identifier term=underline ctermfg=DarkCyan guifg=DarkCyan
 	"  hi Ignore ctermfg=white guifg=bg
@@ -176,8 +177,8 @@ else
 	"  hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold
 	hi Type term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
 	hi Folded ctermfg=White guifg=White
-	hi Tab guibg=LightGray ctermbg=LightGray
-	hi Space guibg=snow1
+	"hi Tab guibg=LightBlue ctermbg=62
+	"hi Space guibg=Blue ctermbg=61
 	" }}}
 endif
 
@@ -206,8 +207,9 @@ hi link SpecialComment Special
 hi link Debug Special
 hi link FoldColumn Folded
 
-match Tab /\t\+/
-match Space / \+/
+let m1 = matchadd("Space", ' ')
+let m2 = matchadd("TailSpace", ' \+$')
+let m3 = matchadd("Tab", '\t')
 "" }}} end color
 
 ""  AUTOCOMMANDS {{{

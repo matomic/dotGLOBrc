@@ -1,33 +1,32 @@
 if has("gui")
-  set lines=70  " over zelous numbers of lines
-  fu! Autolines()
-    if exists("*float2nr")
-      let &lines = max([float2nr(0.98*&lines),30])
-    el
-      let &lines = 50
-    en
-  endf
-  au GUIEnter * cal Autolines()
+	set lines=70  " over zelous numbers of lines
+	fu! Autolines()
+		if exists("*float2nr")
+			let &lines = max([float2nr(0.98*&lines),30])
+		el
+			let &lines = 50
+		en
+	endf
+	au GUIEnter * cal Autolines()
 
-  set co=85
-  " double the size of window if running diff
-  if &diff
-    let &columns = min([&columns * 2, 160])
-  en
+	set co=85
+	" double the size of window if running diff
+	if &diff
+		let &columns = min([&columns * 2, 160])
+	en
 
-  if has("win32")
-    set gfn=consolas:h11:cANSI
-  else
-    set gfn=monospace\ 12
-  endif 
-  set go=aci
+	if has("win32")
+		set gfn=consolas:h11:cANSI
+	else
+		set gfn=monospace\ 12
+	endif
+	set go=aci
 
-  " gui font up/down size
-  nno gfk :silent! let &gfn=substitute(&gfn,'\d\+$','\=submatch(0)+1','')<cr>
-  nno gfj :silent! let &gfn=substitute(&gfn,'\d\+$','\=submatch(0)-1','')<cr>
+	" gui font up/down size
+	nno gfk :silent! let &gfn=substitute(&gfn,'\d\+$','\=submatch(0)+1','')<cr>
+	nno gfj :silent! let &gfn=substitute(&gfn,'\d\+$','\=submatch(0)-1','')<cr>
 en
 " has ("gui")
 
-"set background=dark
+set background=dark
 so $MYVIMRC
-   
