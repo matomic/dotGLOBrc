@@ -1,7 +1,7 @@
 #!/bin/sh
 
 deploy_if_diff() {
-	[ -n "`diff -q "${1}" "${2}"`" ] && cp -i "${1}" "${2}"
+	diff "${1}" "${2}" || cp -i "${1}" "${2}"
 }
 
 DIR=$(dirname "$0")
