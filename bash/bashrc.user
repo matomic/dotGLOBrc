@@ -264,7 +264,7 @@ viewpdf() {
 # return -1 if $2 > $1
 # return 0 if equal
 vercomp () {
-	if [ x"$1" == x"$2" ]; then
+	if [ x"$1" = x"$2" ]; then
 		printf "0"; return
 	fi
 

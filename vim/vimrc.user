@@ -138,6 +138,7 @@ nn ;pwd :pwd<cr>
 "colo desert
 " black background
 set background=dark
+
 " The main changes I make to the colours is make Function a tad brighter so
 " it's more readable. Also, I prefer darkcyan for my comments. I don't
 " like comments to be "louder" than the actual code.
@@ -150,21 +151,20 @@ hi Folded term=reverse ctermbg=Yellow guibg=OrangeRed
 
 if &background == "dark"
 	" dark colors {{{
-	hi Normal guibg=Gray8 guifg=White
-	"  hi Constant term=underline ctermfg=Magenta guifg=Magenta
-	"  hi Function term=bold  ctermfg=White guifg=LightRed
-	"  hi Identifier term=underline cterm=bold guifg=#40ffff ctermfg=Cyan
-	"  hi Ignore ctermfg=black guifg=bg
-	"  hi Operator ctermfg=Red guifg=Red
-	"  hi PreProc term=underline ctermfg=LightBlue guifg=#ff80ff
-	"  hi Repeat term=underline ctermfg=White guifg=LightRed
-	"  hi Special term=bold ctermfg=DarkMagenta guifg=LightRed
-	"  hi Statement term=bold ctermfg=Yellow guifg=#aa4444 gui=bold
+	hi Normal guibg=Gray8 guifg=White ctermbg=black ctermfg=white
+	hi Constant term=underline ctermfg=Magenta guifg=Magenta
+	hi Function term=bold  ctermfg=Green guifg=LightRed
+	hi Identifier term=underline cterm=bold guifg=#40ffff ctermfg=Cyan
+	"	hi Ignore ctermfg=black guifg=bg
+	hi Operator ctermfg=Red guifg=Red
+	"	hi PreProc term=underline ctermfg=LightBlue guifg=#ff80ff
+	"	hi Repeat term=underline ctermfg=White guifg=LightRed
+	"	hi Special term=bold ctermfg=DarkMagenta guifg=LightRed
+	"	hi Statement term=bold ctermfg=Yellow guifg=#aa4444 gui=bold
 	hi Type term=underline ctermfg=LightGreen guifg=#60ff60  gui=bold
 	hi Folded ctermfg=Black guifg=Black
-	hi Tab guibg=grey30
-	hi Space guibg=grey15
-	hi TailSpace guibg=Red
+	hi Tab guibg=grey30 ctermbg=LightGrey
+	hi Space guibg=grey15 ctermbg=DarkGrey
 	" }}}
 else
 	" bright colors {{{
@@ -177,10 +177,11 @@ else
 	"  hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold
 	hi Type term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
 	hi Folded ctermfg=White guifg=White
-	"hi Tab guibg=LightBlue ctermbg=62
-	"hi Space guibg=Blue ctermbg=61
+	hi Tab guibg=grey30 ctermbg=LightBlue
+	hi Space guibg=grey15 ctermbg=LightGrey
 	" }}}
 endif
+hi TailSpace guibg=Red ctermbg=Red
 
 " Common groups that link to default highlighting.
 " You can specify other highlighting easily.
@@ -207,7 +208,7 @@ hi link SpecialComment Special
 hi link Debug Special
 hi link FoldColumn Folded
 
-let m1 = matchadd("Space", ' ')
+let m1 = matchadd("Space", '\zs \ze[^ ]')
 let m2 = matchadd("TailSpace", ' \+$')
 let m3 = matchadd("Tab", '\t')
 "" }}} end color
@@ -244,22 +245,22 @@ au FileType tex,plaintex setlocal tw=0 spell lbr wrap fo=cl sw=2 ts=2 |
 au FileType bib setlocal ts=2 sw=2 noet spell lbr
 " }}}
 
-" Python {{{
+" Python, Lisp, sh, lua, xml {{{
 " : not extent tab, shiftwidth=tabstop=4
 au FileType python setlocal ts=4 sw=4 sts=4 sta fdm=indent |
 			\ setlocal nosmartindent nocindent |
 			\ let python_highlight_all = 1
 " }}}
 
-" FileTypes that prefer expanded tabs {{{
+" File types that prefer expanded tabs
 au FileType lisp,python setlocal et
-" }}}
+
+" File types that prefer indentation amount 2
+au FileType vim,sh setlocal ts=4 sw=2 sts=2
 
 " Folding issue {{{
-au FileType vim,sh setlocal ts=2 sw=2
 au FileType vim,lua,sh setlocal fdm=marker
 au FileType xml setlocal fdm=syntax
-
 let javaScript_fold=1
 " }}}
 
