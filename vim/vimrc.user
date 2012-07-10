@@ -83,8 +83,11 @@ nn <silent> ;dc :bdelete<cr>
 nn <silent> ;dc! :bdelete!<cr>
 " }}}
 " Window motion {{{
-" Create a vertical split
-nn <silent> ;wv :vs<cr>
+" Create a split
+no <silent> ;wv :vs<cr>
+no <silent> ;ws :sp<cr>
+" Quit current window
+no <silent> ;wq :wincmd q<cr>
 " Move the cursor to the window left of the current one
 no <silent> ;wh :wincmd h<cr>
 " Move the cursor to the window below the current one
@@ -164,7 +167,7 @@ if &background == "dark"
 	hi Folded ctermfg=Black guifg=Black
 	hi Tab guibg=grey30
 	hi Space guibg=grey15
-	hi TailSpace guibg=Red
+	hi TailSpace guibg=Red ctermbg=Red
 	" }}}
 else
 	" bright colors {{{
@@ -246,13 +249,13 @@ au FileType bib setlocal ts=2 sw=2 noet spell lbr
 
 " Python {{{
 " : not extent tab, shiftwidth=tabstop=4
-au FileType python setlocal ts=4 sw=4 sts=4 sta fdm=indent |
+au FileType python,pyrex setlocal ts=4 sw=4 sts=4 sta fdm=indent |
 			\ setlocal nosmartindent nocindent |
 			\ let python_highlight_all = 1
 " }}}
 
 " FileTypes that prefer expanded tabs {{{
-au FileType lisp,python setlocal et
+au FileType lisp,python,pyrex setlocal et
 " }}}
 
 " Folding issue {{{
