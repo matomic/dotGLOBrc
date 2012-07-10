@@ -252,15 +252,17 @@ au FileType python setlocal ts=4 sw=4 sts=4 sta fdm=indent |
 			\ let python_highlight_all = 1
 " }}}
 
-" File types that prefer expanded tabs
-au FileType lisp,python setlocal et
+" File types that prefer expanded tabs {{{
+au FileType lisp,python,pyrex setlocal et
 
 " File types that prefer indentation amount 2
 au FileType vim,sh setlocal ts=4 sw=2 sts=2
+" }}}
 
 " Folding issue {{{
 au FileType vim,lua,sh setlocal fdm=marker
 au FileType xml setlocal fdm=syntax
+
 let javaScript_fold=1
 " }}}
 

@@ -104,8 +104,8 @@ fi
 ## Enable ssh-agent and gpg-agent {{{
 keychainbin=$(which keychain 2> /dev/null)
 if [ "x${keychainbin}" != "x" ]; then
-	eval `keychain --agents gpg,ssh --eval > /dev/null`;
-	#alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet id_rsa id_dsa) ssh'
+	eval `keychain --agents gpg --eval > /dev/null`;
+	alias ssh='eval $(/usr/bin/keychain --eval --agents ssh --quiet id_rsa id_dsa) ssh'
 fi
 #GPG_TTY=$(tty)
 #export GPG_TTY
@@ -179,6 +179,7 @@ if [ "x$pkgbin" != "x" ]; then
   alias apt-update='sudo apt-get update'
   alias apt-upgrade='sudo apt-get upgrade'
   alias apt-distupgrade='sudo apt-get dist-upgrade'
+	alias apt-build-dep='sudo apt-get build-dep'
 fi
 
 # Gentoo-centric
@@ -323,7 +324,11 @@ pyenv_activate() {
 	else
 		VEPATH="$1"
 	fi
-  [ -f "${VEPATH}/bin/activate" ] && . ${VEPATH}/bin/activate
+	if [ -d "$VEPATH" ]; then
+		[ -f "${VEPATH}/bin/activate" ] && . ${VEPATH}/bin/activate
+	else
+		printf "$VEPATH is not a valid path.\n" && return 1
+	fi
 }
 ## }}}
 
