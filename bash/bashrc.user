@@ -103,9 +103,12 @@ fi
 
 ## Enable ssh-agent and gpg-agent {{{
 keychainbin=$(which keychain 2> /dev/null)
+gpgagentbin=$(which gpg-agent 2> /dev/null)
 if [ "x${keychainbin}" != "x" ]; then
-	eval `keychain --agents gpg --eval > /dev/null`;
-	alias ssh='eval $(/usr/bin/keychain --eval --agents ssh --quiet id_rsa id_dsa) ssh'
+	if [ "x${gpgagentbin}" != "x" ]; then
+		eval `keychain --agents gpg --eval > /dev/null`;
+	fi
+	alias ssh="eval \$(${keychainbin} --eval --agents ssh --quiet id_dsa) /usr/bin/ssh"
 fi
 #GPG_TTY=$(tty)
 #export GPG_TTY
