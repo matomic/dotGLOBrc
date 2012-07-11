@@ -148,31 +148,40 @@ set background=dark
 hi Error term=reverse ctermbg=Red ctermfg=White guibg=Red guifg=White
 hi Todo term=standout ctermbg=Red ctermfg=Black guifg=Blue guibg=Yellow
 hi Folded term=reverse ctermbg=Yellow guibg=OrangeRed
- 
+
 if &background == "dark"
-  hi Normal guibg=Gray8 guifg=White
-"  hi Constant term=underline ctermfg=Magenta guifg=Magenta
-"  hi Function term=bold  ctermfg=White guifg=LightRed
-"  hi Identifier term=underline cterm=bold guifg=#40ffff ctermfg=Cyan
-"  hi Ignore ctermfg=black guifg=bg
-"  hi Operator ctermfg=Red guifg=Red
-"  hi PreProc term=underline ctermfg=LightBlue guifg=#ff80ff
-"  hi Repeat term=underline ctermfg=White guifg=LightRed
-"  hi Special term=bold ctermfg=DarkMagenta guifg=LightRed
-"  hi Statement term=bold ctermfg=Yellow guifg=#aa4444 gui=bold
-  hi Type term=underline ctermfg=LightGreen guifg=#60ff60  gui=bold
-  hi Folded ctermfg=Black guifg=Black
+	" dark colors {{{
+	hi Normal guibg=Gray8 guifg=White ctermbg=black ctermfg=white
+	hi Constant term=underline ctermfg=Magenta guifg=Magenta
+	hi Function term=bold  ctermfg=Green guifg=LightRed
+	hi Identifier term=underline cterm=bold guifg=#40ffff ctermfg=Cyan
+	"	hi Ignore ctermfg=black guifg=bg
+	hi Operator ctermfg=Red guifg=Red
+	"	hi PreProc term=underline ctermfg=LightBlue guifg=#ff80ff
+	"	hi Repeat term=underline ctermfg=White guifg=LightRed
+	"	hi Special term=bold ctermfg=DarkMagenta guifg=LightRed
+	"	hi Statement term=bold ctermfg=Yellow guifg=#aa4444 gui=bold
+	hi Type term=underline ctermfg=LightGreen guifg=#60ff60  gui=bold
+	hi Folded ctermfg=Black guifg=Black
+	hi Tab guibg=grey30 ctermbg=LightGrey
+	hi Space guibg=grey15 ctermbg=DarkGrey
+	" }}}
 else
-"  hi Comment term=bold ctermfg=DarkBlue guifg=Blue
-"  hi Constant term=underline ctermfg=DarkRed guifg=Magenta
-"  hi Identifier term=underline ctermfg=DarkCyan guifg=DarkCyan
-"  hi Ignore ctermfg=white guifg=bg
-"  hi PreProc term=underline ctermfg=DarkMagenta guifg=Purple
-"  hi Special term=bold ctermfg=DarkMagenta guifg=SlateBlue
-"  hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold
-  hi Type term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
-  hi Folded ctermfg=White guifg=White
+	" bright colors {{{
+	hi Comment term=bold ctermfg=DarkBlue guifg=Blue
+	"  hi Constant term=underline ctermfg=DarkRed guifg=Magenta
+	"  hi Identifier term=underline ctermfg=DarkCyan guifg=DarkCyan
+	"  hi Ignore ctermfg=white guifg=bg
+	"  hi PreProc term=underline ctermfg=DarkMagenta guifg=Purple
+	"  hi Special term=bold ctermfg=DarkMagenta guifg=SlateBlue
+	"  hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold
+	hi Type term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
+	hi Folded ctermfg=White guifg=White
+	hi Tab guibg=grey30 ctermbg=LightBlue
+	hi Space guibg=grey15 ctermbg=LightGrey
+	" }}}
 endif
+hi TailSpace guibg=Red ctermbg=Red
 
 " Common groups that link to default highlighting.
 " You can specify other highlighting easily.
@@ -199,17 +208,31 @@ hi link SpecialComment Special
 hi link Debug Special
 hi link FoldColumn Folded
 
-hi Tab guibg=Gray15
-match Tab /\t\+/
+let m1 = matchadd("Space", '\zs \ze[^ ]')
+let m2 = matchadd("TailSpace", ' \+$')
+let m3 = matchadd("Tab", '\t')
 "" }}} end color
 
 ""  AUTOCOMMANDS {{{
-"  GNUPLOT: identify by header {{{
+"if has("autocmd")
+"	" Enable file type detection, plugins, and indentation rules.
+"	filetype plugin indent on
+"
+"	" reStructuredText (Python doctest) indent.
+"	autocmd FileType rst setlocal sw=4 sts=4 et tw=72
+"	" When editing a file, always jump to the last known cursor position.
+"	autocmd BufReadPost *
+"				\ if line("'\"") > 0 && line("'\"") <= line("$") |
+"				\       execute "normal g`\"" |
+"				\ endif
+"endif
+" GNUPLOT: identify by header {{{
 au BufRead *.gp[ih]\=
       \  if getline(1) =~ '^#!.*\/gnuplot$' |
       \    set ft=gnuplot |
       \ endif
 " }}}
+
 " Customize treatment for TeX {{{
 " : virtual wrap except for comment
 " : swap between screen line file line motion
@@ -222,17 +245,21 @@ au FileType tex,plaintex setlocal tw=0 spell lbr wrap fo=cl sw=2 ts=2 |
 au FileType bib setlocal ts=2 sw=2 noet spell lbr
 " }}}
 
-" Python {{{
+" Python, Lisp, sh, lua, xml {{{
 " : not extent tab, shiftwidth=tabstop=4
-au FileType python setlocal noet ts=4 sw=4 foldmethod=indent
+au FileType python,pyrex setlocal ts=4 sw=4 sts=4 sta fdm=indent |
+			\ setlocal nosmartindent nocindent |
+			\ let python_highlight_all = 1
 " }}}
 
-" FileTypes that prefer expanded tabs {{{
-au FileType lisp setlocal et
+" File types that prefer expanded tabs {{{
+au FileType lisp,python,pyrex setlocal et
+
+" File types that prefer indentation amount 2
+au FileType vim,sh setlocal ts=4 sw=2 sts=2
 " }}}
 
-" Folding issue {{{
-au FileType vim,sh setlocal ts=2 sw=2
+" File types folding issue {{{
 au FileType vim,lua,sh setlocal fdm=marker
 au FileType xml setlocal fdm=syntax
 
