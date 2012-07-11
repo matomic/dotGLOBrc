@@ -247,7 +247,7 @@ au FileType bib setlocal ts=2 sw=2 noet spell lbr
 
 " Python, Lisp, sh, lua, xml {{{
 " : not extent tab, shiftwidth=tabstop=4
-au FileType python setlocal ts=4 sw=4 sts=4 sta fdm=indent |
+au FileType python,pyrex setlocal ts=4 sw=4 sts=4 sta fdm=indent |
 			\ setlocal nosmartindent nocindent |
 			\ let python_highlight_all = 1
 " }}}
@@ -259,7 +259,7 @@ au FileType lisp,python,pyrex setlocal et
 au FileType vim,sh setlocal ts=4 sw=2 sts=2
 " }}}
 
-" Folding issue {{{
+" File types folding issue {{{
 au FileType vim,lua,sh setlocal fdm=marker
 au FileType xml setlocal fdm=syntax
 
