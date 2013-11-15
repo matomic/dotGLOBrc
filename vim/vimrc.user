@@ -85,6 +85,8 @@ nn <silent> ;dc! :bdelete!<cr>
 " Window motion {{{
 " Create a vertical split
 nn <silent> ;wv :vs<cr>
+" Close current window
+nn <silent> ;wc :clo<cr>
 " Move the cursor to the window left of the current one
 no <silent> ;wh :wincmd h<cr>
 " Move the cursor to the window below the current one
@@ -208,7 +210,7 @@ hi link SpecialComment Special
 hi link Debug Special
 hi link FoldColumn Folded
 
-let m1 = matchadd("Space", '\zs \ze[^ ]')
+let m1 = matchadd("Space", '\zs \+\ze[^ ]')
 let m2 = matchadd("TailSpace", ' \+$')
 let m3 = matchadd("Tab", '\t')
 "" }}} end color
@@ -266,6 +268,9 @@ au FileType xml setlocal fdm=syntax
 let javaScript_fold=1
 " }}}
 
+" text-like filetypes {{{
+au FileType gitcommit setlocal tw=0 spell lbr wrap
+" }}}
 "" }}} end au
 
 "" vim: set fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker
