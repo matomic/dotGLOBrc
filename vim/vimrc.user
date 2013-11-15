@@ -1,10 +1,10 @@
 "" INCLUDES {{{
 if filereadable(expand("$HOME/.vimrc.local"))
-	so $HOME/.vimrc.local
+  so $HOME/.vimrc.local
 elseif filereadable(expand("$HOME/_vimrc.local"))
-	so $HOME/_vimrc.local
+  so $HOME/_vimrc.local
 elseif filereadable(expand("$VIM/_vimrc.local"))
-	so $VIM/_vimrc.local
+  so $VIM/_vimrc.local
 endif
 "" }}} end includes
 
@@ -27,7 +27,7 @@ set diffopt+=iwhite  " ignore white space
 if exists("&cot")    " (version >= 7.2)
   set cot=longest,menu " complete option
 en
-set bs=2             " so that backspace works in Windows
+set bs=2             " so that backspace works in Windows:
 
 " my settings
 " Set the status line the way I like it
@@ -152,36 +152,36 @@ hi Todo term=standout ctermbg=Red ctermfg=Black guifg=Blue guibg=Yellow
 hi Folded term=reverse ctermbg=Yellow guibg=OrangeRed
 
 if &background == "dark"
-	" dark colors {{{
-	hi Normal guibg=Gray8 guifg=White ctermbg=black ctermfg=white
-	hi Constant term=underline ctermfg=Magenta guifg=Magenta
-	hi Function term=bold  ctermfg=Green guifg=LightRed
-	hi Identifier term=underline cterm=bold guifg=#40ffff ctermfg=Cyan
-	"	hi Ignore ctermfg=black guifg=bg
-	hi Operator ctermfg=Red guifg=Red
-	"	hi PreProc term=underline ctermfg=LightBlue guifg=#ff80ff
-	"	hi Repeat term=underline ctermfg=White guifg=LightRed
-	"	hi Special term=bold ctermfg=DarkMagenta guifg=LightRed
-	"	hi Statement term=bold ctermfg=Yellow guifg=#aa4444 gui=bold
-	hi Type term=underline ctermfg=LightGreen guifg=#60ff60  gui=bold
-	hi Folded ctermfg=Black guifg=Black
-	hi Tab guibg=grey30 ctermbg=LightGrey
-	hi Space guibg=grey15 ctermbg=DarkGrey
-	" }}}
+  " dark colors {{{
+  hi Normal guibg=Gray8 guifg=White ctermbg=black ctermfg=white
+  hi Constant term=underline ctermfg=Magenta guifg=Magenta
+  hi Function term=bold  ctermfg=Green guifg=LightRed
+  hi Identifier term=underline cterm=bold guifg=#40ffff ctermfg=Cyan
+  "	hi Ignore ctermfg=black guifg=bg
+  hi Operator ctermfg=Red guifg=Red
+  "	hi PreProc term=underline ctermfg=LightBlue guifg=#ff80ff
+  "	hi Repeat term=underline ctermfg=White guifg=LightRed
+  "	hi Special term=bold ctermfg=DarkMagenta guifg=LightRed
+  "	hi Statement term=bold ctermfg=Yellow guifg=#aa4444 gui=bold
+  hi Type term=underline ctermfg=LightGreen guifg=#60ff60  gui=bold
+  hi Folded ctermfg=Black guifg=Black
+  hi Tab guibg=grey30 ctermbg=LightGrey
+  hi Space guibg=grey15 ctermbg=DarkGrey
+  " }}}
 else
-	" bright colors {{{
-	hi Comment term=bold ctermfg=DarkBlue guifg=Blue
-	"  hi Constant term=underline ctermfg=DarkRed guifg=Magenta
-	"  hi Identifier term=underline ctermfg=DarkCyan guifg=DarkCyan
-	"  hi Ignore ctermfg=white guifg=bg
-	"  hi PreProc term=underline ctermfg=DarkMagenta guifg=Purple
-	"  hi Special term=bold ctermfg=DarkMagenta guifg=SlateBlue
-	"  hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold
-	hi Type term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
-	hi Folded ctermfg=White guifg=White
-	hi Tab guibg=grey30 ctermbg=LightBlue
-	hi Space guibg=grey15 ctermbg=LightGrey
-	" }}}
+  " bright colors {{{
+  hi Comment term=bold ctermfg=DarkBlue guifg=Blue
+  "  hi Constant term=underline ctermfg=DarkRed guifg=Magenta
+  "  hi Identifier term=underline ctermfg=DarkCyan guifg=DarkCyan
+  "  hi Ignore ctermfg=white guifg=bg
+  "  hi PreProc term=underline ctermfg=DarkMagenta guifg=Purple
+  "  hi Special term=bold ctermfg=DarkMagenta guifg=SlateBlue
+  "  hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold
+  hi Type term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
+  hi Folded ctermfg=White guifg=White
+  hi Tab guibg=grey30 ctermbg=LightBlue
+  hi Space guibg=grey15 ctermbg=LightGrey
+  " }}}
 endif
 hi TailSpace guibg=Red ctermbg=Red
 
@@ -247,15 +247,23 @@ au FileType tex,plaintex setlocal tw=0 spell lbr wrap fo=cl sw=2 ts=2 |
 au FileType bib setlocal ts=2 sw=2 noet spell lbr
 " }}}
 
-" Python, Lisp, sh, lua, xml {{{
+" Python {{{
 " : not extent tab, shiftwidth=tabstop=4
 au FileType python,pyrex setlocal ts=4 sw=4 sts=4 sta fdm=indent |
-			\ setlocal nosmartindent nocindent |
-			\ let python_highlight_all = 1
+      \ setlocal nosmartindent nocindent |
+      \ let python_highlight_all = 1
+" }}}
+
+" File types text width{{{
+"au FileType python,cpp setlocal tw=150
+" }}}
+
+" File types custom syntax settings {{{
+au FileType cuda syntax keyword cType hfloat dfloat
 " }}}
 
 " File types that prefer expanded tabs {{{
-au FileType lisp,python,pyrex setlocal et
+au FileType sh,lisp,python,pyrex,cpp,cuda setlocal et
 
 " File types that prefer indentation amount 2
 au FileType vim,sh setlocal ts=4 sw=2 sts=2
@@ -263,7 +271,7 @@ au FileType vim,sh setlocal ts=4 sw=2 sts=2
 
 " File types folding issue {{{
 au FileType vim,lua,sh setlocal fdm=marker
-au FileType xml setlocal fdm=syntax
+au FileType xml,cpp,cuda setlocal fdm=syntax
 
 let javaScript_fold=1
 " }}}
@@ -273,4 +281,13 @@ au FileType gitcommit setlocal tw=0 spell lbr wrap
 " }}}
 "" }}} end au
 
-"" vim: set fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker
+call pathogen#infect()
+
+"virtualenv
+let g:virtualenv_directory = '~/.virtualenv'
+
+"syntastic
+let g:syntastic_mode_map = { 'mode': 'active',
+      \ 'active_filetypes': [],
+      \ 'passive_filetypes': [] }
+"" vim:fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker
