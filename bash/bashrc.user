@@ -108,7 +108,9 @@ if [ "x${keychainbin}" != "x" ]; then
 	if [ "x${gpgagentbin}" != "x" ]; then
 		eval `keychain --agents gpg --eval > /dev/null`;
 	fi
-	alias ssh="eval \$(${keychainbin} --eval --agents ssh --quiet id_dsa) /usr/bin/ssh"
+	if [ -f "~/.ssh/id_dsa" ]; then
+		alias ssh="eval \$(${keychainbin} --eval --agents ssh --quiet id_dsa) /usr/bin/ssh"
+	fi
 fi
 #GPG_TTY=$(tty)
 #export GPG_TTY

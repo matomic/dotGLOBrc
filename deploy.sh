@@ -1,8 +1,14 @@
 #!/bin/sh
 set -x
+set -e
 
+DIFF=`which colordiff`
+if [ "x" == "x${DIFF}" ]
+then
+  DIFF=`which diff`
+fi
 deploy_if_diff() {
-  diff -uN "${2}" "${1}"
+  ${DIFF} -uN "${2}" "${1}" || true
   if [ -n "`diff -qN \"${2}\" \"${1}\"`" ];
   then
     cp -i -L "${1}" "${2}"
