@@ -169,7 +169,7 @@ then
 fi
 
 # Ubuntu-centric
-pkgbin=`which aptitude 2> /dev/null`
+pkgbin=`which apt-get 2> /dev/null`
 if [ "x$pkgbin" != "x" ]; then
 	alias apt-search='apt-cache search --names-only'
 	alias apt-policy='apt-cache policy'
@@ -268,7 +268,7 @@ viewpdf() {
 # return -1 if $2 > $1
 # return 0 if equal
 vercomp () {
-	if [ x"$1" == x"$2" ]; then
+	if [ x"$1" = x"$2" ]; then
 		printf "0"; return
 	fi
 
@@ -322,12 +322,16 @@ pyhelp() {
 }
 
 pyenv_activate() {
-	if [ -d "$1" ]; then
-		VEPATH="$1"
+	if [ ! -d "$1" ]; then
+		VEPATH="${HOME}/.virtualenv/$1"
 	else
-		VEPATH="${HOME}/$1"
+		VEPATH="$1"
 	fi
-  [ -f "${VEPATH}/bin/activate" ] && . ${VEPATH}/bin/activate
+	if [ -d "$VEPATH" ]; then
+		[ -f "${VEPATH}/bin/activate" ] && . ${VEPATH}/bin/activate
+	else
+		printf "$VEPATH is not a valid path.\n" && return 1
+	fi
 }
 ## }}}
 
