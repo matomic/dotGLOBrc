@@ -1,3 +1,4 @@
+
 ## Helper functions {{{
 # source additional files with extension $2 in $1 {{{
 function sourceFilesInDir {
@@ -106,10 +107,17 @@ keychainbin=$(which keychain 2> /dev/null)
 gpgagentbin=$(which gpg-agent 2> /dev/null)
 if [ "x${keychainbin}" != "x" ]; then
 	if [ "x${gpgagentbin}" != "x" ]; then
-		eval `keychain --agents gpg --eval > /dev/null`;
+		eval `keychain --agents gpg --eval --quiet`;
 	fi
-	if [ -f "~/.ssh/id_dsa" ]; then
-		alias ssh="eval \$(${keychainbin} --eval --agents ssh --quiet id_dsa) /usr/bin/ssh"
+	identities=''
+	for id in id_dsa id_rsa id_ecdsa; do
+		if [ -f "${HOME}/.ssh/${id}" ]; then
+			identities="${identities} ${id}"
+		fi
+	done
+	if [ "x${identities}" != "x" ]; then
+		eval `keychain --agents ssh --eval --quiet ${identities}`;
+		alias ssh="eval `${keychainbin} --quiet --eval --agents ssh ${identities}` /usr/bin/ssh"
 	fi
 fi
 #GPG_TTY=$(tty)
