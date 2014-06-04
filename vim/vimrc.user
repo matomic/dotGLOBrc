@@ -1,11 +1,13 @@
-"pathogen
+"" PATHOGEN {
 filetype off
-call pathogen#incubate()
+"call pathogen#incubate()
+call pathogen#infect('bundle/{}')
 "call pathogen#helptags() "call this when installing new plugins
-call pathogen#infect()
+"call pathogen#infect()
 filetype plugin indent on
+""" } end pathogen
 
-"" INCLUDES {{{
+"" INCLUDES {
 if filereadable(expand("$HOME/.vimrc.local"))
   so $HOME/.vimrc.local
 elseif filereadable(expand("$HOME/_vimrc.local"))
@@ -13,9 +15,9 @@ elseif filereadable(expand("$HOME/_vimrc.local"))
 elseif filereadable(expand("$VIM/_vimrc.local"))
   so $VIM/_vimrc.local
 endif
-"" }}} end includes
+"" } end includes
 
-"" BASIC OPTIONS {{{
+"" BASIC OPTIONS {
 set sw=4             " auto indent size
 set ts=4             " tab size
 set noet             " use space for tab
@@ -23,7 +25,7 @@ set nosta            " use sw for front tab, ts else
 set sm               " show matching bracket
 set ffs=unix,dos     " refers unix format
 
-set lazyredraw       " Don't update the display while executing macro
+set nolz             " (lazyredraw) Don't update the display while executing macro
 set showmode         " Show which mode you are in
 set modeline         " Use modeline to customize setting
 set wildmenu         " Enalbed enhanced command-line completion
@@ -39,10 +41,10 @@ set bs=2             " so that backspace works in Windows:
 " my settings
 " Set the status line the way I like it
 set stl=%f\ %m[%{&fileformat}]\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c\ Buf:\ #%n\ [%b][0x%B]
-"" }}} end basic
+"" } end basic
 
-"" KEYMAPS {{{
-" Insert/Command mode motions {{{
+"" KEYMAPS {
+" Insert/Command mode motions {
 " : These mapping remove the urge to use the page up/down, home, etc for movement
 " : remap alt-* combo to actual key in terminal mode
 " : In terminal mode, <M-x> defaults to <esc>+x, which exits insert mode.
@@ -75,8 +77,8 @@ en
 
 " right exist of insert mode:
 ino <silent> <S-esc> <esc>l
-"" }}}
-" Buffer switch and kill {{{
+"" }
+" Buffer switch and kill {
 " Create a new tab
 nn <silent> ;nt :newtab 
 " Go to previous buffer
@@ -88,8 +90,8 @@ nn <silent> ;tk :tabN<cr>
 " Delete current buffer
 nn <silent> ;dc :bdelete<cr>
 nn <silent> ;dc! :bdelete!<cr>
-" }}}
-" Window motion {{{
+" }
+" Window motion {
 " Create a vertical split
 nn <silent> ;wv :vs<cr>
 " Close current window
@@ -102,16 +104,16 @@ no <silent> ;wj :wincmd j<cr>
 no <silent> ;wk :wincmd k<cr>
 " Move the cursor to the window right of the current one
 no <silent> ;wl :wincmd l<cr>
-" }}} window motion
-" editing and sourcing {g}vimrc {{{
+" } window motion
+" editing and sourcing {g}vimrc {
 " edit .vimrc
 nn <silent> ;ev :e $MYVIMRC<cr>
 nn <silent> ;gev :e $MYGVIMRC<cr>
 " source .vimrc
 nn <silent> ;sv :so $MYVIMRC<cr>
 nn <silent> ;gsv :so $MYGVIMRC<cr>
-" }}} source {g}vimrc
-" Save and Exit {{{
+" } source {g}vimrc
+" Save and Exit {
 " Make me!!
 nn <silent> ;mm :!make<cr>
 " run last command
@@ -126,8 +128,8 @@ nn <silent> ;vwq :wq<cr>
 nn <silent> ;vq :q<cr>
 nn <silent> ;vqa :qa<cr>
 nn <silent> ;vq! :q!<cr>
-" }}}
-" Miscellaneous {{{
+" }
+" Miscellaneous {
 " toggle paste mode
 nn ;sp :set paste!<cr>:set paste?<cr>
 " toggle highlighted search
@@ -140,10 +142,10 @@ nn ;rt :1,$retab<cr>
 nn ;cd :lcd %:p:h<cr>
 " display current directory
 nn ;pwd :pwd<cr>
-" }}} end misc
-"" }}} end keymaps
+" } end misc
+"" } end keymaps
 
-"" COLOR SETTINGS {{{
+"" COLOR SETTINGS {
 "colo desert
 " black background
 set background=dark
@@ -159,7 +161,7 @@ hi Todo term=standout ctermbg=Red ctermfg=Black guifg=Blue guibg=Yellow
 hi Folded term=reverse ctermbg=Yellow guibg=OrangeRed
 
 if &background == "dark"
-  " dark colors {{{
+  " dark colors {
   "hi Normal guibg=Gray8 guifg=White ctermbg=black ctermfg=white
   hi Constant term=underline ctermfg=Magenta guifg=Magenta
   hi Function term=bold  ctermfg=Green guifg=LightRed
@@ -174,9 +176,9 @@ if &background == "dark"
   hi Folded ctermfg=Black guifg=Black
   hi Tab guibg=grey30 ctermbg=LightGrey
   hi Space guibg=grey15 ctermbg=DarkGrey
-  " }}}
+  " }
 else
-  " bright colors {{{
+  " bright colors {
   hi Comment term=bold ctermfg=DarkBlue guifg=Blue
   "  hi Constant term=underline ctermfg=DarkRed guifg=Magenta
   "  hi Identifier term=underline ctermfg=DarkCyan guifg=DarkCyan
@@ -188,7 +190,7 @@ else
   hi Folded ctermfg=White guifg=White
   hi Tab guibg=grey30 ctermbg=LightBlue
   hi Space guibg=grey15 ctermbg=LightGrey
-  " }}}
+  " }
 endif
 hi TailSpace guibg=Red ctermbg=Red
 
@@ -220,9 +222,9 @@ hi link FoldColumn Folded
 let m1 = matchadd("Space", '\zs \+\ze[^ ]')
 let m2 = matchadd("TailSpace", ' \+$')
 let m3 = matchadd("Tab", '\t')
-"" }}} end color
+"" } end color
 
-""  AUTOCOMMANDS {{{
+""  AUTOCOMMANDS {
 "if has("autocmd")
 "  " Enable file type detection, plugins, and indentation rules.
 "  filetype plugin indent on
@@ -235,14 +237,14 @@ let m3 = matchadd("Tab", '\t')
 "        \       execute "normal g`\"" |
 "        \ endif
 "endif
-" GNUPLOT: identify by header {{{
+" GNUPLOT: identify by header {
 au BufRead *.gp[ih]\=
       \  if getline(1) =~ '^#!.*\/gnuplot$' |
       \    set ft=gnuplot |
       \ endif
-" }}}
+" }
 
-" Customize treatment for TeX {{{
+" Customize treatment for TeX {
 " : virtual wrap except for comment
 " : swap between screen line file line motion
 " : turn on spell checking
@@ -252,42 +254,43 @@ au FileType tex,plaintex setlocal tw=0 spell lbr wrap fo=cl sw=2 ts=2 |
       \nnoremap <buffer> gk k|
       \nnoremap <buffer> k gk
 au FileType bib setlocal ts=2 sw=2 noet spell lbr
-" }}}
+" }
 
-" Python {{{
+" Python {
 " : not extent tab, shiftwidth=tabstop=4
 au FileType python,pyrex setlocal ts=4 sw=4 sts=4 sta fdm=indent |
 			\ setlocal nosmartindent nocindent |
 			\ let python_highlight_all = 1
-" }}}
+" }
 
-" File types text width{{{
+" File types text width{
 "au FileType python,cpp setlocal tw=150
-" }}}
+" }
 
-" File types custom syntax settings {{{
+" File types custom syntax settings {
 au FileType cuda syntax keyword cType hfloat dfloat
-" }}}
+" }
 
-" File types that prefer expanded tabs {{{
+" File types that prefer expanded tabs {
 au FileType sh,lisp,python,pyrex,cpp,cuda setlocal et
 
 " File types that prefer indentation amount 2
 au FileType vim,sh setlocal ts=4 sw=2 sts=2
-" }}}
+" }
 
-" File types folding issue {{{
+" File types folding issue {
 au FileType vim,lua,sh setlocal fdm=marker
 au FileType xml,cpp,cuda setlocal fdm=syntax
 
 let javaScript_fold=1
-" }}}
+" }
 
-" text-like filetypes {{{
+" text-like filetypes {
 au FileType gitcommit setlocal tw=100 spell lbr wrap
-" }}}
-"" }}} end au
+" }
+"" } end au
 
+""" BUNDLES {
 "virtualenv
 let g:virtualenv_directory = '~/.virtualenv'
 
@@ -296,4 +299,7 @@ let g:syntastic_mode_map = { 'mode': 'active',
       \ 'active_filetypes': [],
       \ 'passive_filetypes': [] }
 
-"" vim:fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker
+"snipmate
+""" } end bundle
+
+"" vim:fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker foldmarker={,} foldlevel=0

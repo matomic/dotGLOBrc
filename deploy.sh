@@ -2,11 +2,7 @@
 set -x
 set -e
 
-DIFF=`which colordiff`
-if [ "x" == "x${DIFF}" ]
-then
-  DIFF=`which diff`
-fi
+DIFF=`which colordiff || which diff`
 deploy_if_diff() {
   ${DIFF} -uN "${2}" "${1}" || true
   if [ -n "`diff -qN \"${2}\" \"${1}\"`" ];
@@ -18,6 +14,8 @@ deploy_if_diff() {
 DIR=$(dirname "$0")
 
 deploy_if_diff "${DIR}/bash/bashrc.user"      "${HOME}/.bashrc"
-deploy_if_diff "${DIR}/fonts/fonts.conf.user" "${HOME}/.fonts.conf"
+deploy_if_diff "${DIR}/fonts/fonts.conf.user" "${HOME}/.config/fontconfig/fonts.conf"
 deploy_if_diff "${DIR}/vim/vimrc.user"        "${HOME}/.vim/vimrc"
-deploy_if_diff "${DIR}/vim/gvimrc.user"       "${HOME}/.gvimrc"
+#deploy_if_diff "${DIR}/vim/gvimrc.user"       "${HOME}/.gvimrc"
+
+rsync -av "${DIR}/vim/bundle/" ${HOME}/.vim/bundle/
