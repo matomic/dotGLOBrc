@@ -11,11 +11,16 @@ deploy_if_diff() {
   fi
 }
 
-DIR=$(dirname "$0")
+pushd $(dirname "$0")
 
-deploy_if_diff "${DIR}/bash/bashrc.user"      "${HOME}/.bashrc"
-deploy_if_diff "${DIR}/fonts/fonts.conf.user" "${HOME}/.config/fontconfig/fonts.conf"
-deploy_if_diff "${DIR}/vim/vimrc.user"        "${HOME}/.vim/vimrc"
-#deploy_if_diff "${DIR}/vim/gvimrc.user"       "${HOME}/.gvimrc"
+deploy_if_diff "bash/bashrc.user"      "${HOME}/.bashrc"
+deploy_if_diff "vim/vimrc.user"        "${HOME}/.vim/vimrc"
+#deploy_if_diff "vim/gvimrc.user"       "${HOME}/.gvimrc"
+if [ -d "${HOME}/.config/fontconfig/" ]
+then
+  deploy_if_diff "fonts/fonts.conf.user" "${HOME}/.config/fontconfig/fonts.conf"
+fi
 
-rsync -av "${DIR}/vim/bundle/" ${HOME}/.vim/bundle/
+rsync -av "vim/bundle/" ${HOME}/.vim/bundle/
+
+popd
