@@ -1,6 +1,8 @@
 "" PATHOGEN {
 filetype off
 "call pathogen#incubate()
+let g:pathogen_disabled = []
+call add(g:pathogen_disabled, 'vim-snipmate')
 call pathogen#infect('bundle/{}')
 "call pathogen#helptags() "call this when installing new plugins
 "call pathogen#infect()
@@ -174,7 +176,7 @@ if &background == "dark"
   " hi Statement term=bold ctermfg=Yellow guifg=#aa4444 gui=bold
   hi Type term=underline ctermfg=LightGreen guifg=#60ff60  gui=bold
   hi Folded ctermfg=Black guifg=Black
-  hi Tab guibg=grey30 ctermbg=LightGrey
+  hi Tab guibg=grey30 ctermbg=LightBlue
   hi Space guibg=grey15 ctermbg=DarkGrey
   " }
 else
@@ -192,7 +194,14 @@ else
   hi Space guibg=grey15 ctermbg=LightGrey
   " }
 endif
-hi TailSpace guibg=Red ctermbg=Red
+hi TrailSpace guibg=Red ctermbg=Red   
+
+fu! AddMyMatches()
+  let w:m1 = matchadd("Space", '\zs \+\ze[^ ]') |
+  let w:m2 = matchadd("TrailSpace", ' \+$') |
+  let w:m3 = matchadd("Tab", '\t')
+endf
+call AddMyMatches()
 
 " Common groups that link to default highlighting.
 " You can specify other highlighting easily.
@@ -219,9 +228,6 @@ hi link SpecialComment Special
 hi link Debug Special
 hi link FoldColumn Folded
 
-let m1 = matchadd("Space", '\zs \+\ze[^ ]')
-let m2 = matchadd("TailSpace", ' \+$')
-let m3 = matchadd("Tab", '\t')
 "" } end color
 
 ""  AUTOCOMMANDS {
@@ -237,6 +243,8 @@ let m3 = matchadd("Tab", '\t')
 "        \       execute "normal g`\"" |
 "        \ endif
 "endif
+au VimEnter * au WinEnter * call AddMyMatches()
+
 " GNUPLOT: identify by header {
 au BufRead *.gp[ih]\=
       \  if getline(1) =~ '^#!.*\/gnuplot$' |
