@@ -51,11 +51,11 @@
   <alias>  <!-- monospace prefer list -->
     <family>monospace</family>
     <prefer>
+      <family>Monaco</family>
       <family>Droid Mono</family>
       <family>DejaVu Sans Mono</family>
       <family>Bitstream Vera Sans Mono</family>
       <family>Consolas</family>
-      <family>Monaco</family>
       <family>等寬黑體</family>
       <family>圓體</family>
       <family>文鼎ＰＬ新宋 Mono</family>
