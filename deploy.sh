@@ -21,6 +21,6 @@ then
   deploy_if_diff "fonts/fonts.conf.user" "${HOME}/.config/fontconfig/fonts.conf"
 fi
 
-rsync -av "vim/bundle/" ${HOME}/.vim/bundle/
+rsync -av --delete "vim/bundle/" ${HOME}/.vim/bundle/
 
 popd
