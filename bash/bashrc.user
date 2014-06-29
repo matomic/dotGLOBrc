@@ -153,7 +153,7 @@ PS2="> $RS"
 ## alias {{{
 alias ll='ls -lh'
 alias mv='mv -i'
-alias rm='rm -i'
+alias rm='rm -I'
 alias svi='sudo vi'
 alias sshfs='sshfs -o follow_symlinks -o allow_root'
 
