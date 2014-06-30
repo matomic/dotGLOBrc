@@ -42,7 +42,10 @@ set bs=2             " so that backspace works in Windows:
 
 " my settings
 " Set the status line the way I like it
-set stl=%f\ %m[%{&fileformat}]\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c\ Buf:\ #%n\ [%b][0x%B]
+function! SyntaxItem()
+  return synIDattr(synID(line("."),col("."),1),"name")
+endfunction
+set stl=%f\ %m[%{&fileformat}]\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c[hi:%{SyntaxItem()}]\ Buf:\ #%n\ [%b][0x%B]
 "" } end basic
 
 "" KEYMAPS {
@@ -150,7 +153,14 @@ nn ;pwd :pwd<cr>
 "" COLOR SETTINGS {
 "colo desert
 " black background
+if exists("syntax_on")
+	syntax reset
+endif
 set background=dark
+"set t_Co=256
+let g:solarized_termtrans  = 1
+"let g:solarized_visibility = 1
+colorscheme solarized
 
 " The main changes I make to the colours is make Function a tad brighter so
 " it's more readable. Also, I prefer darkcyan for my comments. I don't
@@ -158,46 +168,57 @@ set background=dark
 " This is a hack of the clour section in
 " /usr/share/vim/syntax/syntax.vim
 
-hi Error term=reverse ctermbg=Red ctermfg=White guibg=Red guifg=White
-hi Todo term=standout ctermbg=Red ctermfg=Black guifg=Blue guibg=Yellow
-hi Folded term=reverse ctermbg=Yellow guibg=OrangeRed
+hi Error ctermbg=Red ctermfg=White guibg=Red guifg=White cterm=reverse term=reverse
+hi Todo ctermbg=Red ctermfg=Black guifg=Blue guibg=Yellow cterm=standout,bold term=standout
+"hi Folded ctermbg=Yellow guibg=OrangeRed cterm=reverse
+hi Normal cterm=none term=none
+hi Function cterm=none term=none
+hi Type cterm=none term=none
+hi Statement cterm=bold term=none
 
 if &background == "dark"
   " dark colors {
-  "hi Normal guibg=Gray8 guifg=White ctermbg=black ctermfg=white
-  hi Constant term=underline ctermfg=Magenta guifg=Magenta
-  hi Function term=bold  ctermfg=Green guifg=LightRed
-  hi Identifier term=underline cterm=bold guifg=#40ffff ctermfg=Cyan
-  " hi Ignore ctermfg=black guifg=bg
-  hi Operator ctermfg=Red guifg=Red
-  " hi PreProc term=underline ctermfg=LightBlue guifg=#ff80ff
-  " hi Repeat term=underline ctermfg=White guifg=LightRed
-  " hi Special term=bold ctermfg=DarkMagenta guifg=LightRed
-  " hi Statement term=bold ctermfg=Yellow guifg=#aa4444 gui=bold
-  hi Type term=underline ctermfg=LightGreen guifg=#60ff60  gui=bold
-  hi Folded ctermfg=Black guifg=Black
-  hi Tab guibg=grey30 ctermbg=LightBlue
-  hi Space guibg=grey15 ctermbg=DarkGrey
+  hi Normal         ctermfg=White         guifg=White
+  "hi Normal        cterm=none            term=none
+  hi Comment        ctermfg=Cyan          guifg=Yellow      cterm=none         term=none
+  "hi Constant       ctermfg=Magenta       guifg=Magenta     cterm=none         term=underline
+  "hi String        ctermfg=Magenta       guifg=Magenta     cterm=underline    term=underline
+  "hi Function      ctermfg=LightGreen    guifg=LightRed    term=bold
+  hi Function       ctermfg=Yellow
+  "hi Identifier    ctermfg=Cyan          guifg=#40ffff     cterm=bold         term=underline
+  "hi Ignore        ctermfg=black
+  "hi Operator       ctermfg=LightRed      guifg=Red
+  "hi PreProc       ctermfg=LightRed      guifg=#ff80ff     cterm=bold
+  "hi Repeat        ctermfg=White         guifg=LightRed    term=underline
+  "hi Special       ctermfg=Red           guifg=LightRed    term=bold
+  "hi Statement     ctermfg=White         cterm=bold        term=bold
+  "hi Statement      ctermfg=Green         cterm=bold        term=bold
+  "hi Type          ctermfg=LightGreen    guifg=#60ff60     gui=bold           cterm=bold        term=underline
+  "hi Type           gui=bold              cterm=none        term=underline
+  "hi Type          ctermfg=White         cterm=bold
+  "hi Folded        ctermfg=White         guifg=Black
+  hi Tab            ctermbg=LightBlue     guibg=grey30
+  hi LeadSpace      ctermbg=DarkGray      guibg=grey15
   " }
 else
   " bright colors {
-  hi Comment term=bold ctermfg=DarkBlue guifg=Blue
-  "  hi Constant term=underline ctermfg=DarkRed guifg=Magenta
-  "  hi Identifier term=underline ctermfg=DarkCyan guifg=DarkCyan
-  "  hi Ignore ctermfg=white guifg=bg
-  "  hi PreProc term=underline ctermfg=DarkMagenta guifg=Purple
-  "  hi Special term=bold ctermfg=DarkMagenta guifg=SlateBlue
-  "  hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold
-  hi Type term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
-  hi Folded ctermfg=White guifg=White
+  " hi Comment term=bold ctermfg=DarkBlue guifg=Blue
+  " hi Constant term=underline ctermfg=DarkRed guifg=Magenta
+  " hi Identifier term=underline ctermfg=DarkCyan guifg=DarkCyan
+  " hi Ignore ctermfg=white guifg=bg
+  " hi PreProc term=underline ctermfg=DarkMagenta guifg=Purple
+  " hi Special term=bold ctermfg=DarkMagenta guifg=SlateBlue
+  " hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold
+  " hi Type term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
+  " hi Folded ctermfg=White guifg=White
   hi Tab guibg=grey30 ctermbg=LightBlue
-  hi Space guibg=grey15 ctermbg=LightGrey
+  hi LeadSpace guibg=grey15 ctermbg=LightGrey
   " }
 endif
-hi TrailSpace guibg=Red ctermbg=Red   
+hi TrailSpace guibg=Red ctermbg=Red     
 
 fu! AddMyMatches()
-  let w:m1 = matchadd("Space", '\zs \+\ze[^ ]') |
+  let w:m1 = matchadd("LeadSpace", '^\zs \+\ze[^ ]') |
   let w:m2 = matchadd("TrailSpace", ' \+$') |
   let w:m3 = matchadd("Tab", '\t')
 endf
@@ -205,28 +226,28 @@ call AddMyMatches()
 
 " Common groups that link to default highlighting.
 " You can specify other highlighting easily.
-hi link String Constant
-hi link Character Constant
-hi link Number Constant
-hi link Boolean Constant
-hi link Float Number
-hi link Conditional Statement
-hi link Label Statement
-hi link Keyword Statement
-hi link Exception Statement
-hi link Include PreProc
-hi link Define PreProc
-hi link Macro PreProc
-hi link PreCondit PreProc
-hi link StorageClass Type
-hi link Structure Type
-hi link Typedef Type
-hi link Tag Special
-hi link SpecialChar Special
-hi link Delimiter Special
-hi link SpecialComment Special
-hi link Debug Special
-hi link FoldColumn Folded
+"hi link String Constant
+"hi link Character Constant
+"hi link Number Constant
+"hi link Boolean Constant
+"hi link Float Number
+"hi link Conditional Statement
+"hi link Label Statement
+"hi link Keyword Statement
+"hi link Exception Statement
+"hi link Include PreProc
+"hi link Define PreProc
+"hi link Macro PreProc
+"hi link PreCondit PreProc
+"hi link StorageClass Type
+"hi link Structure Type
+"hi link Typedef Type
+"hi link Tag Special
+"hi link SpecialChar Special
+"hi link Delimiter Special
+"hi link SpecialComment Special
+"hi link Debug Special
+"hi link FoldColumn Folded
 
 "" } end color
 
