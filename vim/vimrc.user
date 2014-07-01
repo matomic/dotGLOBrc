@@ -19,6 +19,12 @@ elseif filereadable(expand("$VIM/_vimrc.local"))
 endif
 "" } end includes
 
+"" FUNCTIONS {
+function! SyntaxItem()
+  return synIDattr(synID(line("."),col("."),1),"name")
+endfunction
+"" } end functions
+
 "" BASIC OPTIONS {
 set sw=4             " auto indent size
 set ts=4             " tab size
@@ -42,9 +48,6 @@ set bs=2             " so that backspace works in Windows:
 
 " my settings
 " Set the status line the way I like it
-function! SyntaxItem()
-  return synIDattr(synID(line("."),col("."),1),"name")
-endfunction
 set stl=%f\ %m[%{&fileformat}]\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c[hi:%{SyntaxItem()}]\ Buf:\ #%n\ [%b][0x%B]
 "" } end basic
 
@@ -83,70 +86,71 @@ en
 " right exist of insert mode:
 ino <silent> <S-esc> <esc>l
 "" }
+let mapleader=";"
 " Buffer switch and kill {
 " Create a new tab
-nn <silent> ;nt :newtab 
+nn <silent> <leader>nt :newtab
 " Go to previous buffer
-nn <silent> ;j :bprevious<cr>
-nn <silent> ;tj :tabp<cr>
+nn <silent> <leader>j :bprevious<cr>
+nn <silent> <leader>tj :tabp<cr>
 " Go to next buffer
-nn <silent> ;k :bnext<cr>
-nn <silent> ;tk :tabN<cr>
+nn <silent> <leader>k :bnext<cr>
+nn <silent> <leader>tk :tabN<cr>
 " Delete current buffer
-nn <silent> ;dc :bdelete<cr>
-nn <silent> ;dc! :bdelete!<cr>
+nn <silent> <leader>dc :bdelete<cr>
+nn <silent> <leader>dc! :bdelete!<cr>
 " }
 " Window motion {
 " Create a vertical split
-nn <silent> ;wv :vs<cr>
+nn <silent> <leader>wv :vs<cr>
 " Close current window
-nn <silent> ;wc :clo<cr>
+nn <silent> <leader>wc :clo<cr>
 " Move the cursor to the window left of the current one
-no <silent> ;wh :wincmd h<cr>
+no <silent> <leader>wh :wincmd h<cr>
 " Move the cursor to the window below the current one
-no <silent> ;wj :wincmd j<cr>
+no <silent> <leader>wj :wincmd j<cr>
 " Move the cursor to the window above the current one
-no <silent> ;wk :wincmd k<cr>
+no <silent> <leader>wk :wincmd k<cr>
 " Move the cursor to the window right of the current one
-no <silent> ;wl :wincmd l<cr>
+no <silent> <leader>wl :wincmd l<cr>
 " } window motion
 " editing and sourcing {g}vimrc {
 " edit .vimrc
-nn <silent> ;ev :e $MYVIMRC<cr>
-nn <silent> ;gev :e $MYGVIMRC<cr>
+nn <silent> <leader>ev :e $MYVIMRC<cr>
+nn <silent> <leader>gev :e $MYGVIMRC<cr>
 " source .vimrc
-nn <silent> ;sv :so $MYVIMRC<cr>
-nn <silent> ;gsv :so $MYGVIMRC<cr>
+nn <silent> <leader>sv :so $MYVIMRC<cr>:filetype detect<cr>
+nn <silent> <leader>gsv :so $MYGVIMRC<cr>:filetype detect<cr>
 " } source {g}vimrc
 " Save and Exit {
 " Make me!!
-nn <silent> ;mm :!make<cr>
+nn <silent> <leader>mm :!make<cr>
 " run last command
-nn <silent> ;rr :!<Up><cr>
+nn <silent> <leader>rr :!<Up><cr>
 " write
-nn <silent> ;vw :w<cr>
-nn <silent> ;vwa :wa<cr>
+nn <silent> <leader>vw :w<cr>
+nn <silent> <leader>vwa :wa<cr>
 " equivalent to ZZ:
-nn <silent> ;vwq :wq<cr>
-"nnoremap <silent> ;vw! :w!<cr>
+nn <silent> <leader>vwq :wq<cr>
+"nnoremap <silent> <leader>vw! :w!<cr>
 " quite
-nn <silent> ;vq :q<cr>
-nn <silent> ;vqa :qa<cr>
-nn <silent> ;vq! :q!<cr>
+nn <silent> <leader>vq :q<cr>
+nn <silent> <leader>vqa :qa<cr>
+nn <silent> <leader>vq! :q!<cr>
 " }
 " Miscellaneous {
 " toggle paste mode
-nn ;sp :set paste!<cr>:set paste?<cr>
+nn <leader>sp :set paste!<cr>:set paste?<cr>
 " toggle highlighted search
-nn ;sh :set invhls<cr>:set hls?<cr>
+nn <leader>sh :set invhls<cr>:set hls?<cr>
 " toggle textwrap
-nn ;sw :set wrap!<cr>:set wrap?<cr>
+nn <leader>sw :set wrap!<cr>:set wrap?<cr>
 " retable entire file
-nn ;rt :1,$retab<cr>
+nn <leader>rt :1,$retab<cr>
 " cd to directory of current buffer
-nn ;cd :lcd %:p:h<cr>
+nn <leader>cd :lcd %:p:h<cr>
 " display current directory
-nn ;pwd :pwd<cr>
+nn <leader>pwd :pwd<cr>
 " } end misc
 "" } end keymaps
 
@@ -157,48 +161,48 @@ if exists("syntax_on")
 	syntax reset
 endif
 set background=dark
-"set t_Co=256
 let g:solarized_termtrans  = 1
 "let g:solarized_visibility = 1
 colorscheme solarized
 
 " The main changes I make to the colours is make Function a tad brighter so
-" it's more readable. Also, I prefer darkcyan for my comments. I don't
+" it's more readable. Also, I prefer DarkCyan for my comments. I don't
 " like comments to be "louder" than the actual code.
-" This is a hack of the clour section in
+" This is a hack of the colour section in
 " /usr/share/vim/syntax/syntax.vim
 
-hi Error ctermbg=Red ctermfg=White guibg=Red guifg=White cterm=reverse term=reverse
-hi Todo ctermbg=Red ctermfg=Black guifg=Blue guibg=Yellow cterm=standout,bold term=standout
-"hi Folded ctermbg=Yellow guibg=OrangeRed cterm=reverse
-hi Normal cterm=none term=none
-hi Function cterm=none term=none
-hi Type cterm=none term=none
-hi Statement cterm=bold term=none
+hi Folded       cterm=bold,reverse
+hi Function     cterm=none             term=none
+hi Normal       cterm=none             term=none
+hi SpellBad     ctermfg=red            ctermbg=White         cterm=reverse
+hi Statement    cterm=bold             term=none             gui=none
+hi Todo         cterm=standout,bold    term=standout
+hi Type         cterm=bold             term=none
+
+hi Error   ctermbg=Red ctermfg=White guibg=Red guifg=White cterm=reverse term=reverse
 
 if &background == "dark"
   " dark colors {
-  hi Normal         ctermfg=White         guifg=White
-  "hi Normal        cterm=none            term=none
-  hi Comment        ctermfg=Cyan          guifg=Yellow      cterm=none         term=none
-  "hi Constant       ctermfg=Magenta       guifg=Magenta     cterm=none         term=underline
-  "hi String        ctermfg=Magenta       guifg=Magenta     cterm=underline    term=underline
-  "hi Function      ctermfg=LightGreen    guifg=LightRed    term=bold
-  hi Function       ctermfg=Yellow
-  "hi Identifier    ctermfg=Cyan          guifg=#40ffff     cterm=bold         term=underline
-  "hi Ignore        ctermfg=black
-  "hi Operator       ctermfg=LightRed      guifg=Red
-  "hi PreProc       ctermfg=LightRed      guifg=#ff80ff     cterm=bold
-  "hi Repeat        ctermfg=White         guifg=LightRed    term=underline
-  "hi Special       ctermfg=Red           guifg=LightRed    term=bold
-  "hi Statement     ctermfg=White         cterm=bold        term=bold
-  "hi Statement      ctermfg=Green         cterm=bold        term=bold
-  "hi Type          ctermfg=LightGreen    guifg=#60ff60     gui=bold           cterm=bold        term=underline
-  "hi Type           gui=bold              cterm=none        term=underline
-  "hi Type          ctermfg=White         cterm=bold
-  "hi Folded        ctermfg=White         guifg=Black
-  hi Tab            ctermbg=LightBlue     guibg=grey30
-  hi LeadSpace      ctermbg=DarkGray      guibg=grey15
+  hi Normal       ctermfg=White       guifg=White
+  hi Comment      ctermfg=DarkBlue    guifg=Yellow      cterm=none      term=none
+  "hi Constant    ctermfg=Magenta     guifg=Magenta     cterm=none      term=underline
+  hi String       ctermfg=Magenta     guifg=Magenta
+  "hi Function    ctermfg=LightGreen  guifg=LightRed    term=bold
+  hi Function     ctermfg=LightGreen
+  "hi Identifier  ctermfg=Cyan        guifg=#40ffff     cterm=bold      term=underline
+  "hi Ignore      ctermfg=black
+  "hi Operator    ctermfg=LightRed    guifg=Red
+  "hi PreProc     ctermfg=LightRed    guifg=#ff80ff     cterm=bold
+  "hi Repeat      ctermfg=White       guifg=LightRed    term=underline
+  "hi Special     ctermfg=Red         guifg=LightRed    term=bold
+  "hi Statement   ctermfg=White       cterm=bold        term=bold
+  hi Statement    ctermfg=DarkGreen
+  "hi Type        ctermfg=White       cterm=bold
+  hi Folded       ctermbg=LightGreen  ctermfg=DarkGray  guifg=Black
+  hi Tab          ctermbg=DarkBlue    guibg=grey30
+  hi Todo         ctermbg=Red         ctermfg=Black     guifg=Blue      guibg=Yellow
+  hi LeadSpace    ctermbg=Black       guibg=grey15
+  hi link Space LeadSpace
   " }
 else
   " bright colors {
@@ -215,12 +219,13 @@ else
   hi LeadSpace guibg=grey15 ctermbg=LightGrey
   " }
 endif
-hi TrailSpace guibg=Red ctermbg=Red     
+hi TrailSpace ctermbg=Red guibg=Red     
 
 fu! AddMyMatches()
-  let w:m1 = matchadd("LeadSpace", '^\zs \+\ze[^ ]') |
-  let w:m2 = matchadd("TrailSpace", ' \+$') |
-  let w:m3 = matchadd("Tab", '\t')
+  let w:m1 = matchadd("Space"      , '\zs \+\ze[^ ]') |
+  let w:m2 = matchadd("LeadSpace"  , '^\zs \+\ze[^ ]') |
+  let w:m3 = matchadd("TrailSpace" , ' \+$') |
+  let w:m4 = matchadd("Tab"        , '\t')
 endf
 call AddMyMatches()
 
@@ -242,12 +247,12 @@ call AddMyMatches()
 "hi link StorageClass Type
 "hi link Structure Type
 "hi link Typedef Type
-"hi link Tag Special
-"hi link SpecialChar Special
-"hi link Delimiter Special
-"hi link SpecialComment Special
-"hi link Debug Special
-"hi link FoldColumn Folded
+hi link Debug Special
+hi link Delimiter Special
+hi link FoldColumn Folded
+hi link SpecialChar Special
+hi link SpecialComment Special
+hi link Tag Special
 
 "" } end color
 
