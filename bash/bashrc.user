@@ -156,9 +156,8 @@ alias mv='mv -i'
 alias rm='rm -I'
 alias svi='sudo vi'
 alias sshfs='sshfs -o follow_symlinks -o allow_root'
-
+alias tmux='env TERM=screen-256color-bce tmux -2'
 alias pdiff='diff -Naur'
-
 alias rsync='rsync -e ssh'
 
 # lpr:
@@ -229,6 +228,11 @@ fi
 ### }}}
 
 ## useful functions {{{
+# grep history
+hgrep() {
+	history | grep $*
+}
+
 # use server/client mode for gvim
 g() {
 	if [ "x$1" = "x" ]
@@ -319,7 +323,8 @@ man() {
 
 # python helper
 pyhelp() {
-	pkg=${1}
+	pkg=${1//\//.}
+	pkg=${pkg%%.}
 	while [ -n "${pkg}" ]; do
 		python -c "import ${pkg} as x; help(x)" && return
 		if [ "x${pkg}" = "x${pkg%.*}" ]; then
@@ -351,4 +356,4 @@ do
 	unset $v
 done
 ### }}}
-## vim: foldmethod=marker ft=sh noet nosta ts=2 sw=2
+## vim: foldmethod=marker ft=sh noet sta ts=2 sw=2
