@@ -26,25 +26,32 @@ endfunction
 "" } end functions
 
 "" BASIC OPTIONS {
-set sw=4             " auto indent size
-set ts=4             " tab size
-set noet             " use space for tab
-set nosta            " use sw for front tab, ts else
-set sm               " show matching bracket
-set ffs=unix,dos     " refers unix format
+set shiftwidth=4       " number of spaces to use for autoindenting
+set shiftround         " use multiple of shiftwidth when indenting with '<' and '>'
+set tabstop=4          " tab size
+set noexpandtab        " use space for tab
+set smarttab           " use sw for front tab, ts else
+set showmatch          " show matching bracket
+set ffs=unix,dos       " refers unix format
 
-set nolz             " (lazyredraw) Don't update the display while executing macro
-set showmode         " Show which mode you are in
-set modeline         " Use modeline to customize setting
-set wildmenu         " Enalbed enhanced command-line completion
-set mousehide        " hide mouse cursor while typing
-set shellslash       " (for windows) use \ for shell
-set laststatus=2     " always put a status line in, even if there is only one window
-set diffopt+=iwhite  " ignore white space
-if exists("&cot")    " (version >= 7.2)
+set nolz               " (lazyredraw) Don't update the display while executing macro
+set showmode           " Show which mode you are in
+set modeline           " Use modeline to customize setting
+set wildmenu           " Enalbed enhanced command-line completion
+set mousehide          " hide mouse cursor while typing
+set shellslash         " (for windows) use \ for shell
+set laststatus=2       " always put a status line in, even if there is only one window
+set diffopt+=iwhite    " ignore white space
+if exists("&cot")      " (version >= 7.2)
   set cot=longest,menu " complete option
 en
-set bs=2             " so that backspace works in Windows:
+
+set backspace=indent,eol,start " so that backspace works in Windows:
+set nobackup
+set noswapfile
+
+set list
+set listchars=eol:$,tab:>.,trail:.,extends:#,nbsp:.
 
 " my settings
 " Set the status line the way I like it
@@ -143,6 +150,8 @@ nn <silent> <leader>vq! :q!<cr>
 nn <leader>sp :set paste!<cr>:set paste?<cr>
 " toggle highlighted search
 nn <leader>sh :set invhls<cr>:set hls?<cr>
+" toggle list
+nn <leader>sl :set list!<cr>:set list?<cr>
 " toggle textwrap
 nn <leader>sw :set wrap!<cr>:set wrap?<cr>
 " retable entire file
@@ -161,8 +170,10 @@ if exists("syntax_on")
 	syntax reset
 endif
 set background=dark
+set t_Co=256
 let g:solarized_termtrans  = 1
-"let g:solarized_visibility = 1
+let g:solarized_termcolors = 256
+let g:solarized_visibility = "high"
 colorscheme solarized
 
 " The main changes I make to the colours is make Function a tad brighter so
@@ -179,30 +190,30 @@ hi Statement    cterm=bold             term=none             gui=none
 hi Todo         cterm=standout,bold    term=standout
 hi Type         cterm=bold             term=none
 
-hi Error   ctermbg=Red ctermfg=White guibg=Red guifg=White cterm=reverse term=reverse
+hi Error   ctermbg=Red  ctermfg=White  guibg=Red guifg=White cterm=reverse term=reverse
 
 if &background == "dark"
   " dark colors {
-  hi Normal       ctermfg=White       guifg=White
-  hi Comment      ctermfg=DarkBlue    guifg=Yellow      cterm=none      term=none
+  hi Normal      ctermfg=LightGray   guifg=White
+  "hi Comment     ctermfg=DarkBlue    guifg=Yellow      cterm=none      term=none
   "hi Constant    ctermfg=Magenta     guifg=Magenta     cterm=none      term=underline
-  hi String       ctermfg=Magenta     guifg=Magenta
+  hi String      ctermfg=LightMagenta     guifg=Magenta
   "hi Function    ctermfg=LightGreen  guifg=LightRed    term=bold
-  hi Function     ctermfg=LightGreen
+  hi Function    ctermfg=LightGreen
   "hi Identifier  ctermfg=Cyan        guifg=#40ffff     cterm=bold      term=underline
   "hi Ignore      ctermfg=black
   "hi Operator    ctermfg=LightRed    guifg=Red
-  "hi PreProc     ctermfg=LightRed    guifg=#ff80ff     cterm=bold
+  "hi PreProc     ctermfg=Red         guifg=#ff80ff
   "hi Repeat      ctermfg=White       guifg=LightRed    term=underline
   "hi Special     ctermfg=Red         guifg=LightRed    term=bold
-  "hi Statement   ctermfg=White       cterm=bold        term=bold
-  hi Statement    ctermfg=DarkGreen
+  "hi Statement   ctermfg=Green
   "hi Type        ctermfg=White       cterm=bold
-  hi Folded       ctermbg=LightGreen  ctermfg=DarkGray  guifg=Black
-  hi Tab          ctermbg=DarkBlue    guibg=grey30
-  hi Todo         ctermbg=Red         ctermfg=Black     guifg=Blue      guibg=Yellow
-  hi LeadSpace    ctermbg=Black       guibg=grey15
+  "hi Folded      ctermbg=LightGreen  ctermfg=DarkGray  guifg=Black
+  "hi Todo        ctermbg=Red         ctermfg=Black     guifg=Blue      guibg=Yellow
+  hi Tab         ctermbg=DarkBlue    guibg=grey30
+  hi LeadSpace   ctermbg=Black       guibg=grey15
   hi link Space LeadSpace
+  hi VertSplit   ctermbg=Yellow
   " }
 else
   " bright colors {

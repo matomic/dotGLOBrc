@@ -326,7 +326,9 @@ pyhelp() {
 	pkg=${1//\//.}
 	pkg=${pkg%%.}
 	while [ -n "${pkg}" ]; do
-		python -c "import ${pkg} as x; help(x)" && return
+		python -c "import ${pkg} as x; help(x)" \
+			|| python -c "from ${pkg%.*} import ${pkg##*.} as x; help(x)" \
+			&& return
 		if [ "x${pkg}" = "x${pkg%.*}" ]; then
 		  return 1
 		else
