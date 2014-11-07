@@ -102,28 +102,6 @@ if [[ $- != *i* ]] ; then
 fi
 ## }}}
 
-## Enable ssh-agent and gpg-agent {{{
-keychainbin=$(which keychain 2> /dev/null)
-gpgagentbin=$(which gpg-agent 2> /dev/null)
-if [ "x${keychainbin}" != "x" ]; then
-	if [ "x${gpgagentbin}" != "x" ]; then
-		eval `keychain --agents gpg --eval --quiet`;
-	fi
-	identities=''
-	for id in id_dsa id_rsa id_ecdsa; do
-		if [ -f "${HOME}/.ssh/${id}" ]; then
-			identities="${identities} ${id}"
-		fi
-	done
-	if [ "x${identities}" != "x" ]; then
-		eval `keychain --agents ssh --eval --quiet ${identities}`;
-		alias ssh="eval `${keychainbin} --quiet --eval --agents ssh ${identities}` /usr/bin/ssh"
-	fi
-fi
-#GPG_TTY=$(tty)
-#export GPG_TTY
-## }}}
-
 ## Colorful settings {{{
 usecolor
 
@@ -350,6 +328,28 @@ pyenv_activate() {
 		printf "$VEPATH is not a valid path.\n" && return 1
 	fi
 }
+## }}}
+
+## Enable ssh-agent and gpg-agent {{{
+keychainbin=$(which keychain 2> /dev/null)
+gpgagentbin=$(which gpg-agent 2> /dev/null)
+if [ "x${keychainbin}" != "x" ]; then
+	if [ "x${gpgagentbin}" != "x" ]; then
+		eval `keychain --agents gpg --eval --quiet`;
+	fi
+	identities=''
+	for id in id_dsa id_rsa id_ecdsa; do
+		if [ -f "${HOME}/.ssh/${id}" ]; then
+			identities="${identities} ${id}"
+		fi
+	done
+	if [ "x${identities}" != "x" ]; then
+		eval `keychain --agents ssh --eval --quiet ${identities}`;
+		alias ssh="eval `${keychainbin} --quiet --eval --agents ssh ${identities}` /usr/bin/ssh"
+	fi
+fi
+#GPG_TTY=$(tty)
+#export GPG_TTY
 ## }}}
 
 ### clean up {{{
