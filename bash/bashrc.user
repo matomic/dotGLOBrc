@@ -328,6 +328,21 @@ pyenv_activate() {
 		printf "$VEPATH is not a valid path.\n" && return 1
 	fi
 }
+
+run_n_times() {
+	local n=1;
+	if [ "x$1" == "x-n" ]
+	then
+		n=$2;
+		shift 2
+	fi
+
+	for x in `seq 1 $n`;
+	do
+		$*
+	done
+}
+
 ## }}}
 
 ## Enable ssh-agent and gpg-agent {{{
