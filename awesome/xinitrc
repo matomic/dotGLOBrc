@@ -1,0 +1,87 @@
+#!/bin/sh
+
+function check_and_run {
+if [ "x" == "x$*" ]; then
+	return
+fi
+if [ -x $1 ]; then
+	if [ -z "$(pgrep -fl $(basename $1))" ]; then
+		printf "Executing $*\n"
+		$* 2> ~/.xerror-logs &
+	else
+		printf "\"$*\" is already running\n"
+	fi
+else
+	printf "\"$1\" is not executable\n";
+fi
+}
+
+bindir=/usr/bin/
+bgdir=/usr/local/share/backgrounds
+
+printf "Loading ${PWD}${0}\n";
+
+DBUSLAUNCHER="/usr/bin/dbus-launcher"
+# Load your X Resource defaults, if you have them...
+
+#[ -f $HOME/.Xresources ] && xrdb -merge $HOME/.Xresources
+
+# autostart (once) some useful programs
+# it is very annoying that it's nontrivial to detect launch of certain program, e.g. scim start something else: scim-launcher. 
+sleep 1s && \
+  printf "
+#/usr/libexec/gnome-settings-daemon
+#/usr/bin/gnome-power-manager
+#/usr/bin/gnome-volume-control-applet
+/usr/bin/gnome-sound-applet
+#/usr/bin/nepomukserver
+#/usr/bin/kmix
+#/usr/bin/scim --daemon
+#/usr/bin/ibus-daemon -d -x
+/usr/bin/fcitx -d -x
+#/usr/bin/wicd-client
+/usr/bin/nm-applet
+#/usr/bin/cellwriter
+/usr/bin/conky -d
+/usr/bin/start-pulseaudio-x11" | while read f
+do
+	check_and_run $f
+#    cmd=${f%% *};
+#
+#    if [ -x ${cmd} ]; then
+#        if [ -z "$(pgrep -fl $(basename ${cmd}))" ]; then
+#            printf "Executing ${f}\n";
+#            ${f} 2> ~/.xerror-logs &
+#        else
+#            printf "${f} is already running\n";
+#        fi
+#    else
+#        printf "${cmd} is not executable\n";
+#    fi
+done
+
+eval $(/usr/bin/gnome-keyring-daemon -r -d)
+export GPG_AGENT_INFO GNOME_KEYRING_CONTROL GNOME_KEYRING_PID
+export SSH_AGENT_PID SSH_AUTH_SOCK
+
+# check whether another instance of this is already running:
+#for pid in $(pgrep -f ${HOME}/.xinitrc)
+#do
+#  if [ ${pid} -ne $$ ]
+#  then
+#    printf "Another instance of ${HOME}/.xinitrc running...killing\n"
+#    kill ${pid}
+#    break
+#  fi
+#done
+#
+#while true
+#do
+#  printf "Setting a random wallpaper from ${bgdir}\n"
+#  awsetbg -r ${bgdir} 2>> ~/.xerror-logs  #&& \
+#    sleep 15m
+#done &
+
+#xsetroot -cursor_name left_ptr &
+
+unset f bindir bfdir
