@@ -1,0 +1,145 @@
+## Screen-like key bindings
+# Set prefix key to Ctrl-a
+unbind-key C-b
+set-option -g prefix C-a 
+# send the prefix to client inside window
+#bind-key C-a send-prefix
+
+# toggle last window like screen
+bind-key C-a last-window
+
+# next and previous windows like screen
+unbind Space
+bind-key Space next-window
+unbind BSpace
+bind-key BSpace previous-window
+
+# open a man page in new window
+bind-key / command-prompt "split-window 'exec man %%'"
+
+# quick view of processes
+bind-key "~" split-window "exec htop"
+
+## Global settings
+
+# scrollback buffer n lines
+set -g history-limit 5000
+
+# listen for activity on all windows
+set -g bell-action any
+#set -g bell-action none
+
+# start window indexing at zero (default)
+set -g base-index 0
+
+# instructs tmux to expect UTF-8 sequences
+setw -g utf8 on
+#sest -g utf8 on
+
+# tell tmux to use 256 colour terminal
+set -g default-terminal "screen-256color"
+
+# xterm-style function key sequences
+setw -g xterm-keys on
+
+# control automatic window renaming
+setw -g automatic-rename on
+
+# enable wm window titles
+set -g set-titles on
+
+# wm window title string (uses statusbar variables)
+set -g set-titles-string "tmux.#I=#W"
+
+# Set status bar
+set -g status-bg green
+set -g status-fg white
+set -g status-left '#[fg=red]#H'
+set -g status-right '#[fg=black]#(uptime | cut -d "," -f 2-)'
+
+# Highlight active window
+set-window-option -g window-status-current-bg red
+
+# Automatically set window title
+setw -g automatic-rename on
+
+# don't close windows. just deactivate them. use respawn-window to reactivate.
+#setw -g remain-on-exit on
+
+## Key binding
+bind-key R source-file ~/.tmux.conf \; \
+		display-message "source-file ~/.tmux.conf done"
+
+# detach client
+bind-key d detach
+bind-key C-d detach
+
+# choose a client to detach
+bind-key D choose-client
+
+# choose window/session
+bind-key "'" choose-window
+bind-key '"' choose-session
+
+# display visible indicator of each pane
+bind-key w display-panes
+
+## VIM-like keybinding:
+# split windows like vim
+# vim's definition of a horizontal/vertical split is reversed from tmux's
+bind s split-window -v
+bind v split-window -h
+
+# move around panes with hjkl, as one would in vim after pressing ctrl-w
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# resize panes like vim
+# feel free to change the "1" to however many lines you want to resize by, only
+# one at a time can be slow
+bind < resize-pane -L 5
+bind > resize-pane -R 5
+bind - resize-pane -D 5
+bind + resize-pane -U 5
+
+# Cycle to next pane
+bind-key -r Tab select-pane -t :.+
+
+# kill current pane/window
+bind-key q confirm-before kill-pane
+bind-key Q confirm-before kill-window
+#bind-key C-q confirm-before kill-pane
+#bind-key x kill-pane
+#bind-key X kill-window
+
+# window layouts (emacs-like)
+#bind-key 1 break-pane
+#bind-key 2 select-layout even-vertical
+#bind-key 3 select-layout even-horizontal
+#bind-key o select-pane -U
+
+# specific window layouts
+#bind -r y next-layout
+#bind o select-layout "active-only"
+#bind O select-layout "main-vertical"
+
+# copying and pasting
+bind-key [ copy-mode
+bind-key ] paste-buffer -s \015
+
+# vi-style controls for copy mode
+setw -g mode-keys vi
+
+# enable mouse selection in copy mode
+#setw -g mode-mouse on
+
+# list all paste buffers (default key is '#')
+bind-key b list-buffers
+
+# choose buffer to paste interactively (default key was '=')
+bind-key p choose-buffer
+
+# delete the most recently copied buffer of text (default key was '-')
+bind-key x delete-buffer
