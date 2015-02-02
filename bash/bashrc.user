@@ -137,6 +137,7 @@ alias sshfs='sshfs -o follow_symlinks -o allow_root'
 alias tmux='env TERM=screen-256color-bce tmux -2'
 alias pdiff='diff -Naur'
 alias rsync='rsync -e ssh'
+alias fuck='sudo $(history -p \!\!)'
 
 # lpr:
 alias lpr_n2='lpr -o number-up=2'
@@ -367,7 +368,7 @@ init_keychain() {
 }
 #GPG_TTY=$(tty)
 #export GPG_TTY
-init_keychain --stop others
+init_keychain --stop all
 ## }}}
 
 ### clean up {{{
