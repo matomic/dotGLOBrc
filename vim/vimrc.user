@@ -330,9 +330,14 @@ au FileType xml,cpp,cuda setlocal fdm=syntax
 let javaScript_fold=1
 " }
 
+" coffeescript {
+au BufNewFile,BufReadPost *.coffee setl foldmethod=indent
+" }
+
 " text-like filetypes {
 au FileType gitcommit setlocal tw=100 spell lbr wrap
 " }
+
 "" } end au
 
 """ BUNDLES {
