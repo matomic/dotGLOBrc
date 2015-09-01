@@ -1,0 +1,28 @@
+; customizations
+[alias]
+	alias = config --get-regexp '^alias\\.'
+	amend= commit --amend
+	br = branch
+	ci = commit
+	co = checkout
+	cp = cherry-pick
+	ff = flow feature
+	hist = log --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s%x20%C(yellow)%x20%aN%x3A%x3A%ad%Creset" --graph --date=short
+	mm = merge master
+	rup = remote update -p
+	unstage = reset HEAD
+; environment
+[core]
+	symlinks = false
+	autocrlf = input
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = true
+[merge]
+	tool = vimdiff
+[init]
+	templatedir = ~/.gittemplates/
+[push]
+	default = simple
