@@ -42,6 +42,7 @@ set mousehide          " hide mouse cursor while typing
 set shellslash         " (for windows) use \ for shell
 set laststatus=2       " always put a status line in, even if there is only one window
 set diffopt+=iwhite    " ignore white space
+set diffopt+=vertical  " ignore white space
 if exists("&cot")      " (version >= 7.2)
   set cot=longest,menu " complete option
 en
