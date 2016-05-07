@@ -6,24 +6,39 @@ call add(g:pathogen_disabled, 'vim-snipmate')
 call pathogen#infect('bundle/{}')
 "call pathogen#helptags() "call this when installing new plugins
 "call pathogen#infect()
-filetype plugin indent on
+
+""" BUNDLES {
+"virtualenv
+let g:virtualenv_directory = '~/.virtualenv'
+
+"syntastic
+let g:syntastic_mode_map = { 'mode': 'active',
+      \ 'active_filetypes': [],
+      \ 'passive_filetypes': [] }
+
+"snipmate
+""" } end bundle
+
 """ } end pathogen
 
 "" INCLUDES {
 if filereadable(expand("$HOME/.vimrc.local"))
   so $HOME/.vimrc.local
+elseif filereadable(expand("$HOME/.vim/vimrc.local"))
+  so $VIM/_vimrc.local
 elseif filereadable(expand("$HOME/_vimrc.local"))
   so $HOME/_vimrc.local
 elseif filereadable(expand("$VIM/_vimrc.local"))
   so $VIM/_vimrc.local
+else
+  filetype plugin indent on
 endif
 "" } end includes
 
-"" FUNCTIONS {
-function! SyntaxItem()
-  return synIDattr(synID(line("."),col("."),1),"name")
-endfunction
-"" } end functions
+so $HOME/.vim/funcdef.vim
+so $HOME/.vim/keymaps.vim
+so $HOME/.vim/colors.vim
+so $HOME/.vim/autocmd.vim
 
 "" BASIC OPTIONS {
 set shiftwidth=4       " number of spaces to use for autoindenting
@@ -41,8 +56,8 @@ set wildmenu           " Enalbed enhanced command-line completion
 set mousehide          " hide mouse cursor while typing
 set shellslash         " (for windows) use \ for shell
 set laststatus=2       " always put a status line in, even if there is only one window
-set diffopt+=iwhite    " ignore white space
-set diffopt+=vertical  " ignore white space
+"set diffopt+=iwhite    " ignore white space
+set diffopt+=vertical  " not sure why this is not the default.
 if exists("&cot")      " (version >= 7.2)
   set cot=longest,menu " complete option
 en
@@ -58,299 +73,5 @@ set listchars=eol:$,tab:>.,trail:.,extends:#,nbsp:.
 " Set the status line the way I like it
 set stl=%f\ %m[%{&fileformat}]\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c[hi:%{SyntaxItem()}]\ Buf:\ #%n\ [%b][0x%B]
 "" } end basic
-
-"" KEYMAPS {
-" Insert/Command mode motions {
-" : These mapping remove the urge to use the page up/down, home, etc for movement
-" : remap alt-* combo to actual key in terminal mode
-" : In terminal mode, <M-x> defaults to <esc>+x, which exits insert mode.
-set timeout timeoutlen=1000 ttimeoutlen=100
-if !has("gui_running")
-  if &term == "xterm"
-    set <M-0>=0
-    set <M-b>=b
-    set <M-d>=d
-    set <M-$>=$
-    set <M-f>=f
-    set <M-h>=h
-    set <M-j>=j
-    set <M-k>=k
-    set <M-l>=l
-  en
-en
-" use Meta-j/k is mapped to <Up>/<Down> can be used for pum
-if has("gui_running") || &term == "xterm"
-  no! <M-0> <Home>
-  no! <M-b> <PageUp>
-  no! <M-d> <Del>
-  no! <M-$> <End>
-  no! <M-f> <PageDown>
-  no! <M-h> <Left>
-  no! <M-j> <Down>
-  no! <M-k> <Up>
-  no! <M-l> <Right>
-en
-
-" right exist of insert mode:
-ino <silent> <S-esc> <esc>l
-"" }
-let mapleader=";"
-" Buffer switch and kill {
-" Create a new tab
-nn <silent> <leader>nt :newtab
-" Go to previous buffer
-nn <silent> <leader>j :bprevious<cr>
-nn <silent> <leader>tj :tabp<cr>
-" Go to next buffer
-nn <silent> <leader>k :bnext<cr>
-nn <silent> <leader>tk :tabN<cr>
-" Delete current buffer
-nn <silent> <leader>dc :bdelete<cr>
-nn <silent> <leader>dc! :bdelete!<cr>
-" }
-" Window motion {
-" Create a vertical split
-nn <silent> <leader>wv :vs<cr>
-" Close current window
-nn <silent> <leader>wc :clo<cr>
-" Move the cursor to the window left of the current one
-no <silent> <leader>wh :wincmd h<cr>
-" Move the cursor to the window below the current one
-no <silent> <leader>wj :wincmd j<cr>
-" Move the cursor to the window above the current one
-no <silent> <leader>wk :wincmd k<cr>
-" Move the cursor to the window right of the current one
-no <silent> <leader>wl :wincmd l<cr>
-" } window motion
-" editing and sourcing {g}vimrc {
-" edit .vimrc
-nn <silent> <leader>ev :e $MYVIMRC<cr>
-nn <silent> <leader>gev :e $MYGVIMRC<cr>
-" source .vimrc
-nn <silent> <leader>sv :so $MYVIMRC<cr>:filetype detect<cr>
-nn <silent> <leader>gsv :so $MYGVIMRC<cr>:filetype detect<cr>
-" } source {g}vimrc
-" Save and Exit {
-" Make me!!
-nn <silent> <leader>mm :!make<cr>
-" run last command
-nn <silent> <leader>rr :!<Up><cr>
-" write
-nn <silent> <leader>vw :w<cr>
-nn <silent> <leader>vwa :wa<cr>
-" equivalent to ZZ:
-nn <silent> <leader>vwq :wq<cr>
-"nnoremap <silent> <leader>vw! :w!<cr>
-" quite
-nn <silent> <leader>vq :q<cr>
-nn <silent> <leader>vqa :qa<cr>
-nn <silent> <leader>vq! :q!<cr>
-" }
-" Miscellaneous {
-" toggle paste mode
-nn <leader>sp :set paste!<cr>:set paste?<cr>
-" toggle highlighted search
-nn <leader>sh :set invhls<cr>:set hls?<cr>
-" toggle list
-nn <leader>sl :set list!<cr>:set list?<cr>
-" toggle textwrap
-nn <leader>sw :set wrap!<cr>:set wrap?<cr>
-" retable entire file
-nn <leader>rt :1,$retab<cr>
-" cd to directory of current buffer
-nn <leader>cd :lcd %:p:h<cr>
-" display current directory
-nn <leader>pwd :pwd<cr>
-" } end misc
-"" } end keymaps
-
-"" COLOR SETTINGS {
-"colo desert
-" black background
-if exists("syntax_on")
-	syntax reset
-endif
-set background=dark
-set t_Co=256
-let g:solarized_termtrans  = 1
-let g:solarized_termcolors = 256
-let g:solarized_visibility = "high"
-colorscheme solarized
-
-" The main changes I make to the colours is make Function a tad brighter so
-" it's more readable. Also, I prefer DarkCyan for my comments. I don't
-" like comments to be "louder" than the actual code.
-" This is a hack of the colour section in
-" /usr/share/vim/syntax/syntax.vim
-
-hi Folded       cterm=bold,reverse
-hi Function     cterm=none             term=none
-hi Normal       cterm=none             term=none
-hi SpellBad     ctermfg=red            ctermbg=White         cterm=reverse
-hi Statement    cterm=bold             term=none             gui=none
-hi Todo         cterm=standout,bold    term=standout
-hi Type         cterm=bold             term=none
-
-hi Error   ctermbg=Red  ctermfg=White  guibg=Red guifg=White cterm=reverse term=reverse
-
-if &background == "dark"
-  " dark colors {
-  hi Normal      ctermfg=LightGray   guifg=White
-  "hi Comment     ctermfg=DarkBlue    guifg=Yellow      cterm=none      term=none
-  "hi Constant    ctermfg=Magenta     guifg=Magenta     cterm=none      term=underline
-  hi String      ctermfg=LightMagenta     guifg=Magenta
-  "hi Function    ctermfg=LightGreen  guifg=LightRed    term=bold
-  hi Function    ctermfg=LightGreen
-  "hi Identifier  ctermfg=Cyan        guifg=#40ffff     cterm=bold      term=underline
-  "hi Ignore      ctermfg=black
-  "hi Operator    ctermfg=LightRed    guifg=Red
-  "hi PreProc     ctermfg=Red         guifg=#ff80ff
-  "hi Repeat      ctermfg=White       guifg=LightRed    term=underline
-  "hi Special     ctermfg=Red         guifg=LightRed    term=bold
-  "hi Statement   ctermfg=Green
-  "hi Type        ctermfg=White       cterm=bold
-  "hi Folded      ctermbg=LightGreen  ctermfg=DarkGray  guifg=Black
-  "hi Todo        ctermbg=Red         ctermfg=Black     guifg=Blue      guibg=Yellow
-  hi Tab         ctermbg=DarkBlue    guibg=grey30
-  hi LeadSpace   ctermbg=Black       guibg=grey15
-  hi link Space LeadSpace
-  hi VertSplit   ctermbg=Yellow
-  " }
-else
-  " bright colors {
-  " hi Comment term=bold ctermfg=DarkBlue guifg=Blue
-  " hi Constant term=underline ctermfg=DarkRed guifg=Magenta
-  " hi Identifier term=underline ctermfg=DarkCyan guifg=DarkCyan
-  " hi Ignore ctermfg=white guifg=bg
-  " hi PreProc term=underline ctermfg=DarkMagenta guifg=Purple
-  " hi Special term=bold ctermfg=DarkMagenta guifg=SlateBlue
-  " hi Statement term=bold ctermfg=Brown guifg=Brown gui=bold
-  " hi Type term=underline ctermfg=DarkGreen guifg=SeaGreen gui=bold
-  " hi Folded ctermfg=White guifg=White
-  hi Tab guibg=grey30 ctermbg=LightBlue
-  hi LeadSpace guibg=grey15 ctermbg=LightGrey
-  " }
-endif
-hi TrailSpace ctermbg=Red guibg=Red     
-
-fu! AddMyMatches()
-  let w:m1 = matchadd("Space"      , '\zs \+\ze[^ ]') |
-  let w:m2 = matchadd("LeadSpace"  , '^\zs \+\ze[^ ]') |
-  let w:m3 = matchadd("TrailSpace" , ' \+$') |
-  let w:m4 = matchadd("Tab"        , '\t')
-endf
-call AddMyMatches()
-
-" Common groups that link to default highlighting.
-" You can specify other highlighting easily.
-"hi link String Constant
-"hi link Character Constant
-"hi link Number Constant
-"hi link Boolean Constant
-"hi link Float Number
-"hi link Conditional Statement
-"hi link Label Statement
-"hi link Keyword Statement
-"hi link Exception Statement
-"hi link Include PreProc
-"hi link Define PreProc
-"hi link Macro PreProc
-"hi link PreCondit PreProc
-"hi link StorageClass Type
-"hi link Structure Type
-"hi link Typedef Type
-hi link Debug Special
-hi link Delimiter Special
-hi link FoldColumn Folded
-hi link SpecialChar Special
-hi link SpecialComment Special
-hi link Tag Special
-
-"" } end color
-
-""  AUTOCOMMANDS {
-"if has("autocmd")
-"  " Enable file type detection, plugins, and indentation rules.
-"  filetype plugin indent on
-"
-"  " reStructuredText (Python doctest) indent.
-"  autocmd FileType rst setlocal sw=4 sts=4 et tw=72
-"  " When editing a file, always jump to the last known cursor position.
-"  autocmd BufReadPost *
-"        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-"        \       execute "normal g`\"" |
-"        \ endif
-"endif
-au VimEnter * au WinEnter * call AddMyMatches()
-
-" GNUPLOT: identify by header {
-au BufRead *.gp[ih]\=
-      \  if getline(1) =~ '^#!.*\/gnuplot$' |
-      \    set ft=gnuplot |
-      \ endif
-" }
-
-" Customize treatment for TeX {
-" : virtual wrap except for comment
-" : swap between screen line file line motion
-" : turn on spell checking
-au FileType tex,plaintex setlocal tw=0 spell lbr wrap fo=cl sw=2 ts=2 |
-      \nnoremap <buffer> gj j|
-      \nnoremap <buffer> j gj|
-      \nnoremap <buffer> gk k|
-      \nnoremap <buffer> k gk
-au FileType bib setlocal ts=2 sw=2 noet spell lbr
-" }
-
-" Python {
-" : not extent tab, shiftwidth=tabstop=4
-au FileType python,pyrex setlocal ts=4 sw=4 sts=4 sta fdm=indent |
-			\ setlocal nosmartindent nocindent |
-			\ let python_highlight_all = 1
-" }
-
-" File types text width{
-"au FileType python,cpp setlocal tw=150
-" }
-
-" File types custom syntax settings {
-au FileType cuda syntax keyword cType hfloat dfloat
-" }
-
-" File types that prefer expanded tabs {
-au FileType sh,lisp,python,pyrex,cpp,cuda setlocal et
-
-" File types that prefer indentation amount 2
-au FileType vim,sh setlocal ts=4 sw=2 sts=2
-" }
-
-" File types folding issue {
-au FileType vim,lua,sh setlocal fdm=marker
-au FileType xml,cpp,cuda setlocal fdm=syntax
-
-let javaScript_fold=1
-" }
-
-" coffeescript {
-au BufNewFile,BufReadPost *.coffee setl foldmethod=indent
-" }
-
-" text-like filetypes {
-au FileType gitcommit setlocal tw=100 spell lbr wrap
-" }
-
-"" } end au
-
-""" BUNDLES {
-"virtualenv
-let g:virtualenv_directory = '~/.virtualenv'
-
-"syntastic
-let g:syntastic_mode_map = { 'mode': 'active',
-      \ 'active_filetypes': [],
-      \ 'passive_filetypes': [] }
-
-"snipmate
-""" } end bundle
 
 "" vim:fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker foldmarker={,} foldlevel=0

@@ -13,8 +13,14 @@ deploy_if_diff() {
 
 pushd $(dirname "$0")
 
-deploy_if_diff "bash/bashrc.user"      "${HOME}/.bashrc"
-deploy_if_diff "vim/vimrc.user"        "${HOME}/.vim/vimrc"
+mkdir -p ${HOME}/.vim
+
+deploy_if_diff "bash/bashrc.user" "${HOME}/.bashrc"
+deploy_if_diff "vim/vimrc.user"   "${HOME}/.vim/vimrc"
+deploy_if_diff "vim/vimrc.local"  "${HOME}/.vim/vimrc.local"
+rsync -av --delete vim/*.vim ${HOME}/.vim/
+[[ -f ${HOME}/.vimrc ]] || ln -s .vim/vimrc ${HOME}/.vimrc
+
 #deploy_if_diff "vim/gvimrc.user"       "${HOME}/.gvimrc"
 if [ -d "${HOME}/.config/fontconfig/" ]
 then
