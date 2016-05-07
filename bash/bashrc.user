@@ -25,7 +25,7 @@ function usecolor {
 	[[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
 	[[ -z ${match_lhs}    ]] \
 		&& type -P dircolors >/dev/null \
-		&& match_lhs=$(dircolors --print-database)
+		&& match_lhs=$(dircolors --print-database | grep TERM)
 	[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
 
 	if [[ $(uname) == "Darwin" ]] # OSX is not very nice...
@@ -105,8 +105,14 @@ fi
 ## Colorful settings {{{
 usecolor
 
+colorscheme_base16 () {
+	local f="${HOME}/.bashrc.d/modules/base16-shell/base16-$1.${2:-dark}.sh"
+	[[ -s $f ]] && source $f || echo "Unknown color scheme: $1"
+}
+
 if ${use_color}; then
 	loadANSIcolor
+	colorscheme_base16 brewer
 
 	if [ ! ${EUID} = "0" ]; then
 		PS1="\[$TXTBLD\]\[$FGCRED\]\h:\[$FGCPUR\]\W \[$FGCGRN\]\u\[$TXTRST\]\\$ "
@@ -156,6 +162,7 @@ init_keychain() {
 }
 #GPG_TTY=$(tty)
 #export GPG_TTY
+init_keychain 2> /dev/null
 init_keychain
 ## }}}
 
@@ -382,5 +389,6 @@ for v in use_color pkgbin keychainbin
 do
 	unset $v
 done
+#DISPLAY=:0.0 xset q > /dev/null && DISPLAY=:0.0 xmodmap ~/.Xmodmap || true
 ### }}}
 ## vim: foldmethod=marker ft=sh noet sta ts=2 sw=2
