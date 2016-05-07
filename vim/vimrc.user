@@ -25,7 +25,7 @@ let g:syntastic_mode_map = { 'mode': 'active',
 if filereadable(expand("$HOME/.vimrc.local"))
   so $HOME/.vimrc.local
 elseif filereadable(expand("$HOME/.vim/vimrc.local"))
-  so $VIM/_vimrc.local
+  so $HOME/.vim/vimrc.local
 elseif filereadable(expand("$HOME/_vimrc.local"))
   so $HOME/_vimrc.local
 elseif filereadable(expand("$VIM/_vimrc.local"))
