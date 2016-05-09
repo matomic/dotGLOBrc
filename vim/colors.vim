@@ -5,11 +5,13 @@ if exists("syntax_on")
 	syntax reset
 endif
 set background=dark
-set t_Co=256
+"set term=screen-256color
+"set t_Co=256
 let g:solarized_termtrans  = 1
 let g:solarized_termcolors = 256
 let g:solarized_visibility = "high"
-colorscheme solarized
+let base16colorspace = 256  " Access colors present in 256 colorspace
+colorscheme base16-colors
 
 " The main changes I make to the colours is make Function a tad brighter so
 " it's more readable. Also, I prefer DarkCyan for my comments. I don't
@@ -25,11 +27,12 @@ hi Statement    cterm=bold             term=none             gui=none
 hi Todo         cterm=standout,bold    term=standout
 hi Type         cterm=bold             term=none
 
-hi Error   ctermbg=Red  ctermfg=White  guibg=Red guifg=White cterm=reverse term=reverse
+hi Error        ctermbg=Red  ctermfg=White guibg=Red guifg=White cterm=reverse term=reverse
+hi Cursor       ctermbg=White
 
 if &background == "dark"
   " dark colors {
-  hi Normal      ctermfg=LightGray   guifg=White
+  hi Normal      ctermfg=White       guifg=White
   "hi Comment     ctermfg=DarkBlue    guifg=Yellow      cterm=none      term=none
   "hi Constant    ctermfg=Magenta     guifg=Magenta     cterm=none      term=underline
   hi String      ctermfg=LightMagenta     guifg=Magenta
@@ -46,7 +49,7 @@ if &background == "dark"
   "hi Folded      ctermbg=LightGreen  ctermfg=DarkGray  guifg=Black
   "hi Todo        ctermbg=Red         ctermfg=Black     guifg=Blue      guibg=Yellow
   hi Tab         ctermbg=DarkBlue    guibg=grey30
-  hi LeadSpace   ctermbg=Black       guibg=grey15
+  hi LeadSpace   ctermbg=235 ctermfg=21 guibg=grey15
   hi link Space LeadSpace
   hi VertSplit   ctermbg=Yellow
   " }
@@ -68,10 +71,10 @@ endif
 hi TrailSpace ctermbg=Red guibg=Red     
 
 fu! AddMyMatches()
-  let w:m1 = matchadd("Space"      , '\zs \+\ze[^ ]') |
-  let w:m2 = matchadd("LeadSpace"  , '^\zs \+\ze[^ ]') |
-  let w:m3 = matchadd("TrailSpace" , ' \+$') |
-  let w:m4 = matchadd("Tab"        , '\t')
+  let w:m1 = matchadd("Space",      '\zs \+\ze[^ ]') |
+  let w:m2 = matchadd("LeadSpace",  '^\zs \+\ze[^ ]') |
+  let w:m3 = matchadd("TrailSpace", ' \+$') |
+  let w:m4 = matchadd("Tab",        '\t')
 endf
 call AddMyMatches()
 
@@ -101,3 +104,46 @@ hi link SpecialComment Special
 hi link Tag Special
 
 "" } end color
+
+" Color test: Save this file, then enter ':so %'
+" Then enter one of following commands:
+"   :VimColorTest    "(for console/terminal Vim)
+"   :GvimColorTest   "(for GUI gvim)
+function! VimColorTest(outfile, fgend, bgend)
+  let result = []
+  for fg in range(a:fgend)
+    for bg in range(a:bgend)
+      let kw = printf('%-7s', printf('c_%d_%d', fg, bg))
+      let h = printf('hi %s ctermfg=%d ctermbg=%d', kw, fg, bg)
+      let s = printf('syn keyword %s %s', kw, kw)
+      call add(result, printf('%-32s | %s', h, s))
+    endfor
+  endfor
+  call writefile(result, a:outfile)
+  execute 'edit '.a:outfile
+  source %
+endfunction
+" Increase numbers in next line to see more colors.
+command! VimColorTest call VimColorTest('vim-color-test.tmp', 1, 255)
+
+function! GvimColorTest(outfile)
+  let result = []
+  for red in range(0, 255, 16)
+    for green in range(0, 255, 16)
+      for blue in range(0, 255, 16)
+        let kw = printf('%-13s', printf('c_%d_%d_%d', red, green, blue))
+        let fg = printf('#%02x%02x%02x', red, green, blue)
+        let bg = '#fafafa'
+        let h = printf('hi %s guifg=%s guibg=%s', kw, fg, bg)
+        let s = printf('syn keyword %s %s', kw, kw)
+        call add(result, printf('%s | %s', h, s))
+      endfor
+    endfor
+  endfor
+  call writefile(result, a:outfile)
+  execute 'edit '.a:outfile
+  source %
+endfunction
+command! GvimColorTest call GvimColorTest('gvim-color-test.tmp')
+
+" eof

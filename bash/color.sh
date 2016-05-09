@@ -51,14 +51,26 @@ function loadANSIcolor {
 ## Colorful settings {{{
 usecolor
 
+BASE16_DIR=${HOME}/.bashrc.d/modules/base16-shell/
 colorscheme_base16 () {
-	local f="${HOME}/.bashrc.d/modules/base16-shell/base16-$1.${2:-dark}.sh"
-	[[ -s $f ]] && source $f || echo "Unknown color scheme: $1"
+	if [[ -z "$*" ]]
+	then
+		pushd ${BASE16_DIR} > /dev/null
+		ls base16-*.sh
+		popd > /dev/null
+	else
+		local f="${BASE16_DIR}/base16-$1.${2:-dark}.sh"
+		[[ -s $f ]] && source $f || echo "Unknown color scheme: $1"
+	fi
+}
+
+colortest_base16 () {
+		${BASE16_DIR}/colortest $*
 }
 
 if ${use_color}; then
 	loadANSIcolor
-	colorscheme_base16 brewer
+	colorscheme_base16 colors
 
 	if [ ! ${EUID} = "0" ]; then
 		PS1="\[$TXTBLD\]\[$FGCRED\]\h:\[$FGCPUR\]\W \[$FGCGRN\]\u\[$TXTRST\]\\$ "
