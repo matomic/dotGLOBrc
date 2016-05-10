@@ -15,9 +15,9 @@ au VimEnter * au WinEnter * call AddMyMatches()
 
 " GNUPLOT: identify by header {
 au BufRead *.gp[ih]\=
-      \  if getline(1) =~ '^#!.*\/gnuplot$' |
-      \    set ft=gnuplot |
-      \ endif
+			\  if getline(1) =~ '^#!.*\/gnuplot$' |
+			\    set ft=gnuplot |
+			\ endif
 " }
 
 " Customize treatment for TeX {
@@ -25,10 +25,10 @@ au BufRead *.gp[ih]\=
 " : swap between screen line file line motion
 " : turn on spell checking
 au FileType tex,plaintex setlocal tw=0 spell lbr wrap fo=cl sw=2 ts=2 |
-      \nnoremap <buffer> gj j|
-      \nnoremap <buffer> j gj|
-      \nnoremap <buffer> gk k|
-      \nnoremap <buffer> k gk
+			\nnoremap <buffer> gj j|
+			\nnoremap <buffer> j gj|
+			\nnoremap <buffer> gk k|
+			\nnoremap <buffer> k gk
 au FileType bib setlocal ts=2 sw=2 noet spell lbr
 " }
 
@@ -51,14 +51,13 @@ au FileType cuda syntax keyword cType hfloat dfloat
 au FileType sh,lisp,python,pyrex,cpp,cuda setlocal et
 
 " File types that prefer indentation amount 2
-au FileType vim,sh setlocal ts=4 sw=2 sts=2
+au FileType vim,sh setlocal noet ts=4 sw=4 sts=4
 " }
 
 " File types folding issue {
-au FileType vim,lua,sh setlocal fdm=marker
-au FileType xml,cpp,cuda setlocal fdm=syntax
+au FileType lua,sh setlocal fdm=marker
+au FileType vim,xml,cpp,cuda setlocal fdm=syntax
 
-let javaScript_fold=1
 " }
 
 " coffeescript {
@@ -71,3 +70,4 @@ au FileType gitcommit,markdown setlocal tw=150 spell lbr wrap
 " }
 
 "" } end au
+"let javaScript_fold=1

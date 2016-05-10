@@ -5,30 +5,30 @@
 " : In terminal mode, <M-x> defaults to <esc>+x, which exits insert mode.
 set timeout timeoutlen=1000 ttimeoutlen=100
 if !has("gui_running")
-  if &term == "xterm"
-    set <M-0>=0
-    set <M-b>=b
-    set <M-d>=d
-    set <M-$>=$
-    set <M-f>=f
-    set <M-h>=h
-    set <M-j>=j
-    set <M-k>=k
-    set <M-l>=l
-  en
+	if &term == "xterm"
+		set <M-0>=0
+		set <M-b>=b
+		set <M-d>=d
+		set <M-$>=$
+		set <M-f>=f
+		set <M-h>=h
+		set <M-j>=j
+		set <M-k>=k
+		set <M-l>=l
+	en
 en
 
 " use Meta-j/k is mapped to <Up>/<Down> can be used for pum
 if has("gui_running") || &term == "xterm"
-  no! <M-0> <Home>
-  no! <M-b> <PageUp>
-  no! <M-d> <Del>
-  no! <M-$> <End>
-  no! <M-f> <PageDown>
-  no! <M-h> <Left>
-  no! <M-j> <Down>
-  no! <M-k> <Up>
-  no! <M-l> <Right>
+	no! <M-0> <Home>
+	no! <M-b> <PageUp>
+	no! <M-d> <Del>
+	no! <M-$> <End>
+	no! <M-f> <PageDown>
+	no! <M-h> <Left>
+	no! <M-j> <Down>
+	no! <M-k> <Up>
+	no! <M-l> <Right>
 en
 
 " right exist of insert mode:
