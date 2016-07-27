@@ -69,6 +69,9 @@ set noswapfile
 set list
 set listchars=eol:$,tab:>.,trail:.,extends:#,nbsp:.
 
+set nonumber
+set relativenumber
+
 " my settings
 " Set the status line the way I like it
 set stl=%f\ %m[%{&fileformat}]\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c[hi:%{SyntaxItem()}]\ Buf:\ #%n\ [%b][0x%B]
