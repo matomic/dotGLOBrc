@@ -30,7 +30,7 @@ done
 mkdir -p ${HOME}/.vim
 for f in vim/*.vim
 do
-  [[ -f $f ]] && deploy_if_diff $f ${HOME}/.vim/
+  [[ -f $f ]] && deploy_if_diff $f ${HOME}/.vim
 done
 deploy_if_diff "vim/vimrc.user"   "${HOME}/.vim/vimrc"
 deploy_if_diff "vim/vimrc.local"  "${HOME}/.vim/vimrc.local"

@@ -11,7 +11,7 @@ let g:solarized_termtrans  = 1
 let g:solarized_termcolors = 256
 let g:solarized_visibility = "high"
 let base16colorspace = 256  " Access colors present in 256 colorspace
-colorscheme base16-colors
+colorscheme base16-brewer
 
 " The main changes I make to the colours is make Function a tad brighter so
 " it's more readable. Also, I prefer DarkCyan for my comments. I don't
