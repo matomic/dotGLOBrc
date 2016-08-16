@@ -69,7 +69,7 @@ set noswapfile
 set list
 set listchars=eol:$,tab:>.,trail:.,extends:#,nbsp:.
 
-set nonumber
+set number
 set relativenumber
 
 " my settings

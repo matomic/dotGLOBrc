@@ -32,7 +32,7 @@ hi Cursor    ctermbg=White
 
 if &background == "dark"
 	" dark colors {
-	hi Normal       ctermfg=White         guifg=White
+	hi Normal       ctermfg=White         ctermbg=none      guifg=White
 	"hi Comment     ctermfg=DarkBlue      guifg=Yellow      cterm=none      term=none
 	"hi Constant    ctermfg=Magenta       guifg=Magenta     cterm=none      term=underline
 	hi String       ctermfg=LightMagenta  guifg=Magenta
