@@ -155,16 +155,17 @@ pyhelp() {
 }
 
 pyenv_activate() {
-	if [ ! -d "$1" ]; then
-		VEPATH="${HOME}/.virtualenv/$1"
-	else
-		VEPATH="$1"
-	fi
-	if [ -d "$VEPATH" ]; then
-		[ -f "${VEPATH}/bin/activate" ] && . ${VEPATH}/bin/activate
-	else
-		printf "$VEPATH is not a valid path.\n" && return 1
-	fi
+	local root=
+	for root in $1 ~/.virtualenv/$1
+	do
+		if [[ -f $root/bin/activate ]];
+		then
+			source $root/bin/activate
+			return
+		fi
+	done
+	printf "fail to find activate script for $1\n"
+	false
 }
 
 run_n_times() {
