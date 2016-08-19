@@ -18,9 +18,14 @@ usecolor () {
 	[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
 
 	if [[ $(uname) == "Darwin" ]] # OSX is not very nice...
- 	then
+	then
 		use_color=true
 		export CLICOLOR=1
+	fi
+
+	if [[ `tput colors` -ge 16 ]]
+	then
+		use_color=true
 	fi
 }
 
