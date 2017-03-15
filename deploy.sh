@@ -19,6 +19,7 @@ deploy_if_diff() {
 
 pushd $(dirname "$0")
 
+# deploy bash configurations
 mkdir -p ${HOME}/.bashrc.d/modules
 rsync -av bash/modules/ ${HOME}/.bashrc.d/modules/
 for f in bash/*
@@ -27,6 +28,7 @@ do
 done
 [[ -f ${HOME}/.bashrc ]] || ln -s .bashrc.d/bashrc.user ${HOME}/.bashrc
 
+# deploy vim configurations
 mkdir -p ${HOME}/.vim
 for f in vim/*.vim
 do
@@ -36,13 +38,16 @@ deploy_if_diff "vim/vimrc.user"   "${HOME}/.vim/vimrc"
 deploy_if_diff "vim/vimrc.local"  "${HOME}/.vim/vimrc.local"
 rsync -av --delete vim/*.vim ${HOME}/.vim/
 [[ -f ${HOME}/.vimrc ]] || ln -s .vim/vimrc ${HOME}/.vimrc
-
+rsync -av --delete "vim/bundle/" ${HOME}/.vim/bundle/
 #deploy_if_diff "vim/gvimrc.user"       "${HOME}/.gvimrc"
+
+# deploy fontconfig configurations
 if [[ -d "${HOME}/.config/fontconfig" ]]
 then
   deploy_if_diff "fonts/fonts.conf.user" "${HOME}/.config/fontconfig/fonts.conf"
 fi
 
-rsync -av --delete "vim/bundle/" ${HOME}/.vim/bundle/
+# deploy other configurations
+deploy_if_diff "tmux.conf"  "${HOME}/.tmux.conf"
 
 popd
