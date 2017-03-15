@@ -12,8 +12,10 @@
 	ffs     = flow feature start
 	hist    = log --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s%x20%C(yellow)%x20%aN<%aE>%x3A%x3A%ad%Creset" --graph --date=short
 	mm      = merge master
+	rbc     = rebase --continue
 	rip     = rebase -i -p
 	rup     = remote update -p
+	staged  = diff --staged
 	unstage = reset HEAD
 	whatup  = status -s
 	where   = rev-parse --abbrev-ref HEAD
