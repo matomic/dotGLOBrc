@@ -7,11 +7,12 @@
 " =================
 
 " Only load one indent script per buffer
-if exists('b:did_indent')
+if exists("*:GetJsIndent")
+"if exists('b:did_indent')
   finish
 endif
 
-let b:did_indent = 1
+"let b:did_indent = 1
 
 " Set the global log variable 1 = logging enabled, 0 = logging disabled
 if !exists("g:js_indent_log")
