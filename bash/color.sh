@@ -57,17 +57,17 @@ function loadANSIcolor {
 usecolor
 
 BASE16_SHELL=${HOME}/.bashrc.d/modules/base16-shell/
-colorscheme_base16 () {
-	if [[ -z "$*" ]]
-	then
-		pushd ${BASE16_SHELL} > /dev/null
-		ls base16-*.sh
-		popd > /dev/null
-	else
-		local f="${BASE16_SHELL}/base16-$1.${2:-dark}.sh"
-		[[ -s $f ]] && source $f || echo "Unknown color scheme: $1"
-	fi
-}
+#colorscheme_base16 () {
+#	if [[ -z "$*" ]]
+#	then
+#		pushd ${BASE16_SHELL}/scripts > /dev/null
+#		ls base16-*.sh
+#		popd > /dev/null
+#	else
+#		local f="${BASE16_SHELL}/scripts/base16-$1.sh"
+#		[[ -s $f ]] && source $f || echo "Unknown color scheme: $1"
+#	fi
+#}
 
 colortest_base16 () {
 		${BASE16_SHELL}/colortest $*
@@ -76,7 +76,6 @@ colortest_base16 () {
 if ${use_color}; then
 	loadANSIcolor
 	[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-	base16_brewer
 
 	if [ ! ${EUID} = "0" ]; then
 		PS1="\[$TXTBLD\]\[$FGCRED\]\h:\[$FGCPUR\]\W \[$FGCGRN\]\u\[$TXTRST\]\\$ "
@@ -97,6 +96,8 @@ else
 	#	PS1='\u@\h \w \$ '
 	fi
 fi
+
+base16_brewer
 
 PS2="> $RS"
 ## }}}
