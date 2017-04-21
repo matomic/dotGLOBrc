@@ -1,0 +1,16 @@
+# required by dev-util/nvidia-cuda-toolkit-8.0.61::gentoo
+# required by dev-util/nvidia-cuda-sdk-8.0.61::gentoo
+# required by nvidia-cuda-sdk (argument)
+x11-drivers/nvidia-drivers uvm
+
+# required by dev-util/nvidia-cuda-sdk-8.0.61::gentoo
+# required by nvidia-cuda-sdk (argument)
+dev-util/nvidia-cuda-toolkit debugger profiler
+
+# required by dev-util/nvidia-cuda-toolkit-8.0.61::gentoo[debugger]
+# required by dev-util/nvidia-cuda-sdk-8.0.61::gentoo
+# required by nvidia-cuda-sdk (argument)
+>=sys-libs/ncurses-5.9-r101:5 tinfo
+
+dev-util/nvidia-cuda-sdk mpi opencl
+sys-cluster/openmpi cuda

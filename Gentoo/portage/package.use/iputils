@@ -1,0 +1,27 @@
+net-misc/iputils -caps -filecaps
+# required by www-client/chromium-48.0.2564.41::gentoo
+# required by chromium (argument)
+>=sys-libs/zlib-1.2.8-r1 minizip
+# required by www-client/chromium-48.0.2564.41::gentoo[system-ffmpeg]
+# required by chromium (argument)
+>=media-video/ffmpeg-2.8.3 opus vpx vorbis
+# required by www-client/firefox-45.0.1::gentoo
+# required by firefox (argument)
+>=dev-lang/python-2.7.11-r2:2.7 sqlite
+# required by www-client/firefox-45.0.1::gentoo
+# required by firefox (argument)
+>=media-libs/libpng-1.6.21 apng
+# required by dev-scheme/guile-2.0.12-r1::gentoo
+# required by sys-devel/autogen-5.18.10::gentoo
+# required by net-libs/gnutls-3.4.14-r1::gentoo[tools]
+# required by app-crypt/gnupg-2.1.14-r1::gentoo[gnutls]
+# required by dev-vcs/git-2.9.3::gentoo[gpg]
+# required by sys-devel/gettext-0.19.8.1::gentoo[git]
+# required by sys-devel/binutils-2.26.1::gentoo[nls]
+# required by sys-kernel/gentoo-sources-4.7.0::gentoo[-build]
+# required by @selected
+# required by @world (argument)
+>=dev-libs/boehm-gc-7.4.2 threads
+
+# move net-misc/openvpn net-vpn/openvpn
+net-vpn/openvpn iproute2

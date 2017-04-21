@@ -1,0 +1,7 @@
+# support ECC due to patent issue
+dev-libs/openssl -bindist
+net-misc/openssh -bindist
+# required by www-client/chromium-54.0.2840.59::gentoo
+# required by @selected
+# required by @world (argument)
+>=media-libs/libvpx-1.6.0-r1 svc
