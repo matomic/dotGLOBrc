@@ -75,11 +75,12 @@ set list
 set listchars=eol:$,tab:>.,trail:.,extends:#,nbsp:.
 
 set number
-set relativenumber
+set relativenumber " show relative number
+set scrolloff=50   " vertical padding
 
 " my settings
 " Set the status line the way I like it
 set stl=%f\ %m[%{&fileformat}]\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c[hi:%{SyntaxItem()}]\ Buf:\ #%n\ [%b][0x%B]
 "" } end basic
 
-"" vim:fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker foldmarker={,} foldlevel=0
+"" vim:fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker foldmarker={,} foldlevel=0 iskeyword+=-
