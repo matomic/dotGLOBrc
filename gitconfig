@@ -11,7 +11,6 @@
 	tool = vimdiff
 [init]
 	templatedir = ~/.gittemplates/
-
 [push]
 	default = upstream
 	rebase = true
@@ -19,36 +18,50 @@
 
 ; customizations
 [alias]
-	root = rev-parse --show-toplevel
+	root    = rev-parse --show-toplevel
 	alias   = config --get-regexp '^alias\\.'
+
+	hist    = log --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s%x20%C(yellow)%x20%aN<%aE>%x3A%x3A%ad%Creset" --graph --date=short
 
 	amend   = commit --amend
 	apu     = add -p -u
 	br      = branch
 
 
-	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
 	ci      = commit
-	co      = checkout
-	cp      = cherry-pick
-	ff      = flow feature
-	ffc     = flow feature checkout
-	ffs     = flow feature start
-	hist    = log --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s%x20%C(yellow)%x20%aN<%aE>%x3A%x3A%ad%Creset" --graph --date=short
-	mm      = merge master
-	rup     = remote update -p
 	staged  = diff --staged
 	unstage = reset HEAD
 	whatup  = status -s
 	where   = rev-parse --abbrev-ref HEAD
 
-	rb   = rebase
-	rba  = rebase --abort
-	rbad = rebase --committer-date-is-author-date
-	rbc  = rebase --continue
-	rbi  = rebase -i
-	rboc = !git ours `git unmerged` || git reset `git unmerged` && git a . && (git rbc || git rbs)
-	rbs  = rebase --skip
-	rbtc = !git theirs `git unmerged` || git resolve-unmerged && (git rbc || git rbs)
-	rip  = rebase -i -p
+	co      = checkout
+	ours    = checkout --ours
+	theirs  = checkout --theirs
 
+	ff      = flow feature
+	ffc     = flow feature checkout
+	ffs     = flow feature start
+
+	rup     = remote update -p
+
+	mm      = merge master
+	mom     = merge origin/master
+
+	cp      = cherry-pick
+	cpa     = cp --abort
+	cpc     = cp --continue
+	cpq     = cp --quit
+
+	rb      = rebase
+	rba     = rebase --abort
+	rbad    = rebase --committer-date-is-author-date
+	rbc     = rebase --continue
+	rbi     = rebase -i
+	rboc    = !git ours `git unmerged` || git reset `git unmerged` && git a . && (git rbc || git rbs)
+	rbs     = rebase --skip
+	rbtc    = !git theirs `git unmerged` || git resolve-unmerged && (git rbc || git rbs)
+	rip     = rebase -i -p
+
+	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
+
+; eof vim: ft=gitconfig iskeyword+=-
