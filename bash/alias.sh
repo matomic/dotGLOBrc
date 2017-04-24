@@ -9,6 +9,7 @@ alias tmux='env TERM=screen-256color-bce tmux -2'
 alias pdiff='diff -Naur'
 alias rsync='rsync -e ssh'
 alias fuck='sudo $(history -p \!\!)'
+alias xclip0='xclip -selection clipboard'
 
 # lpr:
 alias lpr_n2='lpr -o number-up=2'
