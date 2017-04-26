@@ -76,7 +76,7 @@ set listchars=eol:$,tab:>.,trail:.,extends:#,nbsp:.
 
 set number
 set relativenumber " show relative number
-set scrolloff=50   " vertical padding
+set scrolloff=15   " vertical padding
 
 " my settings
 " Set the status line the way I like it
