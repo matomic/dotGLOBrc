@@ -62,6 +62,6 @@
 	rbtc    = !git theirs `git unmerged` || git resolve-unmerged && (git rbc || git rbs)
 	rip     = rebase -i -p
 
-	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
+	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [ \\\"$`echo $VAR`\\\" = '$OLD' ]; then export $VAR='$NEW'; fi\" $@; }; f "
 
 ; eof vim: ft=gitconfig iskeyword+=-
