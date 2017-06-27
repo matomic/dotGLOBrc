@@ -58,3 +58,7 @@
 [submodule "vim/bundle/vim-colorscheme-primary"]
 	path = vim/bundle/vim-colorscheme-primary
 	url = https://github.com/google/vim-colorscheme-primary.git
+[submodule "vim/bundle/Smart-Tabs"]
+	path = vim/bundle/Smart-Tabs
+	url = https://github.com/jpmv27/Smart-Tabs.git
+	branch = jpmv27_master
