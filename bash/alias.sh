@@ -1,5 +1,7 @@
 
 ## alias {{{
+alias sudo='sudo '
+
 alias ll='ls -lh'
 alias mv='mv -i'
 alias rm='rm -I'
@@ -29,25 +31,39 @@ then
 fi
 
 # Ubuntu-centric
-pkgbin=`which apt-get 2> /dev/null`
-if [ "x$pkgbin" != "x" ]; then
-	alias apt-search='apt-cache search --names-only'
-	alias apt-policy='apt-cache policy'
+if which apt-get > /dev/null
+then
+	alias apt-autopurge='sudo apt-get autoremove --purge'
+	alias apt-autoremove='sudo apt-get autoremove'
+	alias apt-build-dep='sudo apt-get build-dep'
+	alias apt-distupgrade='sudo apt-get dist-upgrade'
 	alias apt-install='sudo apt-get install'
 	alias apt-installs='sudo apt-get install --install-suggests'
-	alias apt-remove='sudo apt-get remove'
+	alias apt-policy='apt-cache policy'
 	alias apt-purge='sudo apt-get remove --purge'
-	alias apt-autoremove='sudo apt-get autoremove'
-	alias apt-autopurge='sudo apt-get autoremove --purge'
+	alias apt-remove='sudo apt-get remove'
+	alias apt-search='apt-cache search --names-only'
 	alias apt-update='sudo apt-get update'
 	alias apt-upgrade='sudo apt-get upgrade'
-	alias apt-distupgrade='sudo apt-get dist-upgrade'
-	alias apt-build-dep='sudo apt-get build-dep'
+fi
+
+if which apt > /dev/null
+then
+	alias apt-autopurge='apt autoremove --purge '
+	alias apt-autoremove='apt autoremove '
+	alias apt-fullupgrade='apt full-upgrade'
+	alias apt-install='apt install '
+	alias apt-purge='apt purge '
+	alias apt-remove='apt remove '
+	#alias apt-search='apt search --names-only '
+	alias apt-show='apt show '
+	alias apt-update='apt update '
+	alias apt-upgrade='apt upgrade '
 fi
 
 # Gentoo-centric
-pkgbin=`which ebuild 2> /dev/null`
-if [ "x$pkgbin" != "x" ]; then
+if which ebuild > /dev/null
+then
 	alias vmconf='sudo vi /etc/make.conf'
 	alias vmuse='sudo vi /etc/make.use.conf'
 	alias vpuse='sudo vi /etc/portage/package.use'
@@ -57,8 +73,8 @@ if [ "x$pkgbin" != "x" ]; then
 fi
 
 # Arch-centric
-pkgbin=`which pacman 2> /dev/null`
-if [ "x$pkgbin" != "x" ]; then
+if which pacman > /dev/null
+then
 	alias pacin='sudo pacman -S'            # Install specific package(s) from the repositories
 	alias pacind='sudo pacman -S --asdeps'  # Install given package(s) as dependencies of another package
 	alias pacins='sudo pacman -U'           # Install specific package not from the repositories but from a file
@@ -77,7 +93,5 @@ if [ "x$pkgbin" != "x" ]; then
 fi
 
 ### }}}
-
-unset pkgbin
 
 ## vim: foldmethod=marker ft=sh noet sta ts=2 sw=2
