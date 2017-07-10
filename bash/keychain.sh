@@ -13,9 +13,9 @@ init_keychain() {
 			eval `keychain --agents gpg --eval`;
 		fi
 		identities=''
-		for id in id_dsa id_rsa id_ecdsa; do
+		for id in id_dsa id_rsa id_ecdsa id_ed25519; do
 			if [ -f "${HOME}/.ssh/${id}" ]; then
-				identities="${identities} ${id}"
+				identities+="${identities} ${id}"
 			fi
 		done
 		if [ "x${identities}" != "x" ]; then
