@@ -31,7 +31,7 @@ then
 fi
 
 # Ubuntu-centric
-if which apt-get > /dev/null
+if which apt-get > /dev/null 2>&1
 then
 	alias apt-autopurge='sudo apt-get autoremove --purge'
 	alias apt-autoremove='sudo apt-get autoremove'
@@ -47,7 +47,7 @@ then
 	alias apt-upgrade='sudo apt-get upgrade'
 fi
 
-if which apt > /dev/null
+if which apt > /dev/null 2>&1
 then
 	alias apt-autopurge='apt autoremove --purge '
 	alias apt-autoremove='apt autoremove '
@@ -62,7 +62,7 @@ then
 fi
 
 # Gentoo-centric
-if which ebuild > /dev/null
+if which ebuild > /dev/null 2>&1
 then
 	alias vmconf='sudo vi /etc/make.conf'
 	alias vmuse='sudo vi /etc/make.use.conf'
@@ -73,7 +73,7 @@ then
 fi
 
 # Arch-centric
-if which pacman > /dev/null
+if which pacman > /dev/null 2>&1
 then
 	alias pacin='sudo pacman -S'            # Install specific package(s) from the repositories
 	alias pacind='sudo pacman -S --asdeps'  # Install given package(s) as dependencies of another package
