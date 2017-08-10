@@ -3,6 +3,7 @@ filetype off
 "call pathogen#incubate()
 let g:pathogen_disabled = []
 call add(g:pathogen_disabled, 'vim-snipmate')
+call add(g:pathogen_disabled, 'Smart-Tabs')
 call pathogen#infect('bundle/{}')
 "call pathogen#helptags() "call this when installing new plugins
 "call pathogen#infect()
