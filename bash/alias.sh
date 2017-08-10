@@ -33,32 +33,32 @@ fi
 # Ubuntu-centric
 if which apt-get > /dev/null 2>&1
 then
-	alias apt-autopurge='sudo apt-get autoremove --purge'
-	alias apt-autoremove='sudo apt-get autoremove'
-	alias apt-build-dep='sudo apt-get build-dep'
-	alias apt-distupgrade='sudo apt-get dist-upgrade'
-	alias apt-install='sudo apt-get install'
-	alias apt-installs='sudo apt-get install --install-suggests'
-	alias apt-policy='apt-cache policy'
-	alias apt-purge='sudo apt-get remove --purge'
-	alias apt-remove='sudo apt-get remove'
-	alias apt-search='apt-cache search --names-only'
-	alias apt-update='sudo apt-get update'
-	alias apt-upgrade='sudo apt-get upgrade'
+	alias apt-autopurge='sudo apt-get autoremove --purge '
+	alias apt-autoremove='sudo apt-get autoremove '
+	alias apt-build-dep='sudo apt-get build-dep '
+	alias apt-distupgrade='sudo apt-get dist-upgrade '
+	alias apt-install='sudo apt-get install '
+	alias apt-installs='apt-install --install-suggests '
+	alias apt-policy='apt-cache policy '
+	alias apt-purge='sudo apt-get remove --purge '
+	alias apt-remove='sudo apt-get remove '
+	alias apt-search='apt-cache search --names-only '
+	alias apt-update='sudo apt-get update '
+	alias apt-upgrade='sudo apt-get upgrade '
 fi
 
 if which apt > /dev/null 2>&1
 then
-	alias apt-autopurge='apt autoremove --purge '
-	alias apt-autoremove='apt autoremove '
-	alias apt-fullupgrade='apt full-upgrade'
-	alias apt-install='apt install '
-	alias apt-purge='apt purge '
-	alias apt-remove='apt remove '
+	alias apt-autopurge='sudo apt autoremove --purge '
+	alias apt-autoremove='sudo apt autoremove '
+	alias apt-fullupgrade='sudo apt full-upgrade'
+	alias apt-install='sudo apt install '
+	alias apt-purge='sudo apt purge '
+	alias apt-remove='sudo apt remove '
 	#alias apt-search='apt search --names-only '
-	alias apt-show='apt show '
-	alias apt-update='apt update '
-	alias apt-upgrade='apt upgrade '
+	alias apt-show='sudo apt show '
+	alias apt-update='sudo apt update '
+	alias apt-upgrade='sudo apt upgrade '
 fi
 
 # Gentoo-centric
