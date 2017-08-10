@@ -54,7 +54,11 @@ screen)
 	;;
 esac
 
+# Initialize SSH and GPG key agents using keychain
 source ${BASHRC_DIR}/keychain.sh
+init_keychain #2> /dev/null
+export GPG_TTY=$(tty)
+
 source ${BASHRC_DIR}/color.sh
 source ${BASHRC_DIR}/alias.sh
 
