@@ -2,7 +2,11 @@
 ## Enable ssh-agent and gpg-agent {{{
 eval_keychain() {
 	# eval keychain, if failed, stop existing ssh-agent and try again
-	eval `keychain --eval $*` || (keychain --stop all --quiet; eval $(keychain --stop all --eval $*))
+	if ! eval `keychain --eval $*`
+	then
+		keychain --stop all --quiet
+		eval `keychain --eval $*`
+	fi
 }
 
 init_keychain() {
