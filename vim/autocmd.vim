@@ -11,7 +11,7 @@
 "        \       execute "normal g`\"" |
 "        \ endif
 "endif
-au VimEnter * au WinEnter * call AddMyMatches()
+au VimEnter * au WinEnter * call AddSpaceHi()
 
 " GNUPLOT: identify by header {
 au BufRead *.gp[ih]\=
