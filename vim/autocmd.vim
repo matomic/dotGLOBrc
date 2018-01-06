@@ -57,6 +57,7 @@ au FileType vim,sh setlocal noet ts=4 sw=4 sts=4
 " File types folding issue {
 au FileType lua,sh setlocal fdm=marker
 au FileType vim,xml,cpp,cuda setlocal fdm=syntax
+"au BufNewFile,BufReadPost go setlocal fdm=syntax
 
 " }
 
