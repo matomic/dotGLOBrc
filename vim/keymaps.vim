@@ -33,6 +33,21 @@ en
 
 " right exist of insert mode:
 ino <silent> <S-esc> <esc>l
+
+" nuke arrow key in insert mode
+ino <Up> <Nop>
+ino <Down> <Nop>
+ino <Left> <Nop>
+ino <Right> <Nop>
+
+" Make arrow keys useful
+no <Up> ddkP
+no <Down> ddp
+no <Left> <<
+no <Right> >>
+vm <Left> <gv
+vm <Right> >gv
+
 "" }
 let mapleader=";"
 " Buffer switch and kill {
