@@ -1,0 +1,6 @@
+XTerm*faceName: Droid Sans Mono Slashed
+XTerm*faceNameDoublesize: WenQuanYi Micro Hei Mono
+XTerm*faceSize: 12
+XTerm.termName: xterm-256color
+
+! vim: ft=xdefaults
