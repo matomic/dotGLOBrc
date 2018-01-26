@@ -53,6 +53,7 @@
     <prefer>
       <family>Monaco</family>
       <family>Droid Mono</family>
+      <family>Noto Mono</family>
       <family>DejaVu Sans Mono</family>
       <family>Bitstream Vera Sans Mono</family>
       <family>Consolas</family>
@@ -224,6 +225,17 @@
       <family>Droid Sans Mono Slashed</family>
       <family>Droid Sans Mono Dotted</family>
       <family>Droid Sans Mono</family>
+    </prefer>
+  </alias>
+
+  <alias binding="strong">
+    <family>Noto Mono</family>
+    <prefer>
+      <family>Noto Mono</family>
+      <family>Noto Sans Mono CJK TC</family>
+      <family>Noto Sans Mono CJK SC</family>
+      <family>Noto Sans Mono CJK JP</family>
+      <family>Noto Sans Mono CJK KR</family>
     </prefer>
   </alias>
 
