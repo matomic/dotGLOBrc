@@ -77,10 +77,17 @@ if ${use_color}; then
 	loadANSIcolor
 	[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
+	PS1_USER="\[$TXTINV\]\[$TXTBLD\]\[$FGCRED\]\u▸\[$TXTRST\]"
+	PS1_HOST="\[$TXTINV\]\[$TXTBLD\]\[$FGCBLU\]\h▸\[$TXTRST\]"
+	PS1_CWDR="\[$TXTBLD\]\[$FGCGRN\]\W▸\[$TXTRST\]"
+	PS1_PRM1="\[$TXTBLD\]λ\[$TXTRST\] "
+	PS1_PRM2="\[$TXTBLD\]#\[$TXTRST\] "
 	if [ ! ${EUID} = "0" ]; then
-		PS1="\[$TXTBLD\]\[$FGCRED\]\h:\[$FGCPUR\]\W \[$FGCGRN\]\u\[$TXTRST\]\\$ "
+		PS1="$PS1_USER$PS1_HOST$PS1_CWDR$PS1_PRM1"
+		#PS1="\[$TXTINV\]\[$TXTBLD\]\[$FGCRED\]\u▸\[$FGCBLU\]\h▸\[$TXTRST\]\[$FGCGRN\]\w▸\[$TXTRST\]\[$TXTBLD\]λ\[$TXTRST\] "
 	else
-		PS1="\[$TXTBLD\]\[$FGCRED\]\u@\[$FGCPUR\]\h:\[$FGCGRN\]\W\[$TXTRST\] # "
+		PS1="$PS1_USER$PS1_HOST$PS1_CWDR$PS1_PRM2"
+		#PS1="\[$TXTINV\]\[$TXTBLD\]\[$FGCRED\]\h\[$FGCPUR\]\u\[$TXTRST\]\[$FGCGRN\]◖\w◗\[$TXTRST\]\[$TXTBLD\]#\[$TXTRST\] "
 	fi
 
 	if ls --color >& /dev/null; then
