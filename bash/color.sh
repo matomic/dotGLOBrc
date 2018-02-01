@@ -77,9 +77,9 @@ if ${use_color}; then
 	loadANSIcolor
 	[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
-	PS1_USER="\[$TXTINV\]\[$TXTBLD\]\[$FGCRED\]\u▸\[$TXTRST\]"
-	PS1_HOST="\[$TXTINV\]\[$TXTBLD\]\[$FGCBLU\]\h▸\[$TXTRST\]"
-	PS1_CWDR="\[$TXTBLD\]\[$FGCGRN\]\W▸\[$TXTRST\]"
+	PS1_USER="\[$TXTINV\]\[$TXTBLD\]\[$FGCGRN\]\u◗\[$TXTRST\]"
+	PS1_HOST="\[$TXTINV\]\[$TXTBLD\]\[$FGCBLU\]\h◗\[$TXTRST\]"
+	PS1_CWDR="\[$TXTBLD\]\[$FGCRED\]\W▸\[$TXTRST\]"
 	PS1_PRM1="\[$TXTBLD\]λ\[$TXTRST\] "
 	PS1_PRM2="\[$TXTBLD\]#\[$TXTRST\] "
 	if [ ! ${EUID} = "0" ]; then
