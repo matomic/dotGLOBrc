@@ -84,9 +84,35 @@ set number
 set relativenumber " show relative number
 set scrolloff=10   " vertical padding
 
-" my settings
-" Set the status line the way I like it
-set stl=%f\ %m[%{&fileformat}]\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c[hi:%{SyntaxItem()}]\ Buf:\ #%n\ [%b][0x%B]
 "" } end basic
+
+" Set the status line the way I like it
+if 1
+  "define 3 custom highlight groups
+  hi User1 ctermbg=yellow ctermfg=white  guibg=yellow guifg=white
+  hi User2 ctermbg=red    ctermfg=white  guibg=red    guifg=white
+  hi User3 ctermbg=blue   ctermfg=white  guibg=blue   guifg=white
+  hi User4 ctermbg=green  ctermfg=white  guibg=green  guifg=white
+
+  hi User6 ctermbg=red    ctermfg=yellow guibg=red    guifg=green
+  hi User7 ctermbg=blue   ctermfg=red    guibg=blue   guifg=yellow
+  hi User8 ctermbg=green  ctermfg=blue   guibg=yellow guifg=red
+
+  set stl=
+  set stl+=%1*%0.30f            " file path
+  set stl+=%#error#%m%1*        " modified flag
+  set stl+=%y                   " filetype
+  set stl+=[%{&fileformat}]     " [fileformat]
+  set stl+=%<                   " cut
+  set stl+=%6*🞂%2*              " transition 1
+  set stl+=Buf:#%n              " Buffer number
+  set stl+=%7*🞂%3*              " transition 2
+  set stl+=%rLine:\ %l/%L[%p%%] " line number / total [percentage]
+  set stl+=%8*🞂%4*              " transition 3
+  set stl+=Col:%c               " Column number[highlight syntax]
+  set stl+=[%b-0x%B]            " char under cursor
+  "set stl+=[%{synIDattr(synID(line('.'),col('.'),1),'name')}] " hightlight
+  set stl+=[hi:%{SyntaxItem()}]
+endif
 
 "" vim:fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker foldmarker={,} foldlevel=0 iskeyword+=-
