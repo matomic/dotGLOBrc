@@ -4,6 +4,7 @@ filetype off
 let g:pathogen_disabled = []
 call add(g:pathogen_disabled, 'vim-snipmate')
 call add(g:pathogen_disabled, 'Smart-Tabs')
+
 call pathogen#infect('bundle/{}')
 "call pathogen#helptags() "call this when installing new plugins
 "call pathogen#infect()
@@ -16,6 +17,14 @@ let g:virtualenv_directory = '~/.virtualenv'
 let g:syntastic_mode_map = { 'mode': 'active',
       \ 'active_filetypes': [],
       \ 'passive_filetypes': [] }
+
+" vim-airline
+"if exists("g:airline_theme_map")
+  let g:airline_powerline_fonts = 1
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline_theme = "powerlineish"
+  let g:airline_section_gutter = "%= [%b:0x%B][hi:%{SyntaxItem()}]"
+"endif
 
 "snipmate
 """ } end bundle
