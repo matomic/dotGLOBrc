@@ -2,7 +2,7 @@
 BASHRC_FILE=~/.bashrc
 if [[ -L ${BASHRC_FILE} ]]
 then
-	BASHRC_FILE=$(readlink -f ~/.bashrc)
+	BASHRC_FILE=$(readlink ~/.bashrc)
 fi
 BASHRC_DIR=$(dirname ${BASHRC_FILE})
 
@@ -39,10 +39,10 @@ shopt -s checkwinsize
 shopt -s histappend
 
 # Run some login shell scripts for non-login shell
-for sh in /etc/profile.d/*.sh ; do
-	[ -r "$sh" ] && . "$sh"
+for _sh in /etc/profile.d/*.sh ; do
+	[ -r "$_sh" ] && . "$_sh"
 done
-unset sh
+unset _sh
 
 # Change the window title of X terminals
 case ${TERM} in

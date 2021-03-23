@@ -20,15 +20,9 @@ alias lpr_tsle_n2='lpr_n2 -o sides=two-sided-long-edge'
 alias lpr_tsse='lpr -o sides=two-sided-short-edge'
 alias lpr_tsse_n2='lpr_n2 -o sides=two-sided-short-edge'
 
-[ x`which matlab 2>/dev/null` != x ] && alias matlab='env XMODIFIERS="" matlab'
-[ x`which mathematica 2>/dev/null` != x ] && alias mathematica='env XMODIFIERS="" mathematica'
-[ x`which mid3v2 2>/dev/null` != x ] && alias id3v2='mid3v2'
-
-if [ $UID -eq 0 ];
-then
-	# makes emerge nicer on IO
-	alias emerge='ionice -c3 emerge'
-fi
+[ matlab 2>/dev/null ] && alias matlab='env XMODIFIERS="" matlab'
+[ mathematica 2>/dev/null ] && alias mathematica='env XMODIFIERS="" mathematica'
+[ mid3v2 2>/dev/null ] && alias id3v2='mid3v2'
 
 # Ubuntu-centric
 if which apt-get > /dev/null 2>&1
@@ -64,12 +58,17 @@ fi
 # Gentoo-centric
 if which ebuild > /dev/null 2>&1
 then
-	alias vmconf='sudo vi /etc/make.conf'
-	alias vmuse='sudo vi /etc/make.use.conf'
-	alias vpuse='sudo vi /etc/portage/package.use'
-	alias vpkws='sudo vi /etc/portage/package.keywords'
-	alias vpumsk='sudo vi /etc/portage/package.unmask'
-	alias vpmsk='sudo vi /etc/portage/package.mask'
+	alias vmconf="sudo ${EDITOR} /etc/make.conf"
+	alias vmuse="sudo  ${EDITOR}/etc/make.use.conf"
+	alias vpuse="sudo  ${EDITOR}/etc/portage/package.use"
+	alias vpkws="sudo  ${EDITOR}/etc/portage/package.keywords"
+	alias vpumsk="sudo ${EDITOR} /etc/portage/package.unmask"
+	alias vpmsk="sudo  ${EDITOR}/etc/portage/package.mask"
+	if [ $UID -eq 0 ];
+	then
+		# makes emerge nicer on IO
+		alias emerge='ionice -c3 emerge'
+	fi
 fi
 
 # Arch-centric
