@@ -4,7 +4,10 @@ alias sudo='sudo '
 
 alias ll='ls -lh'
 alias mv='mv -i'
-alias rm='rm -I'
+if [[ ! `uname` =~ Darwin ]]
+then
+	alias rm='rm -I'
+fi
 alias svi='sudo vi'
 alias sshfs='sshfs -o follow_symlinks -o allow_root'
 alias tmux='env TERM=screen-256color-bce tmux -2'
