@@ -1,86 +1,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-"" PATHOGEN {{{
-" "call pathogen#incubate()
-" let g:pathogen_disabled = []
-" call add(g:pathogen_disabled, 'vim-snipmate')
-" call add(g:pathogen_disabled, 'Smart-Tabs')
-" 
-" call pathogen#infect('bundle/{}')
-" "call pathogen#helptags() "call this when installing new plugins
-" "call pathogen#infect()
-" 
-"}}} end pathogen
-"
-"" Vbundle {{{
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-" tpope {{{
-Plugin 'tpope/vim-fugitive.git'
-Plugin 'tpope/vim-unimpaired.git'
-Plugin 'tpope/vim-surround.git'
-" }}}
-" ctrlp {{{
-Plugin 'kien/ctrlp.vim.git'
-" }}}
-" tabular {{{
-Plugin 'godlygeek/tabular.git'
-" }}}
-"virtualenv {{{
-Plugin 'plytophogy/vim-virtualenv'
-let g:virtualenv_directory = '~/.virtualenv'
-" }}}
-"syntasti {{{
-Plugin 'vim-syntastic/syntastic'
-let g:syntastic_mode_map = { 'mode': 'active',
-      \ 'active_filetypes': [],
-      \ 'passive_filetypes': [] }
-" }}}
-" vim-airline {{{
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-"if exists("g:airline_theme_map")
-  let g:airline_powerline_fonts = 1
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline_theme = "powerlineish"
-  let g:airline_section_gutter = "%= [%b:0x%B][hi:%{SyntaxItem()}]"
-"endif
-"" }}}
-" language support {{{
-Plugin 'fatih/vim-go.git'
-Plugin 'kchmck/vim-coffee-script.git'
-Plugin 'pangloss/vim-javascript.git'
-Plugin 'gabrielelana/vim-markdown.git'
-" }}}
-" color schemes {{{
-Plugin 'chriskempson/base16-vim'
-Plugin 'google/vim-colorscheme-primary.git'
-Plugin 'altercation/vim-colors-solarized.git'
-" }}}
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-""" }}} end bundle
-
 "" INCLUDES {{{
 if filereadable(expand("$HOME/.vimrc.local"))
   so $HOME/.vimrc.local
@@ -95,6 +15,7 @@ else
 endif
 "" }}} end includes
 
+so $HOME/.vim/plugin.vim
 so $HOME/.vim/funcdef.vim
 so $HOME/.vim/keymaps.vim
 so $HOME/.vim/colors.vim
@@ -117,25 +38,21 @@ set mousehide          " hide mouse cursor while typing
 set shellslash         " (for windows) use \ for shell
 set laststatus=2       " always put a status line in, even if there is only one window
 "set diffopt+=iwhite    " ignore white space
-"set diffopt+=vertical  " not sure why this is not the default.
 if &diff
-    set diffopt-=internal
-    set diffopt+=vertical
+    set diffopt-=internal  " invalid on MacOS Catalina
+    set diffopt+=vertical  " not sure why this is not the default.
 endif
 if exists("&cot")      " (version >= 7.2)
   set cot=longest,menu " complete option
 en
 
-set backspace=indent,eol,start " so that backspace works in Windows:
 set nobackup
 set noswapfile
 
+set backspace=indent,eol,start " so that backspace works in Windows:
+
 set list
 set listchars=eol:$,tab:>.,trail:.,extends:#,nbsp:.
-
-set number
-set relativenumber " show relative number
-set scrolloff=10   " vertical padding
 
 "" } end basic
 

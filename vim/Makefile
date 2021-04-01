@@ -15,4 +15,4 @@ deploy : | $(CONFIG_DIR)
 		deploy_if_diff "$|"/gvimrc gvimrc.user;       \
 		}
 	if [[ ! -f "$(VIM_RC)" ]]; then ln -s .vim/vimrc "$(VIM_RC)"; fi
-	rsync -avP --delete {,"$|"/}bundle/
+	# rsync -avP --delete {,"$|"/}bundle/

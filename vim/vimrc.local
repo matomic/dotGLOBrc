@@ -39,6 +39,15 @@ set suffixes+=.info,.aux,.log,.dvi,.pdf,.ps,.eps,.bbl,.out,.o,.lo
 
 set grepprg=grep\ -nH\ $*
 
+" tags search order: .tags and .TAGS in current file dir, followed by
+" tags/TAGS from current working dir recursively back up to $HOME
+set tags=./tags,./TAGS,tags;~,TAGS;~
+
+" line number setting
+set number
+set relativenumber " show relative number
+set scrolloff=10   " vertical padding
+
 " Up, Down move up/down by "screen lines"
 " j k (default) move down/up by "file lines"
 nmap  <Down> gj
