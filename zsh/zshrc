@@ -1,11 +1,26 @@
 #!/bin/zsh
 
 ## zsh option
-setopt HIST_SAVE_NO_DUPS
-setopt HIST_SAVE_NO_DUPS
+setopt HIST_SAVE_NO_DUPS    # Do not save duplicate entry in history
+
+setopt AUTO_PUSHD           # Push the current directory visited on the stack.
+setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
+setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
 
 ## Completion
-autoload -U compinit; compinit
+autoload -U compinit && compinit
+_comp_options+=(globdots) # With hidden files
+source $ZDOTDIR/completion.zsh
+
+fpath=($ZDOTDIR/plugins/zsh-completions/src $fpath)
+
 
 ## alias
-source ${ZDOTDIR}/alias.zsh
+source $ZDOTDIR/alias.zsh
+
+## Prompt
+fpath=($ZDOTDIR/plugins/purification $fpath)
+autoload -Uz prompt_purification_setup && prompt_purification_setup
+
+## Syntax highlighting
+source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
