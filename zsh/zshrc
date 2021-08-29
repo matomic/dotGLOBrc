@@ -1,4 +1,32 @@
-#!/bin/zsh
+ZSH_THEME="powerlevel9k"
+
+case "$ZSH_THEME" in
+	powerlevel9k)
+		POWERLEVEL9K_MODE='awesome-fontconfig'
+		POWERLEVEL9K_MODE='nerdfont-complete'
+		POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+		POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
+		POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX=" "
+		POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="λ "
+		POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir vcs)
+		POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history virtualenv anaconda ip battery time)
+		VIRTUAL_ENV_DISABLE_PROMPT=1
+		POWERLEVEL9K_VIRTUALENV_BACKGROUND="green"
+		POWERLEVEL9K_VIRTUALENV_FOREGROUND="clear"
+		POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+		POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
+		;;
+
+	powerlevel10k)
+		# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+		# Initialization code that may require console input (password prompts, [y/n]
+		# confirmations, etc.) must go above this block; everything else may go below.
+		if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+			source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+		fi
+		POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+		;;
+esac
 
 ## zsh option
 setopt HIST_SAVE_NO_DUPS    # Do not save duplicate entry in history
@@ -19,13 +47,30 @@ fpath=($ZDOTDIR/plugins/zsh-completions/src $fpath)
 source $ZDOTDIR/alias.zsh
 
 ## Prompt
-fpath=($ZDOTDIR/plugins/purification $fpath)
-autoload -Uz prompt_purification_setup && prompt_purification_setup
+# fpath=($ZDOTDIR/plugins/purification $fpath)
+# autoload -Uz prompt_purification_setup && prompt_purification_setup
 
 ## my functions
 # fpath=($ZDOTDIR/functions $fpath)
 # autoload -U hgrep
-source ${ZDOTDIR}/functions/*
+source $ZDOTDIR/functions/*
+
+## Themes
+[[ -f $ZDOTDIR/themes/$ZSH_THEME/$ZSH_THEME.zsh-theme ]] && source $ZDOTDIR/themes/$ZSH_THEME/$ZSH_THEME.zsh-theme
 
 ## Syntax highlighting
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+## font maps
+# source $HOME/dev/awesome-terminal-fonts/build/programming-languages.sh
+# source $HOME/dev/awesome-terminal-fonts/build/devicons-regular.sh
+# source $HOME/dev/awesome-terminal-fonts/build/octicons-regular.sh
+# source $HOME/dev/awesome-terminal-fonts/build/fontawesome-regular.sh
+# source $HOME/dev/awesome-terminal-fonts/build/pomicons-regular.sh
+
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+case "$ZSH_THEME" in
+	powerlevel10k)
+		[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+		;;
+esac

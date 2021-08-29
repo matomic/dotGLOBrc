@@ -18,15 +18,19 @@ $(ZDOTDIR)/% : % | $(ZDOTDIR)
 $(ZDOTDIR)/plugins : plugins
 	printf "Deploying plugins\n"; rsync -avP plugins/ $(ZDOTDIR)/plugins/
 
-$(ZDOTDIR)/functions :functions
+$(ZDOTDIR)/functions : functions
 	printf "Deploying functions\n"; rsync -avP functions/ $(ZDOTDIR)/functions/
+
+$(ZDOTDIR)/themes : themes
+	printf "Deploying themes\n"; rsync -avP themes/ $(ZDOTDIR)/themes/
 
 DEPLOY_TARGETS := $(HOME)/.zshenv \
 	$(ZDOTDIR)/.zshrc \
 	$(ZDOTDIR)/alias.zsh \
 	$(ZDOTDIR)/completion.zsh \
-	$(ZDOTDIR)/plugins \
 	$(ZDOTDIR)/functions \
+	$(ZDOTDIR)/plugins \
+	$(ZDOTDIR)/themes \
 	$(ZDOTDIR)/prompt_purification_setup
 
 
