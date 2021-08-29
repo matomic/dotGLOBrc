@@ -1,19 +1,25 @@
 .PHONY : deploy
 
 
-CONFIG_DIR=$(HOME)/.config/zsh
-$(CONFIG_DIR) :
+ZDOTDIR=$(HOME)/.config/zsh
+
+$(ZDOTDIR) :
 	mkdir -p "$@"
 
 $(HOME)/.zshenv : zshenv
 	cp $< $@
 
-$(CONFIG_DIR)/.% : %
+$(ZDOTDIR)/.% : %
 	cp $< $@
 
-$(CONFIG_DIR)/% : %
+$(ZDOTDIR)/% : %
 	cp -L $< $@
 
+$(ZDOTDIR)/plugins : plugins
+	printf "Deploying plugins\n"; rsync -avP plugins/ $(ZDOTDIR)/plugins/
 
-deploy : $(HOME)/.zshenv $(CONFIG_DIR)/.zshrc $(CONFIG_DIR)/alias.zsh | $(CONFIG_DIR)
+DEPLOY_TARGETS := $(HOME)/.zshenv $(ZDOTDIR)/.zshrc $(ZDOTDIR)/alias.zsh $(ZDOTDIR)/plugins
+
+
+deploy : $(DEPLOY_TARGETS) | $(ZDOTDIR)
 	# no-op
