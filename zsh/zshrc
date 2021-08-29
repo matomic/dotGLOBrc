@@ -22,5 +22,10 @@ source $ZDOTDIR/alias.zsh
 fpath=($ZDOTDIR/plugins/purification $fpath)
 autoload -Uz prompt_purification_setup && prompt_purification_setup
 
+## my functions
+# fpath=($ZDOTDIR/functions $fpath)
+# autoload -U hgrep
+source ${ZDOTDIR}/functions/*
+
 ## Syntax highlighting
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

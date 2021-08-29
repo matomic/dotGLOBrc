@@ -7,7 +7,7 @@ random() {
 genpasswd() {
 	local l=$1
 	[ -z "$l" ] && l=20
-	tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
+	LC_ALL=C tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 }
 
 genrandomwords() {
