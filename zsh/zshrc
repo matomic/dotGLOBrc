@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+## zsh option
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
+
+## Completion
+autoload -U compinit; compinit
+
+## alias
+source ${ZDOTDIR}/alias.zsh
