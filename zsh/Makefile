@@ -52,7 +52,6 @@ DEPLOY_TARGETS := $(HOME)/.zshenv       \
 	themes/powerlevel9k.git             \
 	themes/powerlevel10k.git            \
 
-
 deploy : $(DEPLOY_TARGETS) | $(ZDOTDIR)
 	# deployed $+
 
