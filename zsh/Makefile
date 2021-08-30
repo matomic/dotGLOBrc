@@ -5,6 +5,7 @@
 	themes/powerlevel9k.git,             \
 	themes/powerlevel10k.git
 
+SHELL := bash -e
 
 ZDOTDIR=$(HOME)/.config/zsh
 
@@ -25,20 +26,7 @@ $(eval $(call GIT_TEMPLATE, themes/powerlevel9k, https://github.com/bhilburn/pow
 $(ZDOTDIR) :
 	mkdir -p "$@"
 
-$(HOME)/.zshenv : zshenv
-	cp -L "$<" "$@"
-
-$(ZDOTDIR)/.% : % | $(ZDOTDIR)
-	cp -L "$<" "$@"
-
-$(ZDOTDIR)/% : % | $(ZDOTDIR)
-	cp -L "$<" "$@"
-
-RSYNC = rsync
-RSYNC_OPTS = -avP --delete --copy-unsafe-links
-
-$(ZDOTDIR)/functions : functions
-	printf "Deploying functions\n"; $(RSYNC) $(RSYNC_OPTS) functions/ $(ZDOTDIR)/functions/
+include ../common.mk
 
 DEPLOY_TARGETS := $(HOME)/.zshenv       \
 	$(ZDOTDIR)/.zshrc                   \
@@ -52,12 +40,27 @@ DEPLOY_TARGETS := $(HOME)/.zshenv       \
 	themes/powerlevel9k.git             \
 	themes/powerlevel10k.git            \
 
-
 deploy : $(DEPLOY_TARGETS) | $(ZDOTDIR)
 	# deployed $+
 
 clean :
 	rm -rf $(ZDOTDIR)/*
 	rm -rf $(ZDOTDIR)/.zshrc
+
+$(HOME)/.zshenv : zshenv
+	$(WITH_DEPLOY_HELPER); deploy_if_diff $@ $<
+
+$(ZDOTDIR)/.% : % | $(ZDOTDIR)
+	$(WITH_DEPLOY_HELPER); deploy_if_diff $@ $<
+
+$(ZDOTDIR)/% : % | $(ZDOTDIR)
+	$(WITH_DEPLOY_HELPER); deploy_if_diff $@ $<
+
+RSYNC = rsync
+RSYNC_OPTS = -avP --delete --copy-unsafe-links
+
+$(ZDOTDIR)/functions : functions
+	printf "Deploying functions\n"; $(RSYNC) $(RSYNC_OPTS) functions/ $(ZDOTDIR)/functions/
+
 
 # vim: iskeyword+=-
