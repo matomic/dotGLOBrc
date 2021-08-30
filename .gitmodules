@@ -4,18 +4,3 @@
 [submodule "bash/base16-shell"]
 	path = bash/modules/base16-shell
 	url = https://github.com/chriskempson/base16-shell.git
-[submodule "zsh/plugins/zsh-completions"]
-	path = zsh/plugins/zsh-completions
-	url = https://github.com/zsh-users/zsh-completions.git
-[submodule "zsh/plugins/purification"]
-	path = zsh/plugins/purification
-	url = https://github.com/Phantas0s/purification.git
-[submodule "zsh/plugins/zsh-syntax-highlighting"]
-	path = zsh/plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "zsh/themes/powerlevel10k"]
-	path = zsh/themes/powerlevel10k
-	url = https://github.com/romkatv/powerlevel10k.git
-[submodule "zsh/themes/powerlevel9k"]
-	path = zsh/themes/powerlevel9k
-	url = https://github.com/bhilburn/powerlevel9k.git

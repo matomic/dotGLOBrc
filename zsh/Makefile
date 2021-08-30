@@ -1,7 +1,26 @@
-.PHONY : deploy clean
+.PHONY : deploy clean \
+	plugins/zsh-completions.git,         \
+	plugins/zsh-syntax-highlighting.git, \
+	plugins/purification.git,            \
+	themes/powerlevel9k.git,             \
+	themes/powerlevel10k.git
 
 
 ZDOTDIR=$(HOME)/.config/zsh
+
+define GIT_TEMPLATE
+$$(ZDOTDIR)/$(strip $1) :
+	git clone "$(strip $2)" "$$@"
+
+$(strip $1).git : $$(ZDOTDIR)/$(strip $1)
+	(cd $$<; git fetch origin; git merge origin/master)
+endef
+
+$(eval $(call GIT_TEMPLATE, plugins/zsh-completions, https://github.com/zsh-users/zsh-completions.git))
+$(eval $(call GIT_TEMPLATE, plugins/zsh-syntax-highlighting, https://github.com/zsh-users/zsh-syntax-highlighting.git))
+$(eval $(call GIT_TEMPLATE, plugins/purification, https://github.com/Phantas0s/purification.git))
+$(eval $(call GIT_TEMPLATE, themes/powerlevel10k, https://github.com/romkatv/powerlevel10k.git))
+$(eval $(call GIT_TEMPLATE, themes/powerlevel9k, https://github.com/bhilburn/powerlevel9k.git))
 
 $(ZDOTDIR) :
 	mkdir -p "$@"
@@ -15,23 +34,19 @@ $(ZDOTDIR)/.% : % | $(ZDOTDIRS)
 $(ZDOTDIR)/% : % | $(ZDOTDIR)
 	cp -L "$<" "$@"
 
-$(ZDOTDIR)/plugins : plugins
-	printf "Deploying plugins\n"; rsync -avP plugins/ $(ZDOTDIR)/plugins/
-
 $(ZDOTDIR)/functions : functions
 	printf "Deploying functions\n"; rsync -avP functions/ $(ZDOTDIR)/functions/
 
-$(ZDOTDIR)/themes : themes
-	printf "Deploying themes\n"; rsync -avP themes/ $(ZDOTDIR)/themes/
-
-DEPLOY_TARGETS := $(HOME)/.zshenv \
-	$(ZDOTDIR)/.zshrc \
-	$(ZDOTDIR)/alias.zsh \
-	$(ZDOTDIR)/completion.zsh \
-	$(ZDOTDIR)/functions \
-	$(ZDOTDIR)/plugins \
-	$(ZDOTDIR)/themes \
-	# $(ZDOTDIR)/prompt_purification_setup
+DEPLOY_TARGETS := $(HOME)/.zshenv       \
+	$(ZDOTDIR)/.zshrc                   \
+	$(ZDOTDIR)/alias.zsh                \
+	$(ZDOTDIR)/completion.zsh           \
+	$(ZDOTDIR)/functions                \
+	plugins/zsh-completions.git         \
+	plugins/zsh-syntax-highlighting.git \
+	plugins/purification.git            \
+	themes/powerlevel9k.git             \
+	themes/powerlevel10k.git            \
 
 
 deploy : $(DEPLOY_TARGETS) | $(ZDOTDIR)
@@ -40,3 +55,5 @@ deploy : $(DEPLOY_TARGETS) | $(ZDOTDIR)
 clean :
 	rm -rf $(ZDOTDIR)/*
 	rm -rf $(ZDOTDIR)/.zshrc
+
+# vim: iskeyword+=-
