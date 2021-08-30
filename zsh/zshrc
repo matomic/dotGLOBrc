@@ -68,6 +68,11 @@ source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # source $HOME/dev/awesome-terminal-fonts/build/fontawesome-regular.sh
 # source $HOME/dev/awesome-terminal-fonts/build/pomicons-regular.sh
 
+## base16-shell
+BASE16_SHELL="$CONFIGDIR/bash/modules/base16-shell"
+BASE16_THEME="brewer"
+[ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] && eval "$("$BASE16_SHELL/profile_helper.sh")"
+
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 case "$ZSH_THEME" in
 	powerlevel10k)
