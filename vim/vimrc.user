@@ -33,6 +33,7 @@ set ffs=unix,dos       " refers unix format
 set nolz               " (lazyredraw) Don't update the display while executing macro
 set showmode           " Show which mode you are in
 set modeline           " Use modeline to customize setting
+set modelines=1        " number of mode line to check
 set wildmenu           " Enalbed enhanced command-line completion
 set mousehide          " hide mouse cursor while typing
 set shellslash         " (for windows) use \ for shell
