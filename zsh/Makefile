@@ -1,4 +1,4 @@
-.PHONY : deploy
+.PHONY : deploy clean
 
 
 ZDOTDIR=$(HOME)/.config/zsh
@@ -31,8 +31,12 @@ DEPLOY_TARGETS := $(HOME)/.zshenv \
 	$(ZDOTDIR)/functions \
 	$(ZDOTDIR)/plugins \
 	$(ZDOTDIR)/themes \
-	$(ZDOTDIR)/prompt_purification_setup
+	# $(ZDOTDIR)/prompt_purification_setup
 
 
 deploy : $(DEPLOY_TARGETS) | $(ZDOTDIR)
 	# deployed $+
+
+clean :
+	rm -rf $(ZDOTDIR)/*
+	rm -rf $(ZDOTDIR)/.zshrc
