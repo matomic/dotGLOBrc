@@ -12,11 +12,18 @@ _deploy_if_diff() {
 	if [[ -d "${to}" ]]
 	then
 		printf "deploy_if_diff ${fr}\t${to}/\n"
-		local to=${to}/`basename ${fr}`
+		to=${to}/`basename ${fr}`
 	else
 		printf "deploy_if_diff ${fr}\t${to}\n"
 	fi
 
+	# if target file does not exists, the just install
+	if [ ! -f $to ]
+	then
+		cp -i -L "${fr}" "${to}"
+	fi
+
+	# Otherwise, diff and let user pick and choose
 	if ! ${diff} -quN "${to}" "${fr}"
 	then
 		if which ${merge}

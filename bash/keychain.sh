@@ -1,4 +1,3 @@
-
 ## Enable ssh-agent and gpg-agent {{{
 eval_keychain() {
 	# eval keychain, if failed, stop existing ssh-agent and try again
@@ -11,9 +10,9 @@ eval_keychain() {
 
 init_keychain() {
 	local gpgagentbin=$(which gpg-agent 2> /dev/null)
-	if [ which keychain]
+	if which keychain
 	then
-		if [ which gpg-agent ]
+		if which gpg-agent
 		then
 			eval `keychain --quiet --agents gpg --eval`;
 		fi

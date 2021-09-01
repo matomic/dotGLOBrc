@@ -1,4 +1,3 @@
-
 # ANSI color codes {{{
 usecolor () {
 	use_color=false
@@ -56,7 +55,7 @@ function loadANSIcolor {
 ## Colorful settings {{{
 usecolor
 
-BASE16_SHELL=${HOME}/.bashrc.d/modules/base16-shell/
+BASE16_SHELL=${BASHRC_DIR}/modules/base16-shell/
 #colorscheme_base16 () {
 #	if [[ -z "$*" ]]
 #	then

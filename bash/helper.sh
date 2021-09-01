@@ -1,5 +1,4 @@
-
-_THISDIR=`dirname ${0}`
+_THISDIR=`dirname ${BASH_SOURCE[0]}`
 for _sh in $_THISDIR/incl/*.sh
 do
 	source $_sh

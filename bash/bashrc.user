@@ -1,8 +1,8 @@
-
 BASHRC_FILE=~/.bashrc
+[[ -e ${BASHRC_FILE} ]]
 if [[ -L ${BASHRC_FILE} ]]
 then
-	BASHRC_FILE=$(readlink ~/.bashrc)
+	BASHRC_FILE=$(readlink ${BASHRC_FILE})
 fi
 BASHRC_DIR=$(dirname ${BASHRC_FILE})
 
