@@ -87,6 +87,11 @@ Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
 " }}}
 
+Plugin 'bazelbuild/vim-bazel'
+" editorconfig {{{
+Plugin 'editorconfig/editorconfig-vim'
+" }}}
+
 " epilogue {{{
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -103,12 +108,18 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+" }}} end bundle
 
+" Plugin settings {{{
+" Glaive {{{
 " the glaive#Install() should go after the "call vundle#end()"
 call glaive#Install()
 "" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
 "Glaive codefmt plugin[mappings]
 "Glaive codefmt clang_format_executable="clang-format-4.0"
-" }}} end bundle
+Glaive codefmt black_options=`['--line-length', '80']`
+" }}}
+
+" }}}
 
 " vim: fdm=marker

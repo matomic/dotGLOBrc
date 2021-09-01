@@ -81,9 +81,12 @@ aug autoformat_settings
 	" autocmd FileType gn AutoFormatBuffer gn
 	autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
 	" autocmd FileType java AutoFormatBuffer google-java-format
+	autocmd FileType python AutoFormatBuffer black
+	" Alternatives:
+	" autocmd FileType python AutoFormatBuffer autopep8
 	" autocmd FileType python AutoFormatBuffer yapf
-	" " Alternative: autocmd FileType python AutoFormatBuffer autopep8
 	autocmd FileType rust AutoFormatBuffer rustfmt
+	autocmd FileType sh AutoFormatBuffer shfmt
 	" autocmd FileType vue AutoFormatBuffer prettier
 aug END
 "" }
