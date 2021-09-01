@@ -1,4 +1,5 @@
 # grep history
-hgrep() {
+hgrep () {
 	history | grep "$@"
 }
+# vim: ft=bash

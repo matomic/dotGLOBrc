@@ -14,17 +14,3 @@ pyhelp() {
 		fi
 	done
 }
-
-pyenv_activate() {
-	local root=
-	for root in $1 ~/.virtualenv/$1
-	do
-		if [[ -f $root/bin/activate ]];
-		then
-			source $root/bin/activate
-			return
-		fi
-	done
-	printf "fail to find activate script for $1\n"
-	false
-}

@@ -35,7 +35,7 @@ $(ZDOTDIR)/% : % | $(ZDOTDIR)
 	cp -L "$<" "$@"
 
 RSYNC = rsync
-RSYNC_OPTS = -avP --delete
+RSYNC_OPTS = -avP --delete --copy-unsafe-links
 
 $(ZDOTDIR)/functions : functions
 	printf "Deploying functions\n"; $(RSYNC) $(RSYNC_OPTS) functions/ $(ZDOTDIR)/functions/

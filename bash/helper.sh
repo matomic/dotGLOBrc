@@ -1,12 +1,10 @@
 
 _THISDIR=`dirname ${0}`
-source ${_THISDIR}/incl/do.sh
-source ${_THISDIR}/incl/history.sh
-source ${_THISDIR}/incl/path.sh
-source ${_THISDIR}/incl/python.sh
-source ${_THISDIR}/incl/random.sh
-source ${_THISDIR}/incl/ssh.sh
-unset _THISDIR
+for _sh in $_THISDIR/incl/*.sh
+do
+	source $_sh
+done
+unset _THISDIR _sh
 
 ## Helper functions
 # source additional files with extension $2 in $1
