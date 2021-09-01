@@ -28,7 +28,7 @@ $(ZDOTDIR) :
 $(HOME)/.zshenv : zshenv
 	cp -L "$<" "$@"
 
-$(ZDOTDIR)/.% : % | $(ZDOTDIRS)
+$(ZDOTDIR)/.% : % | $(ZDOTDIR)
 	cp -L "$<" "$@"
 
 $(ZDOTDIR)/% : % | $(ZDOTDIR)
