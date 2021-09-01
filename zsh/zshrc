@@ -55,9 +55,7 @@ source $ZDOTDIR/alias.zsh
 # autoload -Uz prompt_purification_setup && prompt_purification_setup
 
 ## my functions
-# fpath=($ZDOTDIR/functions $fpath)
-# autoload -U hgrep
-source $ZDOTDIR/functions/*
+source $ZDOTDIR/functions.zsh
 
 ## Themes
 [[ -f $ZDOTDIR/themes/$ZSH_THEME/$ZSH_THEME.zsh-theme ]] && source $ZDOTDIR/themes/$ZSH_THEME/$ZSH_THEME.zsh-theme

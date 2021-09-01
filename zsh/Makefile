@@ -34,13 +34,17 @@ $(ZDOTDIR)/.% : % | $(ZDOTDIRS)
 $(ZDOTDIR)/% : % | $(ZDOTDIR)
 	cp -L "$<" "$@"
 
+RSYNC = rsync
+RSYNC_OPTS = -avP --delete
+
 $(ZDOTDIR)/functions : functions
-	printf "Deploying functions\n"; rsync -avP functions/ $(ZDOTDIR)/functions/
+	printf "Deploying functions\n"; $(RSYNC) $(RSYNC_OPTS) functions/ $(ZDOTDIR)/functions/
 
 DEPLOY_TARGETS := $(HOME)/.zshenv       \
 	$(ZDOTDIR)/.zshrc                   \
 	$(ZDOTDIR)/alias.zsh                \
 	$(ZDOTDIR)/completion.zsh           \
+	$(ZDOTDIR)/functions.zsh            \
 	$(ZDOTDIR)/functions                \
 	plugins/zsh-completions.git         \
 	plugins/zsh-syntax-highlighting.git \
