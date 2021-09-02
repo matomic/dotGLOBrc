@@ -44,9 +44,6 @@ autoload -U compinit && compinit
 _comp_options+=(globdots) # With hidden files
 source $ZDOTDIR/completion.zsh
 
-fpath=($ZDOTDIR/plugins/zsh-completions/src $fpath)
-
-
 ## alias
 source $ZDOTDIR/alias.zsh
 
