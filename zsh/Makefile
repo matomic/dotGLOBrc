@@ -29,6 +29,7 @@ include ../common.mk
 DEPLOY_TARGETS := $(HOME)/.zshenv       \
 	$(ZDOTDIR)/.zshrc                   \
 	$(ZDOTDIR)/alias.zsh                \
+	$(ZDOTDIR)/base16-shell.zsh         \
 	$(ZDOTDIR)/completion.zsh           \
 	$(ZDOTDIR)/functions.zsh            \
 	$(ZDOTDIR)/functions                \

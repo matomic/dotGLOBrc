@@ -1,5 +1,5 @@
 
-BASE16_SHELL=${BASHRC_DIR}/modules/base16-shell/
+BASE16_SHELL=${1:-${BASHRC_DIR}}/modules/base16-shell/
 
 colortest_base16 () {
 		${BASE16_SHELL}/colortest $*
