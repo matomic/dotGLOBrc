@@ -13,6 +13,7 @@ alias sshfs='sshfs -o follow_symlinks -o allow_root'
 alias tmux='env TERM=screen-256color-bce tmux -2'
 alias pdiff='diff -Naur'
 alias rsync='rsync -e ssh'
+alias lessr='less -R'
 alias fuck='sudo $(history -p \!\!)'
 alias xclip0='xclip -selection clipboard'
 
