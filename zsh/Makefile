@@ -5,8 +5,6 @@
 	themes/powerlevel9k.git,             \
 	themes/powerlevel10k.git
 
-SHELL := bash -e
-
 ZDOTDIR=$(HOME)/.config/zsh
 
 define GIT_TEMPLATE

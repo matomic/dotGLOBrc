@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 _deploy_if_diff() {
 	# deploy a single file to destination.  If target file exists, check for
@@ -9,7 +9,7 @@ _deploy_if_diff() {
 	local diff=${DIFF:=`which colordiff || which diff`}
 	local merge=${MERGE:=vimdiff}
 
-	if [[ -d "${to}" ]]
+	if [ -d "${to}" ]
 	then
 		printf "deploy_if_diff ${fr}\t${to}/\n"
 		to=${to}/`basename ${fr}`
@@ -48,7 +48,7 @@ deploy_if_diff () {
 	# TODO: if len($@) > 1, assert to is directory
 	for f in "$@"
 	do
-		if [[ -f "$f" ]]
+		if [ -f "$f" ]
 		then
 			_deploy_if_diff "$f" "$to"
 		fi
