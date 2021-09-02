@@ -9,20 +9,20 @@ usecolor () {
 	# globbing instead of external grep binary.
 	safe_term=${TERM//[^[:alnum:]]/?}   # sanitize TERM
 	local match_lhs=""
-	[[ -f ~/.dir_colors   ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
-	[[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
-	[[ -z ${match_lhs}    ]] \
+	[ -f ~/.dir_colors   ] && match_lhs="${match_lhs}$(<~/.dir_colors)"
+	[ -f /etc/DIR_COLORS ] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
+	[ -z ${match_lhs}    ] \
 		&& type -P dircolors >/dev/null \
 		&& match_lhs=$(dircolors --print-database | grep TERM)
-	[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+	[ $'\n'${match_lhs} = *$'\n'"TERM "${safe_term}* ] && use_color=true
 
-	if [[ $(uname) == "Darwin" ]] # OSX is not very nice...
+	if [ $(uname) = "Darwin" ] # OSX is not very nice...
 	then
 		use_color=true
 		export CLICOLOR=1
 	fi
 
-	if [[ `tput colors` -ge 16 ]]
+	if [ `tput colors` -ge 16 ]
 	then
 		use_color=true
 	fi
@@ -55,26 +55,12 @@ function loadANSIcolor {
 ## Colorful settings {{{
 usecolor
 
-BASE16_SHELL=${BASHRC_DIR}/modules/base16-shell/
-#colorscheme_base16 () {
-#	if [[ -z "$*" ]]
-#	then
-#		pushd ${BASE16_SHELL}/scripts > /dev/null
-#		ls base16-*.sh
-#		popd > /dev/null
-#	else
-#		local f="${BASE16_SHELL}/scripts/base16-$1.sh"
-#		[[ -s $f ]] && source $f || echo "Unknown color scheme: $1"
-#	fi
-#}
-
-colortest_base16 () {
-		${BASE16_SHELL}/colortest $*
-}
+source $(dirname ${BASH_SOURCE[0]})/base16-shell.sh
 
 if ${use_color}; then
 	loadANSIcolor
-	[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+	init_base16
 
 	PS1_USER="\[$TXTINV\]\[$TXTBLD\]\[$FGCGRN\]\u◗\[$TXTRST\]"
 	PS1_HOST="\[$TXTINV\]\[$TXTBLD\]\[$FGCBLU\]\h◗\[$TXTRST\]"
