@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env sh
 #
 # find_ssh_auth_sock
 # ====
@@ -14,8 +14,7 @@
 #
 # return 0 if success, 2 otherwise.
 find_ssh_auth_sock() {
-	autoload -Uz test_ssh_auth_sock
-	for sock in $( find  /tmp/ssh-*(N) /tmp/com.apple.launchd.*(N) "$@" -type s 2> /dev/null )
+	for sock in $( find /tmp/ssh-* /tmp/com.apple.launchd.* "$@" -type s 2> /dev/null )
 	do
 		if test_ssh_auth_sock $sock
 		then
@@ -25,4 +24,3 @@ find_ssh_auth_sock() {
 	return 2
 }
 
-# vim: ft=zsh
