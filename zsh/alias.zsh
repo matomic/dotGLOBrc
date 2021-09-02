@@ -1,1 +1,1 @@
-../bash/alias.sh
+../sh/alias.sh
