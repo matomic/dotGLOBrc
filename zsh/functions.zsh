@@ -5,6 +5,7 @@ autoload +X \
 	extract \
 	find_ssh_auth_sock \
 	genpasswd \
+	genrandomwords \
 	hgrep \
 	pyenv_activate \
 	seqdo \
