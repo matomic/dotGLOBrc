@@ -1,12 +1,13 @@
 fpath=($(dirname $0)/functions $fpath)
 autoload +X \
 	argsep \
+	eval_ssh_auth_sock \
 	extract \
 	find_ssh_auth_sock \
 	genpasswd \
 	hgrep \
-	pyenv_activate\
+	pyenv_activate \
 	seqdo \
-	sshdiff \
+	sshdiff
 
 # vim: ft=zsh

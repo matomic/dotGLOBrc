@@ -15,7 +15,7 @@
 # return 0 if success, 2 otherwise.
 find_ssh_auth_sock() {
 	autoload -Uz test_ssh_auth_sock
-	for sock in $( find  /tmp/ssh-*(N) /tmp/com.apple.launchd.*(N) "$@" -type s 2> /dev/null )
+	for sock in $( find  /tmp/ssh-*(N) /tmp/com.apple.launchd.*/Listeners(N) "$@" -type s 2> /dev/null )
 	do
 		if test_ssh_auth_sock $sock
 		then
