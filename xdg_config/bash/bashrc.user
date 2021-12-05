@@ -1,8 +1,8 @@
-BASHRC_FILE=~/.bashrc
+BASHRC_FILE=${HOME}/.bashrc
 [[ -e ${BASHRC_FILE} ]]
 if [[ -L ${BASHRC_FILE} ]]
 then
-	BASHRC_FILE=$(readlink ${BASHRC_FILE})
+	BASHRC_FILE=${HOME}/$(readlink ${BASHRC_FILE})
 fi
 BASHRC_DIR=$(dirname ${BASHRC_FILE})
 
@@ -39,10 +39,10 @@ shopt -s checkwinsize
 shopt -s histappend
 
 # Run some login shell scripts for non-login shell
-for _sh in /etc/profile.d/*.sh ; do
-	[ -r "$_sh" ] && . "$_sh"
-done
-unset _sh
+# for _sh in /etc/profile.d/*.sh ; do
+# 	[ -r "$_sh" ] && . "$_sh"
+# done
+# unset _sh
 
 # Change the window title of X terminals
 case ${TERM} in
