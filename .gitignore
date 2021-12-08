@@ -1,2 +1,5 @@
 
 xdg_config/zsh/.zhistory
+xdg_config/zsh/plugins
+xdg_config/zsh/themes
+xdg_config/zsh/.*
