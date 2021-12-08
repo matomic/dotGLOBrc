@@ -1,11 +1,19 @@
+if isdirectory(expand("$XDG_CONFIG_HOME/vim"))
+  let $VIMRTP = expand("$XDG_CONFIG_HOME/vim")
+elseif isdirectory(expand("$HOME/.config/vim"))
+  let $VIMRTP = expand("$HOME/.config/vim")
+else
+  let $VIMRTP = expand("$HOME/.vim")
+endif
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
 "" INCLUDES {{{
 if filereadable(expand("$HOME/.vimrc.local"))
   so $HOME/.vimrc.local
-elseif filereadable(expand("$HOME/.vim/vimrc.local"))
-  so $HOME/.vim/vimrc.local
+elseif filereadable(expand("$VIMRTP/vimrc.local"))
+  so $VIMRTP/vimrc.local
 elseif filereadable(expand("$HOME/_vimrc.local"))
   so $HOME/_vimrc.local
 elseif filereadable(expand("$VIM/_vimrc.local"))
@@ -15,11 +23,11 @@ else
 endif
 "" }}} end includes
 
-so $HOME/.vim/plugin.vim
-so $HOME/.vim/funcdef.vim
-so $HOME/.vim/keymaps.vim
-so $HOME/.vim/colors.vim
-so $HOME/.vim/autocmd.vim
+so $VIMRTP/plugin.vim
+so $VIMRTP/funcdef.vim
+so $VIMRTP/keymaps.vim
+so $VIMRTP/colors.vim
+so $VIMRTP/autocmd.vim
 
 "" BASIC OPTIONS {
 set shiftwidth=4       " number of spaces to use for autoindenting
@@ -57,7 +65,6 @@ set listchars=eol:$,tab:>.,trail:.,extends:#,nbsp:.
 
 "" } end basic
 
-" Set the status line the way I like it
 if 1
   "define 3 custom highlight groups
   hi User1 ctermbg=yellow ctermfg=white  guibg=yellow guifg=white
