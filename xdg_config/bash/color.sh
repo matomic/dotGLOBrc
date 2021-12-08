@@ -103,12 +103,13 @@ else
 	fi
 fi
 
-base16_brewer
-
 PS2="> $RS"
 ## }}}
 
 # Try to keep environment pollution down, EPA loves us.
 unset use_color safe_term match_lhs
+
+# base16_material-darker
+base16_summerfruit-dark
 
 ## vim: foldmethod=marker ft=sh noet sta ts=2 sw=2
