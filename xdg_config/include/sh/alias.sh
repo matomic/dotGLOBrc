@@ -90,7 +90,7 @@ then
 	#
 	alias pacupg='sudo pacman -Syu'                 # Synchronize with repositories before upgrading packages that are out of date on the local system.
 	alias pacmir='sudo pacman -Syy'                 # Force refresh of all package lists after updating /etc/pacman.d/mirrorlis
-	alias pacupd='sudo pacman -Sy && sudo abs'      # Update and refresh the local package and ABS databases against repositories
+	alias pacupd='sudo pacman -Sy'                  # Update and refresh the local package and ABS databases against repositories
 	alias pacdepc='sudo pacman -Rs $(pacman -Qtdq)' # Clean all unneeded dependencies
 fi
 

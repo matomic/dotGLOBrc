@@ -2,5 +2,5 @@
 	path = vim/bundle/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen
 [submodule "bash/base16-shell"]
-	path = bash/modules/base16-shell
+	path = xdg_config/bash/modules/base16-shell
 	url = https://github.com/chriskempson/base16-shell.git
