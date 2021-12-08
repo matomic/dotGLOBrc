@@ -93,45 +93,45 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # name workspaces
-set $w0 1:甲
-set $w1 2:已
-set $w2 3:丙
-set $w3 4:丁
-set $w4 5:戊
-set $w5 6:己
-set $w6 7:庚
-set $w7 8:辛
-set $w8 9:壬
-set $w9 10:癸
+set $ws0 1:甲
+set $ws1 2:已
+set $ws2 3:丙
+set $ws3 4:丁
+set $ws4 5:戊
+set $ws5 6:己
+set $ws6 7:庚
+set $ws7 8:辛
+set $ws8 9:壬
+set $ws9 10:癸
 
 
 #
 # switch to workspace
-bindsym $mod+1 workspace $w0
-bindsym $mod+2 workspace $w1
-bindsym $mod+3 workspace $w2
-bindsym $mod+4 workspace $w3
-bindsym $mod+5 workspace $w4
-bindsym $mod+6 workspace $w5
-bindsym $mod+7 workspace $w6
-bindsym $mod+8 workspace $w7
-bindsym $mod+9 workspace $w8
-bindsym $mod+0 workspace $w9
+bindsym $mod+1 workspace $ws0
+bindsym $mod+2 workspace $ws1
+bindsym $mod+3 workspace $ws2
+bindsym $mod+4 workspace $ws3
+bindsym $mod+5 workspace $ws4
+bindsym $mod+6 workspace $ws5
+bindsym $mod+7 workspace $ws6
+bindsym $mod+8 workspace $ws7
+bindsym $mod+9 workspace $ws8
+bindsym $mod+0 workspace $ws9
 
 bindsym $mod+Left workspace prev
 bindsym $mod+Right workspace next
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $w0
-bindsym $mod+Shift+2 move container to workspace $w1
-bindsym $mod+Shift+3 move container to workspace $w2
-bindsym $mod+Shift+4 move container to workspace $w3
-bindsym $mod+Shift+5 move container to workspace $w4
-bindsym $mod+Shift+6 move container to workspace $w5
-bindsym $mod+Shift+7 move container to workspace $w6
-bindsym $mod+Shift+8 move container to workspace $w7
-bindsym $mod+Shift+9 move container to workspace $w8
-bindsym $mod+Shift+0 move container to workspace $w9
+bindsym $mod+Shift+1 move container to workspace $ws0
+bindsym $mod+Shift+2 move container to workspace $ws1
+bindsym $mod+Shift+3 move container to workspace $ws2
+bindsym $mod+Shift+4 move container to workspace $ws3
+bindsym $mod+Shift+5 move container to workspace $ws4
+bindsym $mod+Shift+6 move container to workspace $ws5
+bindsym $mod+Shift+7 move container to workspace $ws6
+bindsym $mod+Shift+8 move container to workspace $ws7
+bindsym $mod+Shift+9 move container to workspace $ws8
+bindsym $mod+Shift+0 move container to workspace $ws9
 
 bindsym $mod+Shift+Left move container to workspace prev
 bindsym $mod+Shift+Right move container to workspace next
@@ -179,8 +179,8 @@ bar {
         separator_symbol "::"
         strip_workspace_numbers yes
         status_command i3status
-        #tray_output primary
-        tray_output eDP1
+        tray_output primary
+        #tray_output eDP1
 }
 
 # compositor
