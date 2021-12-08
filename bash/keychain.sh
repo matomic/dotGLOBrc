@@ -10,13 +10,13 @@ eval_keychain() {
 
 init_keychain() {
 	local gpgagentbin=$(which gpg-agent 2> /dev/null)
-	if which keychain
+	if which keychain > /dev/null
 	then
-		if which gpg-agent
+		if [ -n "${gpgagentbin}" ]
 		then
 			eval `keychain --quiet --agents gpg --eval`;
 		fi
-		local identities=`ls ${HOME}/ssh/{id_dsa,id_rsa,id_ecdsa,id_ed25519}`
+		local identities=`ls ${HOME}/.ssh/{id_dsa,id_rsa,id_ecdsa,id_ed25519} 2> /dev/null`
 		if [ "x${identities}" != "x" ]
 		then
 			eval_keychain --quiet --agents ssh ${identities} $*
