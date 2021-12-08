@@ -25,10 +25,10 @@ pacrrm(){
 	sudo pacman -Rns "$@"
 }
 
-	# Display information about a given package in the repositories
-	pacrep(){
-		pacman -Si "$@"
-	}
+# Display information about a given package in the repositories
+pacrep(){
+	pacman -Si "$@"
+}
 # Search for package(s) in the repositories
 pacreps(){
 	pacman -Ss "$@"
@@ -56,6 +56,9 @@ pacupd(){
 }
 
 # Clean all unneeded dependencies
+pacqdepc(){
+	pacman -Qtdq "$@"
+}
 pacdepc(){
-	sudo pacman -Rs $(pacman -Qtdq) "$@"
+	pacqdepc | xargs pacrrm
 }
