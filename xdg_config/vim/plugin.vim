@@ -117,7 +117,7 @@ call glaive#Install()
 "" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
 "Glaive codefmt plugin[mappings]
 "Glaive codefmt clang_format_executable="clang-format-4.0"
-Glaive codefmt black_options=`['--line-length', '80']`
+"Glaive codefmt black_options=`['--line-length', '80']`
 " }}}
 
 " }}}
