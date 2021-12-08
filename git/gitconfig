@@ -11,6 +11,7 @@
 	tool = vimdiff
 [init]
 	templatedir = ~/.gittemplates/
+	defaultBranch = main
 [push]
 	default = upstream
 	rebase = true
