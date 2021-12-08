@@ -46,6 +46,10 @@ source $ZDOTDIR/completion.zsh
 
 ## alias
 source $ZDOTDIR/alias.zsh
+## wrappers for package manager
+source $ZDOTDIR/pacman.zsh
+source $ZDOTDIR/ebuild.zsh
+source $ZDOTDIR/apt.zsh
 
 ## Prompt
 # fpath=($ZDOTDIR/plugins/purification $fpath)

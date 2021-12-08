@@ -1,1 +1,0 @@
-../../include/sh/gentoo.sh
