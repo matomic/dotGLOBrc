@@ -16,7 +16,7 @@
 	rebase = true
 	followTags = true
 [rerere]
-	enable = true
+	enabled = true
 
 ; customizations
 [alias]
