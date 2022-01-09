@@ -60,5 +60,5 @@ pacqdepc(){
 	pacman -Qtdq "$@"
 }
 pacdepc(){
-	pacqdepc | xargs pacrrm
+	pacqdepc "$@" | xargs sudo pacman -Rns
 }
