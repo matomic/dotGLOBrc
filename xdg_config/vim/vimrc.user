@@ -93,4 +93,7 @@ if 1
   set stl+=[hi:%{SyntaxItem()}]
 endif
 
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor = "latex"
+
 "" vim:fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker foldmarker={{{,}}} foldlevel=0 iskeyword+=-
