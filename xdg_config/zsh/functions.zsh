@@ -8,6 +8,7 @@ autoload +X \
 	genrandomwords \
 	hgrep \
 	pyenv_activate \
+	run_with_timeout \
 	seqdo \
 	sshdiff
 
