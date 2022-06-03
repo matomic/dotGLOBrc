@@ -1,8 +1,16 @@
 BASHRC_FILE=${HOME}/.bashrc
-[[ -e ${BASHRC_FILE} ]]
+[[ -e ${BASHRC_FILE} ]] || {
+	printf "BASHRC_FILE=${BASHRC_FIL} does not exist" > /dev/stderr; false
+}
 if [[ -L ${BASHRC_FILE} ]]
 then
-	BASHRC_FILE=${HOME}/$(readlink ${BASHRC_FILE})
+	for candidate in {,${HOME}/}$(readlink ${BASHRC_FILE})
+	do
+		[[ -f "${candidate}" ]] && {
+			BASHRC_FILE=${candidate}
+			break;
+		}
+	done
 fi
 BASHRC_DIR=$(dirname ${BASHRC_FILE})
 
