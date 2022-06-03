@@ -52,15 +52,28 @@ shopt -s histappend
 # done
 # unset _sh
 
-# Change the window title of X terminals
-case ${TERM} in
-xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
-	PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
-	;;
-screen)
-	PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
-	;;
-esac
+# Add this to your PATH if it’s not already declared
+export PATH=$PATH:$HOME/.local/bin
+
+# Powerline configuration
+LOCAL_PYTHON=$HOME/.local/lib/python3.4
+if [ -f $LOCAL_PYTHON/site-packages/powerline/bindings/bash/powerline.sh ]; then
+	$HOME/.local/bin/powerline-daemon -q
+	POWERLINE_BASH_CONTINUATION=1
+	POWERLINE_BASH_SELECT=1
+	source $LOCAL_PYTHON/site-packages/powerline/bindings/bash/powerline.sh
+else
+	# Change the window title of X terminals
+	case ${TERM} in
+		xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
+			PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+			;;
+		screen)
+			PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+			;;
+	esac
+fi
+
 
 # Initialize SSH and GPG key agents using keychain
 source ${BASHRC_DIR}/keychain.sh
