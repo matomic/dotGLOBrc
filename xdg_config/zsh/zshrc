@@ -80,3 +80,9 @@ case "$ZSH_THEME" in
 		[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 		;;
 esac
+
+## keybind
+bindkey -s '^[[1~' '^[[H'
+bindkey -s '^[[4~' '^[[F'
+bindkey '^[[H' beginning-of-line # home       go to the beginning of line
+bindkey '^[[F' end-of-line       # end        go to the end of line
