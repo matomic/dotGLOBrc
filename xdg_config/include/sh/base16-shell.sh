@@ -2,7 +2,7 @@
 BASE16_SHELL=${1:-${BASHRC_DIR}}/modules/base16-shell/
 
 colortest_base16 () {
-		${BASE16_SHELL}/colortest $*
+		${BASE16_SHELL}/colortest "$@"
 }
 
 init_base16() {
