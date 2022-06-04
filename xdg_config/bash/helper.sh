@@ -1,20 +1,14 @@
-_THISDIR=`dirname ${BASH_SOURCE[0]}`
-for _sh in $_THISDIR/incl/*.sh
-do
-	source $_sh
-done
-unset _THISDIR _sh
-
 ## Helper functions
+
 # source additional files with extension $2 in $1
-sourceFilesInDir () {
+source_files_in_dir() {
 	[ -d "$1" ] && \
-		for f in "${1}"/*; do
-			[ -f ${f} -a "x${f%$2}" != "x${f}" ] && . "${f}" # only source those with certain extension
+		for f in "${1}"/*.${2}; do
+			source "$f"
 		done
 }
 
-## useful functions
+source_files_in_dir `dirname ${BASH_SOURCE[0]}`/incl sh
 
 # use server/client mode for gvim
 g() {

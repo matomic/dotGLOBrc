@@ -18,7 +18,7 @@ source ${BASHRC_DIR}/helper.sh
 
 ## Source enviornmental variables {{{
 usrenvdir="${HOME}/.bashenv.d"
-sourceFilesInDir ${usrenvdir} "*.env"
+source_files_in_dir ${usrenvdir} "*.env"
 ## }}}
 
 ## Interactive shell test {{{
