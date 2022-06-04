@@ -52,13 +52,23 @@ shopt -s histappend
 # done
 # unset _sh
 
-# Add this to your PATH if it’s not already declared
-export PATH=$PATH:$HOME/.local/bin
+function _update_ps1() {
+	PS1=$($HOME/.local/bin/powerline-shell $?)
+}
 
 # Powerline configuration
 LOCAL_PYTHON=$HOME/.local/lib/python3.4
-if [ -f $LOCAL_PYTHON/site-packages/powerline/bindings/bash/powerline.sh ]; then
-	$HOME/.local/bin/powerline-daemon -q
+LOCAL_BIN=$HOME/.local/bin
+if [[ -f $LOCAL_BIN/powerline-shell ]]
+then
+	if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]
+	then
+		PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+	fi
+elif [[ -f $LOCAL_PYTHON/site-packages/powerline/bindings/bash/powerline.sh ]]
+then
+	export PATH=$PATH:$LOCAL_BIN
+	$LOCAL_BIN/powerline-daemon -q
 	POWERLINE_BASH_CONTINUATION=1
 	POWERLINE_BASH_SELECT=1
 	source $LOCAL_PYTHON/site-packages/powerline/bindings/bash/powerline.sh
