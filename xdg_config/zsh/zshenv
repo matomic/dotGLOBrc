@@ -12,3 +12,5 @@ export SAVEHIST=10000
 
 export EDITOR="vim"
 export VISUAL="vim"
+
+export GPG_TTY=`tty`

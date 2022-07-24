@@ -1,64 +1,64 @@
 which pacman > /dev/null 2>&1 || return
 
 # Install specific package(s) from the repositories
-pacin(){
+pacin() {
 	sudo pacman -S "$@"
 }
 # Install given package(s) as dependencies of another package
-pacind(){
+pacind() {
 	sudo pacman -S --asdeps "$@"
 }
 # Install specific package not from the repositories but from a file
-pacins(){
+pacins() {
 	sudo pacman -U "$@"
 }
 # Install specific package not from the repositories but from a file
-pacinsd(){
+pacinsd() {
 	sudo pacman -U --asdeps "$@"
 }
 # Remove the specified package(s), retaining its configuration(s) and required dependencies
-pacrm(){
+pacrm() {
 	sudo pacman -R "$@"
 }
 # Remove the specified package(s), its configuration(s) and unneeded dependencies
-pacrrm(){
+pacrrm() {
 	sudo pacman -Rns "$@"
 }
 
 # Display information about a given package in the repositories
-pacrep(){
+pacrep() {
 	pacman -Si "$@"
 }
 # Search for package(s) in the repositories
-pacreps(){
+pacreps() {
 	pacman -Ss "$@"
 }
 # Display information about a given package in the local database
-pacloc(){
+pacloc() {
 	pacman -Qi "$@"
 }
 # Search for package(s) in the local database
-paclocs(){
+paclocs() {
 	pacman -Qs "$@"
 }
 #
 # Synchronize with repositories before upgrading packages that are out of date on the local system.
-pacupg(){
+pacupg() {
 	sudo pacman -Syu "$@"
 }
 # Force refresh of all package lists after updating /etc/pacman.d/mirrorlis
-pacmir(){
+pacmir() {
 	sudo pacman -Syy "$@"
 }
 # Update and refresh the local package and ABS databases against repositories
-pacupd(){
+pacupd() {
 	sudo pacman -Sy "$@"
 }
 
 # Clean all unneeded dependencies
-pacqdepc(){
+pacqdepc() {
 	pacman -Qtdq "$@"
 }
-pacdepc(){
-	pacqdepc | xargs pacrrm
+pacdepc() {
+	pacqdepc "$@" | xargs sudo pacman -Rns
 }

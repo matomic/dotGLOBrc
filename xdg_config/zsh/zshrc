@@ -50,6 +50,7 @@ source $ZDOTDIR/alias.zsh
 source $ZDOTDIR/pacman.zsh
 source $ZDOTDIR/ebuild.zsh
 source $ZDOTDIR/apt.zsh
+source $ZDOTDIR/path.zsh
 
 ## Prompt
 # fpath=($ZDOTDIR/plugins/purification $fpath)
@@ -72,9 +73,7 @@ source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # source $HOME/dev/awesome-terminal-fonts/build/pomicons-regular.sh
 
 ## base16-shell
-BASE16_SHELL="$CONFIGDIR/bash/modules/base16-shell"
-BASE16_THEME="google-dark"
-[ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] && eval "$("$BASE16_SHELL/profile_helper.sh")" > /dev/null
+source $ZDOTDIR/base16-shell.zsh $CONFIGDIR/bash && init_base16
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 case "$ZSH_THEME" in
@@ -82,3 +81,15 @@ case "$ZSH_THEME" in
 		[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 		;;
 esac
+
+# bind key
+if [ $TERM = screen-256color ]
+then
+	bindkey  "^[[1~" beginning-of-line
+	bindkey  "^[[4~" end-of-line
+	bindkey  "^[[3~" delete-char
+else
+	bindkey  "^[[H"  beginning-of-line
+	bindkey  "^[[F"  end-of-line
+	bindkey  "^[[3~" delete-char
+fi

@@ -196,7 +196,7 @@ exec --no-startup-id nm-applet # network manager
 exec --no-startup-id dropbox start # dropbox
 exec --no-startup-id fcitx -r -d # fcitx input method
 exec --no-startup-id blueberry-tray # bluetooth
-exec xrandr --output eDP1 --scale 0.6x0.6
+# exec xrandr --output eDP1 --scale 0.75x0.75
 
 # audio using pulseaudio
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse set Master 2%+ unmute
