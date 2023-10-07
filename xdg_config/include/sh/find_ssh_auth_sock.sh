@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env sh
 #
 # find_ssh_auth_sock
 # ====
@@ -14,8 +14,15 @@
 #
 # return 0 if success, 2 otherwise.
 find_ssh_auth_sock() {
-	autoload -Uz test_ssh_auth_sock
-	for sock in $( find  /tmp/ssh-*(N) /tmp/com.apple.launchd.*/Listeners(N) "$@" -type s 2> /dev/null )
+	# If existing SSH_AUTH_SOCK works, we will use that
+	if test_ssh_auth_sock ${SSH_AUTH_SOCK}
+	then
+		printf "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}; export SSH_AUTH_SOCK\n"
+		return 0
+	else
+		unset SSH_AUTH_SOCK
+	fi
+	find_ssh_auth_sock_ 2> /dev/null | while read sock
 	do
 		if test_ssh_auth_sock $sock
 		then
@@ -25,4 +32,8 @@ find_ssh_auth_sock() {
 	return 2
 }
 
+find_ssh_auth_sock_() {
+	find /private/tmp/com.apple.launchd.* -type s -name Listeners
+	find /tmp/ssh-* /tmp/com.apple.launchd.* /var/folders "$@" -type s -path '*/ssh-*/agent.*'
+}
 # vim: ft=zsh

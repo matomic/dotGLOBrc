@@ -103,8 +103,6 @@ set $ws6 7:庚
 set $ws7 8:辛
 set $ws8 9:壬
 set $ws9 10:癸
-
-
 #
 # switch to workspace
 bindsym $mod+1 workspace $ws0
@@ -198,10 +196,14 @@ exec --no-startup-id nm-applet # network manager
 exec --no-startup-id dropbox start # dropbox
 exec --no-startup-id fcitx -r -d # fcitx input method
 exec --no-startup-id blueberry-tray # bluetooth
+exec xrandr --output eDP1 --scale 0.6x0.6
 
-# audio
+# audio using pulseaudio
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse set Master 2%+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse set Master 2%- unmute
 bindsym XF86AudioMute exec amixer -q -D pulse set Master toggle
+# backlight control, requires brightnessctl
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
 
 # vim: iskeyword+=-

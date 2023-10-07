@@ -1,31 +1,31 @@
 # ANSI color codes {{{
 usecolor () {
-	use_color=false
+	if [ $(uname) = "Darwin" ] # OSX is not very nice...
+	then
+		export CLICOLOR=1
+		return
+	fi
+
+	if [ `tput colors` -ge 16 ]
+	then
+		return
+	fi
 
 	# Set colorful PS1 only on colorful terminals.
 	# dircolors --print-database uses its own built-in database
 	# instead of using /etc/DIR_COLORS.  Try to use the external file
 	# first to take advantage of user additions.  Use internal bash
 	# globbing instead of external grep binary.
-	safe_term=${TERM//[^[:alnum:]]/?}   # sanitize TERM
+	local safe_term=${TERM//[^[:alnum:]]/?}   # sanitize TERM
 	local match_lhs=""
-	[[ -f ~/.dir_colors   ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
-	[[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
-	[[ -z ${match_lhs}    ]] \
+	[ -f ~/.dir_colors   ] && match_lhs="${match_lhs}$(<~/.dir_colors)"
+	[ -f /etc/DIR_COLORS ] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
+	[ -z ${match_lhs}    ] \
 		&& type -P dircolors >/dev/null \
 		&& match_lhs=$(dircolors --print-database | grep TERM)
-	[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+	[[ $'\n'${match_lhs} = *$'\n'"TERM "${safe_term}* ]] && return
 
-	if [[ $(uname) == "Darwin" ]] # OSX is not very nice...
-	then
-		use_color=true
-		export CLICOLOR=1
-	fi
-
-	if [[ `tput colors` -ge 16 ]]
-	then
-		use_color=true
-	fi
+	return 1
 }
 
 function loadANSIcolor {
@@ -53,46 +53,33 @@ function loadANSIcolor {
 # }}}
 
 ## Colorful settings {{{
-usecolor
+source $(dirname ${BASH_SOURCE[0]})/base16-shell.sh
 
-BASE16_SHELL=${BASHRC_DIR}/modules/base16-shell/
-#colorscheme_base16 () {
-#	if [[ -z "$*" ]]
-#	then
-#		pushd ${BASE16_SHELL}/scripts > /dev/null
-#		ls base16-*.sh
-#		popd > /dev/null
-#	else
-#		local f="${BASE16_SHELL}/scripts/base16-$1.sh"
-#		[[ -s $f ]] && source $f || echo "Unknown color scheme: $1"
-#	fi
-#}
+if usecolor; then
+	init_base16
 
-colortest_base16 () {
-		${BASE16_SHELL}/colortest $*
-}
-
-if ${use_color}; then
 	loadANSIcolor
-	[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
-	PS1_USER="\[$TXTINV\]\[$TXTBLD\]\[$FGCGRN\]\u◗\[$TXTRST\]"
-	PS1_HOST="\[$TXTINV\]\[$TXTBLD\]\[$FGCBLU\]\h◗\[$TXTRST\]"
-	PS1_CWDR="\[$TXTBLD\]\[$FGCRED\]\W▸\[$TXTRST\]"
-	PS1_PRM1="\[$TXTBLD\]λ\[$TXTRST\] "
-	PS1_PRM2="\[$TXTBLD\]#\[$TXTRST\] "
-	if [ ! ${EUID} = "0" ]; then
-		PS1="$PS1_USER$PS1_HOST$PS1_CWDR$PS1_PRM1"
-		#PS1="\[$TXTINV\]\[$TXTBLD\]\[$FGCRED\]\u▸\[$FGCBLU\]\h▸\[$TXTRST\]\[$FGCGRN\]\w▸\[$TXTRST\]\[$TXTBLD\]λ\[$TXTRST\] "
-	else
-		PS1="$PS1_USER$PS1_HOST$PS1_CWDR$PS1_PRM2"
-		#PS1="\[$TXTINV\]\[$TXTBLD\]\[$FGCRED\]\h\[$FGCPUR\]\u\[$TXTRST\]\[$FGCGRN\]◖\w◗\[$TXTRST\]\[$TXTBLD\]#\[$TXTRST\] "
-	fi
+	if [ -z "${PROMP_COMMAND}" ]
+	then
+		PS1_USER="\[$TXTINV\]\[$TXTBLD\]\[$FGCGRN\]\u◗\[$TXTRST\]"
+		PS1_HOST="\[$TXTINV\]\[$TXTBLD\]\[$FGCBLU\]\h◗\[$TXTRST\]"
+		PS1_CWDR="\[$TXTBLD\]\[$FGCRED\]\W▸\[$TXTRST\]"
+		PS1_PRM1="\[$TXTBLD\]λ\[$TXTRST\] "
+		PS1_PRM2="\[$TXTBLD\]#\[$TXTRST\] "
+		if [ ! ${EUID} = "0" ]; then
+			PS1="$PS1_USER$PS1_HOST$PS1_CWDR$PS1_PRM1"
+			#PS1="\[$TXTINV\]\[$TXTBLD\]\[$FGCRED\]\u▸\[$FGCBLU\]\h▸\[$TXTRST\]\[$FGCGRN\]\w▸\[$TXTRST\]\[$TXTBLD\]λ\[$TXTRST\] "
+		else
+			PS1="$PS1_USER$PS1_HOST$PS1_CWDR$PS1_PRM2"
+			#PS1="\[$TXTINV\]\[$TXTBLD\]\[$FGCRED\]\h\[$FGCPUR\]\u\[$TXTRST\]\[$FGCGRN\]◖\w◗\[$TXTRST\]\[$TXTBLD\]#\[$TXTRST\] "
+		fi
 
-	if ls --color >& /dev/null; then
-		alias ls='ls --color=auto';
-	else
-		alias ls='ls -G';
+		if ls --color >& /dev/null; then
+			alias ls='ls --color=auto';
+		else
+			alias ls='ls -G';
+		fi
 	fi
 else
 	if [[ ${EUID} == 0 ]] ; then
@@ -105,9 +92,6 @@ fi
 
 PS2="> $RS"
 ## }}}
-
-# Try to keep environment pollution down, EPA loves us.
-unset use_color safe_term match_lhs
 
 # base16_material-darker
 base16_summerfruit-dark

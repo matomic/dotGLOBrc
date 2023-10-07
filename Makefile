@@ -11,3 +11,4 @@ deploy :
 
 stow :
 	$(STOW) -t $(XDG_CONFIG_HOME) xdg_config
+	$(STOW) -t $(HOME)  home_config

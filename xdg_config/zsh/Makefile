@@ -1,10 +1,9 @@
-.PHONY : deploy clean \
+.PHONY : deploy gitrepos clean \
 	plugins/zsh-completions.git,         \
 	plugins/zsh-syntax-highlighting.git, \
 	plugins/purification.git,            \
 	themes/powerlevel9k.git,             \
 	themes/powerlevel10k.git
-
 
 ZDOTDIR=$(HOME)/.config/zsh
 
@@ -30,9 +29,13 @@ include ../common.mk
 DEPLOY_TARGETS := $(HOME)/.zshenv       \
 	$(ZDOTDIR)/.zshrc                   \
 	$(ZDOTDIR)/alias.zsh                \
+	$(ZDOTDIR)/base16-shell.zsh         \
 	$(ZDOTDIR)/completion.zsh           \
 	$(ZDOTDIR)/functions.zsh            \
 	$(ZDOTDIR)/functions                \
+	gitrepos
+
+gitrepos : \
 	plugins/zsh-completions.git         \
 	plugins/zsh-syntax-highlighting.git \
 	plugins/purification.git            \
@@ -60,6 +63,5 @@ RSYNC_OPTS = -avP --delete --copy-unsafe-links
 
 $(ZDOTDIR)/functions : functions
 	printf "Deploying functions\n"; $(RSYNC) $(RSYNC_OPTS) functions/ $(ZDOTDIR)/functions/
-
 
 # vim: iskeyword+=-
