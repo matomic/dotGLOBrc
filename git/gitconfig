@@ -26,12 +26,13 @@
 
 	hist    = log --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s%x20%C(yellow)%x20%aN<%aE>%x3A%x3A%ad%Creset" --graph --date=short
 
-	amend   = commit --amend
 	apu     = add -p -u
-	br      = branch
 
+	br      = branch
+	brc     = branch --show-current
 
 	ci      = commit
+	amend   = commit --amend
 	staged  = diff --staged
 	unstage = reset HEAD
 	whatup  = status -s
@@ -47,8 +48,10 @@
 
 	rup     = remote update -p
 
-	mm      = merge master
-	mom     = merge origin/master
+	mm      = merge main
+	mom     = merge origin/main
+	mm-old  = merge master
+	mom-old = merge origin/master
 
 	cp      = cherry-pick
 	cpa     = cp --abort
@@ -64,6 +67,14 @@
 	rbs     = rebase --skip
 	rbtc    = !git theirs `git unmerged` || git resolve-unmerged && (git rbc || git rbs)
 	rip     = rebase -i -p
+
+	# push a particular commit
+	push-c  = "!f() { \
+		git push origin $1:`git branch --show-current`; \
+		}; \
+		f"
+
+	vimdiff = difftool --tool=vimdiff
 
 	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
 

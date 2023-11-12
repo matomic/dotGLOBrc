@@ -1,8 +1,16 @@
 BASHRC_FILE=${HOME}/.bashrc
-[[ -e ${BASHRC_FILE} ]]
+[[ -e ${BASHRC_FILE} ]] || {
+	printf "BASHRC_FILE=${BASHRC_FIL} does not exist" > /dev/stderr; false
+}
 if [[ -L ${BASHRC_FILE} ]]
 then
-	BASHRC_FILE=${HOME}/$(readlink ${BASHRC_FILE})
+	for candidate in {,${HOME}/}$(readlink ${BASHRC_FILE})
+	do
+		[[ -f "${candidate}" ]] && {
+			BASHRC_FILE=${candidate}
+			break;
+		}
+	done
 fi
 BASHRC_DIR=$(dirname ${BASHRC_FILE})
 
@@ -10,7 +18,7 @@ source ${BASHRC_DIR}/helper.sh
 
 ## Source enviornmental variables {{{
 usrenvdir="${HOME}/.bashenv.d"
-sourceFilesInDir ${usrenvdir} "*.env"
+source_files_in_dir ${usrenvdir} "*.env"
 ## }}}
 
 ## Interactive shell test {{{
@@ -44,15 +52,38 @@ shopt -s histappend
 # done
 # unset _sh
 
-# Change the window title of X terminals
-case ${TERM} in
-xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
-	PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
-	;;
-screen)
-	PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
-	;;
-esac
+function _update_ps1() {
+	PS1=$($HOME/.local/bin/powerline-shell $?)
+}
+
+# Powerline configuration
+LOCAL_PYTHON=$HOME/.local/lib/python3.4
+LOCAL_BIN=$HOME/.local/bin
+if [[ -f $LOCAL_BIN/powerline-shell ]]
+then
+	if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]
+	then
+		PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+	fi
+elif [[ -f $LOCAL_PYTHON/site-packages/powerline/bindings/bash/powerline.sh ]]
+then
+	export PATH=$PATH:$LOCAL_BIN
+	$LOCAL_BIN/powerline-daemon -q
+	POWERLINE_BASH_CONTINUATION=1
+	POWERLINE_BASH_SELECT=1
+	source $LOCAL_PYTHON/site-packages/powerline/bindings/bash/powerline.sh
+else
+	# Change the window title of X terminals
+	case ${TERM} in
+		xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
+			PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+			;;
+		screen)
+			PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+			;;
+	esac
+fi
+
 
 # Initialize SSH and GPG key agents using keychain
 source ${BASHRC_DIR}/keychain.sh
