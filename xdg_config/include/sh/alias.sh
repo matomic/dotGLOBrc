@@ -23,9 +23,9 @@ alias lpr_tsle_n2='lpr_n2 -o sides=two-sided-long-edge'
 alias lpr_tsse='lpr -o sides=two-sided-short-edge'
 alias lpr_tsse_n2='lpr_n2 -o sides=two-sided-short-edge'
 
-[ matlab 2> /dev/null ] && alias matlab='env XMODIFIERS="" matlab'
-[ mathematica 2> /dev/null ] && alias mathematica='env XMODIFIERS="" mathematica'
-[ mid3v2 2> /dev/null ] && alias id3v2='mid3v2'
+[ matlab              ] 2> /dev/null && alias matlab='env XMODIFIERS="" matlab'
+[ mathematica              ] 2> /dev/null && alias mathematica='env XMODIFIERS="" mathematica'
+[ mid3v2              ] 2> /dev/null && alias id3v2='mid3v2'
 
 ### }}}
 

@@ -1,13 +1,11 @@
 # ANSI color codes {{{
-usecolor () {
-	if [ $(uname) = "Darwin" ] # OSX is not very nice...
-	then
+usecolor()  {
+	if [ $(uname) = "Darwin" ]; then # OSX is not very nice...
 		export CLICOLOR=1
 		return
 	fi
 
-	if [ `tput colors` -ge 16 ]
-	then
+	if [ $(tput colors) -ge 16 ]; then
 		return
 	fi
 
@@ -16,13 +14,13 @@ usecolor () {
 	# instead of using /etc/DIR_COLORS.  Try to use the external file
 	# first to take advantage of user additions.  Use internal bash
 	# globbing instead of external grep binary.
-	local safe_term=${TERM//[^[:alnum:]]/?}   # sanitize TERM
+	local safe_term=${TERM//[^[:alnum:]]/?} # sanitize TERM
 	local match_lhs=""
-	[ -f ~/.dir_colors   ] && match_lhs="${match_lhs}$(<~/.dir_colors)"
-	[ -f /etc/DIR_COLORS ] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
-	[ -z ${match_lhs}    ] \
-		&& type -P dircolors >/dev/null \
-		&& match_lhs=$(dircolors --print-database | grep TERM)
+	[ -f ~/.dir_colors ] && match_lhs="${match_lhs}$(< ~/.dir_colors)"
+	[ -f /etc/DIR_COLORS ] && match_lhs="${match_lhs}$(< /etc/DIR_COLORS)"
+	[ -z ${match_lhs}  ] &&
+		type  -P dircolors > /dev/null &&
+		match_lhs=$( dircolors --print-database | grep TERM)
 	[[ $'\n'${match_lhs} = *$'\n'"TERM "${safe_term}* ]] && return
 
 	return 1
@@ -45,10 +43,10 @@ function loadANSIcolor {
 	BGCPUR='[45m' # Purple
 	BGCCYN='[46m' # Cyan
 	BGCWHT='[47m' # White
-	TXTRST='[0m'  # Text Reset
-	TXTBLD='[1m'  # Bold type
-	TXTUND='[4m'  # underline
-	TXTINV='[7m'  # Revert fg and bg color
+	TXTRST='[0m' # Text Reset
+	TXTBLD='[1m' # Bold type
+	TXTUND='[4m' # underline
+	TXTINV='[7m' # Revert fg and bg color
 }
 # }}}
 
@@ -60,8 +58,7 @@ if usecolor; then
 
 	loadANSIcolor
 
-	if [ -z "${PROMP_COMMAND}" ]
-	then
+	if [ -z "${PROMP_COMMAND}" ]; then
 		PS1_USER="\[$TXTINV\]\[$TXTBLD\]\[$FGCGRN\]\u◗\[$TXTRST\]"
 		PS1_HOST="\[$TXTINV\]\[$TXTBLD\]\[$FGCBLU\]\h◗\[$TXTRST\]"
 		PS1_CWDR="\[$TXTBLD\]\[$FGCRED\]\W▸\[$TXTRST\]"
@@ -75,14 +72,14 @@ if usecolor; then
 			#PS1="\[$TXTINV\]\[$TXTBLD\]\[$FGCRED\]\h\[$FGCPUR\]\u\[$TXTRST\]\[$FGCGRN\]◖\w◗\[$TXTRST\]\[$TXTBLD\]#\[$TXTRST\] "
 		fi
 
-		if ls --color >& /dev/null; then
-			alias ls='ls --color=auto';
+		if ls --color >&/dev/null; then
+			alias ls='ls --color=auto'
 		else
-			alias ls='ls -G';
+			alias ls='ls -G'
 		fi
 	fi
 else
-	if [[ ${EUID} == 0 ]] ; then
+	if [[ ${EUID} == 0 ]]; then
 		# show root@ when we don't have colors
 		PS1='\u@\h \W \$ '
 	#else

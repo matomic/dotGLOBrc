@@ -118,6 +118,7 @@ call glaive#Install()
 "Glaive codefmt plugin[mappings]
 "Glaive codefmt clang_format_executable="clang-format-4.0"
 "Glaive codefmt black_options=`['--line-length', '80']`
+Glaive codefmt shfmt_options=`['-ci', '-sr', '-kp']`
 " }}}
 
 " }}}

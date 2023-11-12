@@ -11,10 +11,9 @@
 # returns 0
 function argsep() {
 	local pos=1
-	for arg in "$@"
-	do
-		[[ "$arg" == "--" ]] && break;
-		pos=$(( $pos + 1 ))
+	for arg in "$@"; do
+		[[ "$arg" == "--" ]] && break
+		pos=$(($pos + 1))
 	done
 	printf "$pos"
 }

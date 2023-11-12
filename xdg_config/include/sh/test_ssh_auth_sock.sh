@@ -7,13 +7,12 @@
 # > test_ssh_auth_sock /tmp/com.apple.launchd.G9r6dLT2nV/Listeners
 #
 # return 0 if success, otherwise the return code of ssh-add
-test_ssh_auth_sock () {
+test_ssh_auth_sock()  {
 	SSH_AUTH_SOCK=$1 ssh-add -l > /dev/null
 	local retval=$?
-	if [[ $retval -ne 0 ]]
-	then
-		[[ $retval -eq 1 ]] && return 0;
+	if [[ $retval -ne 0 ]]; then
+		[[ $retval -eq 1 ]] && return 0
 	fi
-	return $retval;
+	return $retval
 }
 # vim: ft=zsh

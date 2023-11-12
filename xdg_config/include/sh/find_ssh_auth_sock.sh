@@ -15,18 +15,16 @@
 # return 0 if success, 2 otherwise.
 find_ssh_auth_sock() {
 	# If existing SSH_AUTH_SOCK works, we will use that
-	if test_ssh_auth_sock ${SSH_AUTH_SOCK}
-	then
+	if test_ssh_auth_sock ${SSH_AUTH_SOCK}; then
 		printf "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}; export SSH_AUTH_SOCK\n"
 		return 0
 	else
 		unset SSH_AUTH_SOCK
 	fi
-	find_ssh_auth_sock_ 2> /dev/null | while read sock
-	do
-		if test_ssh_auth_sock $sock
-		then
-			printf "SSH_AUTH_SOCK=$sock; export SSH_AUTH_SOCK\n"; return 0;
+	find_ssh_auth_sock_ 2> /dev/null | while read sock; do
+		if test_ssh_auth_sock $sock; then
+			printf "SSH_AUTH_SOCK=$sock; export SSH_AUTH_SOCK\n"
+			return                                                     0
 		fi
 	done
 	return 2

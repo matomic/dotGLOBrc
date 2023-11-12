@@ -9,27 +9,35 @@
 # extract test.tbz2 -C dest/
 extract() {    # Handy Extract Program
 	local archive=$1
-	if [ -f "$archive" ]
-	then
+	if [ -f "$archive" ]; then
 		case "$archive" in
-			*.tar.bz2|*.tbz2)
-				tar -xvjf  "$@" ;;
-			*.tar.gz|*.tgz)
-				tar -xvzf  "$@" ;;
+			*.tar.bz2 | *.tbz2)
+				tar -xvjf "$@"
+				;;
+			*.tar.gz | *.tgz)
+				tar -xvzf "$@"
+				;;
 			*.bz2)
-				bunzip2    "$@" ;;
+				bunzip2  "$@"
+				;;
 			*.rar)
-				unrar x    "$@" ;;
+				unrar x  "$@"
+				;;
 			*.gz)
-				gunzip     "$@" ;;
+				gunzip   "$@"
+				;;
 			*.tar)
-				tar -xvf   "$@" ;;
+				tar -xvf "$@"
+				;;
 			*.7z)
-				7z x       "$@" ;;
+				7z x     "$@"
+				;;
 			*.zip)
-				unzip      "$@" ;;
+				unzip    "$@"
+				;;
 			*.Z)
-				uncompress "$@" ;;
+				uncompress "$@"
+				;;
 			*)
 				echo "'$archive': cannot be extracted via >extract<"
 				return 2

@@ -11,11 +11,9 @@
 # returns the status code of the last ran cmd
 function seqdo() {
 	local pos=$(argsep "$@")
-	for x in $(seq ${@:1:$(($pos-1))})
-	do
+	for x in $(seq ${@:1:$(($pos - 1))}); do
 		local cmdline=()
-		for arg in "${@:$(($pos+1))}"
-		do
+		for arg in "${@:$(($pos + 1))}"; do
 			cmdline+=(${arg/\#\#/$x})
 		done
 		$cmdline || return $?

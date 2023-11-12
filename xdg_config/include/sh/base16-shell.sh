@@ -6,8 +6,8 @@ colortest_base16() {
 
 init_base16() {
 	[ -n "$PS1" ] &&
-		[ -s $BASE16_SHELL/profile_helper.sh ] &&
-		eval "$($BASE16_SHELL/profile_helper.sh)"
+		[ -s "$BASE16_SHELL/profile_helper.sh" ] &&
+		source "$BASE16_SHELL/profile_helper.sh"
 }
 
 reset_theme_base16() {

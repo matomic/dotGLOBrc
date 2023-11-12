@@ -2,12 +2,10 @@
 
 # use server/client mode for gvim
 g() {
-	if [ "x$1" = "x" ]
-	then
+	if [ "x$1" = "x" ]; then
 		gvim > /dev/null 2>&1 &
 	else
-		if [ -z "`gvim --serverlist`" ]
-		then
+		if [ -z "$(gvim --serverlist)" ]; then
 			printf "gvim $*\n"
 			gvim $* > /dev/null 2>&1 &
 		else

@@ -1,14 +1,13 @@
 BASHRC_FILE=${HOME}/.bashrc
 [[ -e ${BASHRC_FILE} ]] || {
-	printf "BASHRC_FILE=${BASHRC_FIL} does not exist" > /dev/stderr; false
+	printf "BASHRC_FILE=${BASHRC_FIL} does not exist" > /dev/stderr
+	false
 }
-if [[ -L ${BASHRC_FILE} ]]
-then
-	for candidate in {,${HOME}/}$(readlink ${BASHRC_FILE})
-	do
+if [[ -L ${BASHRC_FILE} ]]; then
+	for candidate in {,${HOME}/}$(readlink ${BASHRC_FILE}); do
 		[[ -f "${candidate}" ]] && {
 			BASHRC_FILE=${candidate}
-			break;
+			break
 		}
 	done
 fi
@@ -27,11 +26,10 @@ source_files_in_dir ${usrenvdir} "*.env"
 # that can't tolerate any output.  So make sure this doesn't display
 # anything or bad things will happen !
 
-
 # Test for an interactive shell.  There is no need to set anything
 # past this point for scp and rcp, and it's important to refrain from
 # outputting anything in those cases.
-if [[ $- != *i* ]] ; then
+if [[ $- != *i* ]]; then
 	# Shell is non-interactive.  Be done now!
 	return
 fi
@@ -59,14 +57,11 @@ function _update_ps1() {
 # Powerline configuration
 LOCAL_PYTHON=$HOME/.local/lib/python3.4
 LOCAL_BIN=$HOME/.local/bin
-if [[ -f $LOCAL_BIN/powerline-shell ]]
-then
-	if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]
-	then
+if [[ -f $LOCAL_BIN/powerline-shell ]]; then
+	if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
 		PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 	fi
-elif [[ -f $LOCAL_PYTHON/site-packages/powerline/bindings/bash/powerline.sh ]]
-then
+elif [[ -f $LOCAL_PYTHON/site-packages/powerline/bindings/bash/powerline.sh ]]; then
 	export PATH=$PATH:$LOCAL_BIN
 	$LOCAL_BIN/powerline-daemon -q
 	POWERLINE_BASH_CONTINUATION=1
@@ -75,7 +70,7 @@ then
 else
 	# Change the window title of X terminals
 	case ${TERM} in
-		xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
+		xterm* | rxvt* | Eterm | aterm | kterm | gnome* | interix)
 			PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
 			;;
 		screen)
@@ -83,7 +78,6 @@ else
 			;;
 	esac
 fi
-
 
 # Initialize SSH and GPG key agents using keychain
 source ${BASHRC_DIR}/keychain.sh
