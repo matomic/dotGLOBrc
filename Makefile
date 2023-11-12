@@ -10,5 +10,5 @@ deploy :
 	make -C fonts deploy
 
 stow :
-	$(STOW) -t $(XDG_CONFIG_HOME) xdg_config
-	$(STOW) -t $(HOME)  home_config
+	$(STOW) -t $(XDG_CONFIG_HOME) --dotfiles xdg_config
+	$(STOW) -t $(HOME) --dotfiles home_config
