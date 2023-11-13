@@ -55,19 +55,31 @@ function _update_ps1() {
 }
 
 # Powerline configuration
-LOCAL_PYTHON=$HOME/.local/lib/python3.4
-LOCAL_BIN=$HOME/.local/bin
-if [[ -f $LOCAL_BIN/powerline-shell ]]; then
-	if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
-		PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+function _powerline_config() {
+	local local_python=$HOME/.local/lib/python3.4
+	local local_bin=$HOME/.local/bin
+	if [[ -f $local_bin/powerline-shell ]]; then
+		if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
+			PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+		fi
+	elif [[ -f $local_python/site-packages/powerline/bindings/bash/powerline.sh ]]; then
+		export PATH=$PATH:$local_bin$
+		$local_bin/powerline-daemon -q
+		POWERLINE_BASH_CONTINUATION=1
+		POWERLINE_BASH_SELECT=1
+		source $local_python/site-packages/powerline/bindings/bash/powerline.sh
+	elif which powerline-daemon > /dev/null; then
+		powerline-daemon -q
+		POWERLINE_BASH_CONTINUATION=1
+		POWERLINE_BASH_SELECT=1
+		source /usr/share/powerline/bindings/bash/powerline.sh
+	else
+		return 1
 	fi
-elif [[ -f $LOCAL_PYTHON/site-packages/powerline/bindings/bash/powerline.sh ]]; then
-	export PATH=$PATH:$LOCAL_BIN
-	$LOCAL_BIN/powerline-daemon -q
-	POWERLINE_BASH_CONTINUATION=1
-	POWERLINE_BASH_SELECT=1
-	source $LOCAL_PYTHON/site-packages/powerline/bindings/bash/powerline.sh
-else
+	return 0
+}
+
+if ! _powerline_config; then
 	# Change the window title of X terminals
 	case ${TERM} in
 		xterm* | rxvt* | Eterm | aterm | kterm | gnome* | interix)
@@ -87,7 +99,6 @@ export GPG_TTY=$(tty)
 source ${BASHRC_DIR}/color.sh
 source ${BASHRC_DIR}/alias.sh
 
-#DISPLAY=:0.0 xset q > /dev/null && DISPLAY=:0.0 xmodmap ~/.Xmodmap || true
 ### }}}
 
 ## vim: foldmethod=marker ft=sh noet sta ts=2 sw=2
