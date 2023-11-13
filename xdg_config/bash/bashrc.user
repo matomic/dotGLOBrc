@@ -54,32 +54,42 @@ function _update_ps1() {
 	PS1=$($HOME/.local/bin/powerline-shell $?)
 }
 
-# Powerline configuration
-function _powerline_config() {
-	local local_python=$HOME/.local/lib/python3.4
-	local local_bin=$HOME/.local/bin
+function _powerline_shell() {
 	if [[ -f $local_bin/powerline-shell ]]; then
 		if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
 			PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+			return 0
 		fi
-	elif [[ -f $local_python/site-packages/powerline/bindings/bash/powerline.sh ]]; then
+	fi
+	return 1
+}
+
+function _powerline_status_local() {
+	local local_python=$HOME/.local/lib/python3.11
+	local local_bin=$HOME/.local/bin
+	if [[ -f $local_python/site-packages/powerline/bindings/bash/powerline.sh ]]; then
 		export PATH=$PATH:$local_bin$
 		$local_bin/powerline-daemon -q
 		POWERLINE_BASH_CONTINUATION=1
 		POWERLINE_BASH_SELECT=1
 		source $local_python/site-packages/powerline/bindings/bash/powerline.sh
-	elif which powerline-daemon > /dev/null; then
+		return 0
+	fi
+	return 1
+}
+
+function _powerline_status_sys() {
+	if which powerline-daemon > /dev/null; then
 		powerline-daemon -q
 		POWERLINE_BASH_CONTINUATION=1
 		POWERLINE_BASH_SELECT=1
 		source /usr/share/powerline/bindings/bash/powerline.sh
-	else
-		return 1
+		return 0
 	fi
-	return 0
+	return 1
 }
 
-if ! _powerline_config; then
+function _no_powerline() {
 	# Change the window title of X terminals
 	case ${TERM} in
 		xterm* | rxvt* | Eterm | aterm | kterm | gnome* | interix)
@@ -89,7 +99,15 @@ if ! _powerline_config; then
 			PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
 			;;
 	esac
-fi
+}
+
+# Powerline configuration
+_powerline_shell || _powerline_status_local || _powerline_status_sys || _no_powerline
+
+unset _powerline_shell
+unset _powerline_status_local
+unset _powerline_status_sys
+unset _no_powerline
 
 # Initialize SSH and GPG key agents using keychain
 source ${BASHRC_DIR}/keychain.sh
